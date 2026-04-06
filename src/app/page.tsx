@@ -1,65 +1,78 @@
-import Image from "next/image";
+"use client";
+
+import { motion } from "framer-motion";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export default function Home() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    // Quick GSAP Entry Animation
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".gsap-reveal",
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: "power4.out", delay: 0.2 }
+      );
+    }, containerRef);
+    
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main 
+      ref={containerRef}
+      className="flex min-h-screen flex-col items-center justify-center p-8 overflow-hidden relative"
+    >
+      {/* Background Gradient Orbs */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -z-10 mix-blend-multiply" />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px] -z-10 mix-blend-multiply" />
+
+      {/* Hero Content */}
+      <div className="max-w-4xl w-full text-center space-y-8 z-10">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm backdrop-blur-md"
+        >
+          <Sparkles className="w-4 h-4 text-white/70" />
+          <span className="text-white/80">A Próxima Geração de Experiências Web</span>
+        </motion.div>
+
+        <h1 className="gsap-reveal text-6xl md:text-8xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-white/80 to-white/30 drop-shadow-sm">
+          Digital Portfolio
+          <br />
+          <span className="italic font-light">Em Progresso.</span>
+        </h1>
+
+        <p className="gsap-reveal text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+          A fundação foi estabelecida. Next.js, Framer Motion e GSAP estão prontos para renderizar animações imersivas e desempenho de topo.
+        </p>
+
+        <div className="gsap-reveal flex items-center justify-center gap-6 mt-12">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden flex items-center gap-2"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <span className="relative z-10 flex items-center gap-2">
+              Explorar Projetos <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </motion.button>
+          
+          <motion.button 
+            whileHover={{ color: "rgba(255,255,255,1)" }}
+            className="px-8 py-4 text-white/70 font-medium transition-colors"
           >
-            Documentation
-          </a>
+            Ver o Currículo
+          </motion.button>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
