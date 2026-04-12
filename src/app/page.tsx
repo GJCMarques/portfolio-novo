@@ -1,34 +1,18 @@
-"use client";
-
-import { useState } from "react";
-import { CandlestickLoader } from "@/components/ui/candlestick-loader";
-import { Navigation } from "@/components/home/Navigation";
-import { Hero } from "@/components/home/Hero";
-import { About } from "@/components/home/About";
-import { Projects } from "@/components/home/Projects";
-import { Contact } from "@/components/home/Contact";
+import Hero from "@/components/home/Hero";
+import TextReveal from "@/components/home/TextReveal";
+import Marquee from "@/components/home/Marquee";
+import ProjectsGrid from "@/components/home/ProjectsGrid";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  if (isLoading) {
-    return (
-      <CandlestickLoader
-        onComplete={() => setIsLoading(false)}
-        duration={4}
-      />
-    );
-  }
-
   return (
-    <>
-      <Navigation />
-      <main className="flex flex-col">
-        <Hero />
-        <About />
-        <Projects />
-        <Contact />
-      </main>
-    </>
+    <main className="flex flex-col min-h-screen">
+      <Hero />
+      <TextReveal />
+      <Marquee text="DIGITAL HORIZONS — HIGH FASHION CODE — " baseVelocity={-1.5} />
+      <ProjectsGrid />
+      <Marquee text="CRAFTED WITH INTENT — " baseVelocity={1} />
+      <Footer />
+    </main>
   );
 }

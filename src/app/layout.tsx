@@ -1,37 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Playfair_Display } from "next/font/google";
+import { Syne, Bodoni_Moda } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/layout/SmoothScroll";
+import Header from "@/components/layout/Header";
+import CustomCursor from "@/components/ui/CustomCursor";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const syne = Syne({
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bodoni = Bodoni_Moda({
   subsets: ["latin"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-serif",
+  style: ['normal', 'italic'],
 });
 
 export const metadata: Metadata = {
-  title: "Guilherme Marques — Digital Portfolio",
-  description:
-    "Frontend Developer & FinTech Specialist. Crafting premium digital experiences with code and design.",
-  keywords: [
-    "portfolio",
-    "frontend developer",
-    "fintech",
-    "web design",
-    "ui/ux",
-    "next.js",
-  ],
+  title: "MONRION | High-End Digital Experience",
+  description: "Exaggerated digital experiences. Editorial, brutalist, premium.",
 };
 
 export default function RootLayout({
@@ -40,12 +29,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-gold/20">
-        {children}
+    <html lang="en" className={`${syne.variable} ${bodoni.variable}`}>
+      <body className="antialiased font-sans bg-background text-foreground selection:bg-brand selection:text-background flex flex-col min-h-screen cursor-none">
+        <CustomCursor>
+          <SmoothScroll>
+            <Header />
+            {children}
+          </SmoothScroll>
+        </CustomCursor>
       </body>
     </html>
   );

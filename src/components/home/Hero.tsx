@@ -1,170 +1,110 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import SplitType from 'split-type';
 
-export function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
+export default function Hero() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (!titleRef.current) return;
+    
+    const text = new SplitType(titleRef.current, { types: 'chars' });
+    
+    gsap.set(text.chars, {
+      y: 100,
+      opacity: 0
+    });
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 });
+    gsap.to(text.chars, {
+      y: 0,
+      opacity: 1,
+      stagger: 0.04,
+      duration: 1.2,
+      ease: "power3.out",
+      delay: 0.2
+    });
 
-      // Staggered reveal of editorial elements
-      tl.fromTo(
-        ".hero-line",
-        { scaleX: 0 },
-        { scaleX: 1, duration: 1.2, ease: "power3.out", stagger: 0.15 }
-      )
-        .fromTo(
-          ".hero-label",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.1 },
-          "-=0.8"
-        )
-        .fromTo(
-          ".hero-name",
-          { opacity: 0, y: 80 },
-          { opacity: 1, y: 0, duration: 1.2, ease: "power4.out", stagger: 0.1 },
-          "-=0.6"
-        )
-        .fromTo(
-          ".hero-role",
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-          "-=0.5"
-        )
-        .fromTo(
-          ".hero-detail",
-          { opacity: 0 },
-          { opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.08 },
-          "-=0.4"
-        );
-    }, sectionRef);
-
-    return () => ctx.revert();
+    return () => {
+      text.revert();
+    };
   }, []);
 
   return (
-    <section
-      id="hero"
-      ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-end pb-16 md:pb-24 px-6 md:px-10 overflow-hidden"
-    >
-      {/* Background editorial markers */}
-      <div className="absolute top-[15%] right-[6%] hidden lg:block">
-        <span
-          className="hero-detail text-[9px] tracking-[0.5em] uppercase text-black/15 block"
-          style={{ fontFamily: "var(--font-geist-mono)" }}
+    <section className="relative min-h-screen flex flex-col justify-end px-6 md:px-12 pt-32 pb-12 overflow-hidden bg-background w-full">
+      {/* Decorative gigantic background text */}
+      <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] pointer-events-none whitespace-nowrap z-0">
+        <h2 className="text-[35vw] font-sans font-bold tracking-tighter">MNRN™</h2>
+      </div>
+
+      <div className="relative z-10 w-full mb-12 flex flex-col md:flex-row justify-between items-end gap-12">
+        <div className="w-full md:w-3/4">
+          <div className="overflow-visible pb-4 w-full">
+            <h1 
+              ref={titleRef} 
+              className="text-[18vw] md:text-[13vw] font-serif leading-[0.8] tracking-tighter uppercase mb-2 whitespace-nowrap"
+            >
+              MONRION
+            </h1>
+          </div>
+          <div className="h-[2px] w-full bg-foreground scale-x-0 origin-left" 
+             ref={(el) => {
+               if(el) {
+                 gsap.to(el, { scaleX: 1, duration: 1.5, ease: "power4.out", delay: 1 });
+               }
+             }}
+          />
+        </div>
+        
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 1.2 }}
+          className="w-full md:w-1/4 body-large md:text-right"
         >
-          EST. 2026
-        </span>
+          <p className="text-balance">
+            Digital architecture <br/>
+            for the brutally bold.
+          </p>
+        </motion.div>
       </div>
 
-      <div className="absolute top-[40%] left-[6%] hidden lg:block">
-        <div className="hero-detail flex flex-col items-center gap-2">
-          <div className="w-[1px] h-16 bg-black/[0.06]" />
-          <span
-            className="text-[8px] tracking-[0.6em] uppercase text-black/15 [writing-mode:vertical-lr]"
-            style={{ fontFamily: "var(--font-geist-mono)" }}
-          >
-            Scroll
-          </span>
-          <div className="w-[1px] h-8 bg-black/[0.06]" />
-        </div>
-      </div>
-
-      {/* Top editorial line */}
-      <div className="absolute top-[20%] left-[6%] right-[6%]">
-        <div className="hero-line h-[1px] bg-black/[0.06] origin-left" />
-      </div>
-
-      {/* Main Content — Asymmetric Layout */}
-      <div className="relative z-10 max-w-[1400px] w-full mx-auto">
-        {/* Section index */}
-        <div className="hero-label mb-8 flex items-center gap-4">
-          <span
-            className="text-[10px] tracking-[0.5em] uppercase text-black/25"
-            style={{ fontFamily: "var(--font-geist-mono)" }}
-          >
-            01
-          </span>
-          <div className="w-8 h-[0.5px] bg-black/10" />
-          <span
-            className="text-[10px] tracking-[0.4em] uppercase text-black/25"
-            style={{ fontFamily: "var(--font-geist-mono)" }}
-          >
-            Introduction
-          </span>
-        </div>
-
-        {/* Name — Oversized */}
-        <div className="space-y-0">
-          <h1
-            className="hero-name text-[clamp(48px,10vw,140px)] font-medium leading-[0.9] tracking-[-0.03em] text-ink"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            Guilherme
-          </h1>
-          <h1
-            className="hero-name text-[clamp(48px,10vw,140px)] font-medium leading-[0.9] tracking-[-0.03em] text-ink/80 italic"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            Marques
-          </h1>
-        </div>
-
-        {/* Divider + Role */}
-        <div className="mt-8 md:mt-12 flex flex-col md:flex-row md:items-end gap-6 md:gap-16">
-          <div className="hero-line h-[1px] bg-black/10 w-full md:w-[200px] origin-left" />
-          <div className="hero-role">
-            <p
-              className="text-[11px] tracking-[0.5em] uppercase text-black/35 mb-3"
-              style={{ fontFamily: "var(--font-geist-mono)" }}
-            >
-              Frontend Developer
-            </p>
-            <p className="text-[16px] md:text-[18px] text-black/50 font-light max-w-md leading-relaxed">
-              Crafting immersive digital experiences at the intersection of{" "}
-              <span className="text-[#C8A96E] font-normal">finance</span>,{" "}
-              <span className="text-black/70 font-normal">technology</span>, and{" "}
-              <span className="text-black/70 font-normal">design</span>.
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom details */}
-        <div className="hero-detail mt-12 md:mt-16 flex items-center gap-8">
-          <div className="flex items-center gap-2">
-            <span className="w-[6px] h-[6px] rounded-full bg-[#C8A96E]" />
-            <span
-              className="text-[9px] tracking-[0.4em] uppercase text-black/25"
-              style={{ fontFamily: "var(--font-geist-mono)" }}
-            >
-              Available for work
-            </span>
-          </div>
-          <div className="h-[0.5px] w-6 bg-black/10" />
-          <span
-            className="text-[9px] tracking-[0.4em] uppercase text-black/25"
-            style={{ fontFamily: "var(--font-geist-mono)" }}
-          >
-            Based in Portugal
-          </span>
-        </div>
-      </div>
-
-      {/* Scroll Indicator — Bottom Center */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="hero-detail absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      {/* Big Visual Area */}
+      <motion.div 
+        initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }}
+        animate={{ opacity: 1, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
+        transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1], delay: 1.5 }}
+        className="w-full aspect-[16/9] md:aspect-[21/9] relative bg-neutral-200 overflow-hidden"
       >
-        <div className="w-[1px] h-6 bg-black/10" />
-        <div className="w-[3px] h-[3px] rounded-full bg-black/20" />
+        <Image 
+          src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?q=80&w=2564&auto=format&fit=crop"
+          alt="Abstract brutalist architecture"
+          fill
+          className="object-cover scale-105"
+          ref={(el) => {
+            if(el) {
+              gsap.to(el, { 
+                scale: 1, 
+                duration: 2, 
+                ease: "power2.out", 
+                delay: 1.5 
+              });
+            }
+          }}
+          priority
+        />
+        
+        {/* Absolute floating stamp */}
+        <motion.div 
+          animate={{ rotate: 360 }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-8 right-8 w-32 h-32 bg-brand rounded-full items-center justify-center hidden md:flex text-background caption text-center p-4 hover-trigger mix-blend-screen"
+        >
+          Established <br/> 2026
+        </motion.div>
       </motion.div>
     </section>
   );
