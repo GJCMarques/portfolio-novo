@@ -59,6 +59,22 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Standard scrollbar coloring (Firefox) */
+  scrollbar-color: var(--tertiary) var(--bg);
+}
+
+/* Chrome, Edge, and Safari scrollbar coloring */
+::-webkit-scrollbar {
+  background-color: var(--bg);
+}
+::-webkit-scrollbar-track {
+  background-color: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--tertiary);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
 }
 
 body {
