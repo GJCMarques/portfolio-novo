@@ -671,17 +671,17 @@ ul, ol { list-style: none; }
 /* Magic Indicator - Shape Shifting */
 .nav-menu-indicator {
   position: absolute;
-  left: -28px; top: 0;
-  width: 10px; height: 10px;
+  left: -32px; top: 0;
+  width: 14px; height: 14px;
   background: var(--tertiary);
   border-radius: var(--indicator-br, 0%);
   clip-path: var(--indicator-clip, none);
   transform: translateY(var(--indicator-y, 0px)) rotate(var(--indicator-rot, 45deg)) var(--indicator-scale, scale(1));
-  /* Added Anticipation/Overshoot (up then down effect) */
-  transition: transform 650ms cubic-bezier(0.68, -0.6, 0.32, 1.6),
-              border-radius 650ms cubic-bezier(0.68, -0.6, 0.32, 1.6),
-              clip-path 650ms cubic-bezier(0.68, -0.6, 0.32, 1.6),
-              opacity 300ms ease;
+  /* Fast and snappy smooth ease-out */
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-radius 400ms cubic-bezier(0.22, 1, 0.36, 1),
+              clip-path 400ms cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 250ms ease;
   pointer-events: none;
   opacity: 0;
 }
@@ -743,7 +743,7 @@ ul, ol { list-style: none; }
   color: var(--primary);
   -webkit-text-stroke: 0px var(--tertiary);
   transition: color 250ms ease, -webkit-text-stroke 250ms ease;
-  transition-delay: calc(var(--i, 0) * 30ms);
+  transition-delay: calc(var(--i, 0) * 25ms); /* Faster wave */
 }
 
 /* Brutalist Hover: Wave of transparent orange outline, no movement */
@@ -752,20 +752,21 @@ ul, ol { list-style: none; }
   -webkit-text-stroke: 1.5px var(--tertiary);
 }
 
-/* Arrow on right */
+/* Premium Arrow Hover (Smooth Diagonal) */
 .nav-menu-arrow {
   flex-shrink: 0; color: var(--tertiary);
   opacity: 0; 
-  transform: translateX(-32px) scale(0.3);
-  transition: opacity 300ms ease, transform 500ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  /* Starts diagonally down and left, slightly smaller */
+  transform: translate(-18px, 18px) scale(0.6);
+  transition: opacity 250ms ease, transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .nav-menu-arrow svg {
-  width: 32px; height: 32px;
+  width: 34px; height: 34px;
   display: block;
 }
 .nav-menu.is-open .nav-menu-link:hover .nav-menu-arrow { 
   opacity: 1; 
-  transform: translateX(0) scale(1); 
+  transform: translate(0, 0) scale(1); 
 }
 
 /* Footer — social links in 2x2 grid */

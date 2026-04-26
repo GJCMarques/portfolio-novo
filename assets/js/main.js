@@ -118,7 +118,7 @@
     // 0: Losango, 1: Circulo, 2: Triangulo, 3: Pentagono, 4: Quadrado
     var rotations = [0, 0, 0, 0, 0]; // Rotation handled purely by geometry now
     var borderRadii = ['0%', '50%', '0%', '0%', '0%'];
-    var scales = ['scale(1.2)', 'scale(1.2)', 'scale(1.2)', 'scale(1.2)', 'scale(1)'];
+    var scales = ['scale(1.4)', 'scale(1.4)', 'scale(1.4)', 'scale(1.4)', 'scale(1.2)'];
     var clips = [
       'polygon(50% 0%, 100% 50%, 50% 100%, 50% 100%, 0% 50%)', // 0: Losango
       'polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%)',     // 1: Circulo (clip path reveals full rounded box)
@@ -128,7 +128,7 @@
     ];
 
     // Centered relative to the link
-    var offsetTop = targetRect.top - navRect.top + (targetRect.height / 2) - 5; // 5 is half of 10px indicator
+    var offsetTop = targetRect.top - navRect.top + (targetRect.height / 2) - 7; // 7 is half of 14px indicator
     
     indicator.style.setProperty('--indicator-y', offsetTop + 'px');
     indicator.style.setProperty('--indicator-rot', rotations[index] + 'deg');
