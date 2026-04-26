@@ -18,13 +18,17 @@
        PRELOADER / LOADING SCREEN
   ================================================ -->
   <div class="loader" id="loader">
-    <div class="loader-monolith">
-      <svg viewBox="0 0 100 100" class="monolith-svg">
-        <path id="monolith-path" d="M50 10 L90 50 L50 90 L50 90 L10 50 Z" />
-      </svg>
+    <div class="nav-menu-noise" style="z-index: 1;"></div>
+    
+    <div class="loader-center-content">
+      <div class="loader-monolith-container">
+        <div class="loader-monolith-shape is-echo"></div>
+        <div class="loader-monolith-shape" id="loader-shape"></div>
+      </div>
     </div>
-    <div class="loader-footer">
-      <span class="loader-name">GJC Marques Portfolio</span>
+    
+    <div class="loader-data">
+      <div class="loader-percent" id="loader-percent">000</div>
     </div>
   </div>
 

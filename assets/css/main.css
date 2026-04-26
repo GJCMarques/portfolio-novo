@@ -59,22 +59,9 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Standard scrollbar coloring (Firefox) */
-  scrollbar-color: var(--tertiary) var(--bg);
-}
 
-/* Chrome, Edge, and Safari scrollbar coloring */
-::-webkit-scrollbar {
-  background-color: var(--bg);
-}
-::-webkit-scrollbar-track {
-  background-color: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-  background-color: var(--tertiary);
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary);
+  /* Standard Scrollbar (Native behavior, Design System colors) */
+  scrollbar-color: var(--tertiary) var(--bg);
 }
 
 body {
@@ -107,50 +94,126 @@ ul, ol { list-style: none; }
 }
 
 /* ============================================================
-   PRELOADER / LOADING SCREEN (MORPHING MONOLITH)
+   PRELOADER / LOADING SCREEN (ECHO MONOLITH)
    ============================================================ */
 body.is-loading { overflow: hidden !important; }
 
 .loader {
   position: fixed; inset: 0; z-index: 9999;
-  background: var(--bg); color: var(--primary);
+  background: var(--primary); /* Black background */
   display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.8s cubic-bezier(0.76, 0, 0.24, 1), 
-              visibility 0.8s;
 }
-.loader.is-loaded { 
-  opacity: 0; visibility: hidden; pointer-events: none; 
+.loader .nav-menu-noise {
+  opacity: 0.85; /* Ruído ainda mais denso e tátil */
+  mix-blend-mode: screen; /* Lightens the noise against the black background */
+}
+/* Old is-loaded properties removed to allow transform morph-out */
+
+.loader-center-content {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
 }
 
-.loader-monolith {
+.loader-monolith-container {
+  position: relative;
+  /* Massive sizes for focus */
   width: 25vw; height: 25vw;
-  min-width: 150px; min-height: 150px;
-  display: flex; align-items: center; justify-content: center;
-  transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1);
-}
-.loader.is-loaded .loader-monolith {
-  transform: scale(15); /* Explosion effect into the site */
+  min-width: 200px; min-height: 200px;
+  max-width: 350px; max-height: 350px;
 }
 
-.monolith-svg {
-  width: 100%; height: 100%;
+.loader-monolith-shape {
+  position: absolute; inset: 0;
+  background: var(--bg); /* Ivory shape */
+  /* Runs in perfect 3.5s sync with JS */
+  animation: eliteMorph 3.5s infinite;
+  box-shadow: 0 0 60px rgba(234, 88, 12, 0.15); /* Subtle orange glow */
 }
 
-#monolith-path {
-  fill: var(--primary);
-  /* This ensures the path morphs fluidly between d attributes */
-  transition: d 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+/* The Orange Echo trailing behind */
+.loader-monolith-shape.is-echo {
+  background: var(--tertiary); /* Orange */
+  animation: eliteMorph 3.5s infinite;
+  animation-delay: 0.15s;
+  transform: scale(1.05); /* Peeks out slightly */
+  box-shadow: none;
+  z-index: -1;
 }
 
-.loader-footer {
-  position: absolute; bottom: 40px;
-  text-align: center;
+/* Perfect 8-point polygons for 3 distinct shapes over 3.5 seconds */
+@keyframes eliteMorph {
+  0% { 
+    clip-path: polygon(0% 0%, 50% 0%, 100% 0%, 100% 50%, 100% 100%, 50% 100%, 0% 100%, 0% 50%); 
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  } /* Square */
+  30% { 
+    clip-path: polygon(50% 0%, 50% 0%, 50% 0%, 100% 100%, 100% 100%, 50% 100%, 0% 100%, 0% 100%); 
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  } /* Triangle */
+  60% { 
+    clip-path: polygon(50% 0%, 50% 0%, 100% 50%, 100% 50%, 50% 100%, 50% 100%, 0% 50%, 0% 50%); 
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  } /* Rhombus */
+  90% { 
+    clip-path: polygon(0% 0%, 50% 0%, 100% 0%, 100% 50%, 100% 100%, 50% 100%, 0% 100%, 0% 50%); 
+  } /* Reaches Square early */
+  100% { 
+    clip-path: polygon(0% 0%, 50% 0%, 100% 0%, 100% 50%, 100% 100%, 50% 100%, 0% 100%, 0% 50%); 
+  } /* Holds Square flat for 0.35s so JS has a clean window for smooth exit */
 }
-.loader-name {
-  font-size: 10px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.5em;
-  color: var(--secondary);
-  opacity: 0.4;
+
+/* Morph Out Reveal (The Lift-Off Curtain) */
+.loader.is-loaded { 
+  /* Instead of crossfading, the whole dark stage slides UP to reveal the site */
+  transform: translateY(-100%);
+  transition: transform 1.8s cubic-bezier(0.76, 0, 0.24, 1) 0.8s; 
+  pointer-events: none;
+}
+
+.loader.is-loaded .loader-monolith-shape.is-echo {
+  opacity: 0; 
+  transform: scale(0);
+  transition: all 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.loader.is-loaded .loader-monolith-shape:not(.is-echo) {
+  animation: none !important;
+  clip-path: polygon(0% 0%, 50% 0%, 100% 0%, 100% 50%, 100% 100%, 50% 100%, 0% 100%, 0% 50%) !important;
+  /* Shoots UP and out of the screen gracefully with a slow, smooth start */
+  transform: translateY(-150vh) rotate(10deg) scale(0.8); 
+  transition: transform 1.8s cubic-bezier(0.65, 0, 0.15, 1);
+}
+
+/* Data Block (Bottom) */
+.loader-data {
+  position: absolute; bottom: var(--sp6);
+  left: 0; right: 0;
+  display: flex; justify-content: center; align-items: flex-end;
+  z-index: 2;
+  transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.8s ease;
+}
+
+/* Drops DOWN and out of the screen */
+.loader.is-loaded .loader-data {
+  transform: translateY(20vh);
+  opacity: 0;
+}
+
+/* Brutalist Stroke Text */
+.loader-percent {
+  font-family: var(--font-display);
+  font-size: clamp(80px, 12vw, 180px);
+  line-height: 0.75; letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--bg); /* Ivory outline */
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease, -webkit-text-stroke 0.3s ease;
+}
+
+/* Fills with Orange when 100% is reached */
+.loader.is-loaded .loader-percent {
+  color: var(--tertiary);
+  -webkit-text-stroke: 0;
 }
 
 /* ============================================================

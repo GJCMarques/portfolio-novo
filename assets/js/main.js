@@ -10,40 +10,35 @@
   var isTouch    = window.matchMedia('(pointer: coarse)').matches;
   var isReduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── PRELOADER LOGIC (MORPHING MONOLITH) ───────────────── */
+  /* ── PRELOADER LOGIC (ELITE MONOLITH) ───────────────── */
   function initLoader() {
     var loader = document.getElementById('loader');
-    var path   = document.getElementById('monolith-path');
-    if (!loader || !path) return;
+    var percentEl = document.getElementById('loader-percent');
+    if (!loader || !percentEl) return;
     
     document.body.classList.add('is-loading');
     
-    // 8-point paths for smooth morphing
-    var shapes = [
-      "M50 10 L70 30 L90 50 L70 70 L50 90 L30 70 L10 50 L30 30 Z", // Diamond
-      "M50 10 L70 50 L90 90 L70 90 L50 90 L30 90 L10 90 L30 50 Z", // Triangle
-      "M50 10 L78 21 L90 50 L78 78 L50 90 L21 78 L10 50 L21 21 Z", // Circle (Approx)
-      "M10 10 L50 10 L90 10 L90 50 L90 90 L50 90 L10 90 L10 50 Z"  // Square
-    ];
-    
-    var stepIndex = 0;
-    
-    function morph() {
-      if (stepIndex < shapes.length) {
-        path.setAttribute('d', shapes[stepIndex]);
-        stepIndex++;
-        setTimeout(morph, 700);
+    var duration = 3500; // Exactly 3.5 seconds
+    var start = null;
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var progress = timestamp - start;
+      var percentage = Math.min((progress / duration) * 100, 100);
+      
+      // Update DOM with zero-padded number
+      percentEl.innerText = Math.round(percentage).toString().padStart(3, '0');
+      
+      if (progress < duration) {
+        requestAnimationFrame(step);
       } else {
-        // Final Reveal
-        setTimeout(function() {
-          loader.classList.add('is-loaded');
-          document.body.classList.remove('is-loading');
-        }, 400);
+        // Final Reveal immediately at 3500ms
+        loader.classList.add('is-loaded');
+        document.body.classList.remove('is-loading');
       }
     }
-
-    // Start the sequence after a small initial delay
-    setTimeout(morph, 300);
+    
+    requestAnimationFrame(step);
   }
 
   initLoader();
