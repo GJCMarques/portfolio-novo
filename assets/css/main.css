@@ -677,10 +677,10 @@ ul, ol { list-style: none; }
   border-radius: var(--indicator-br, 0%);
   clip-path: var(--indicator-clip, none);
   transform: translateY(var(--indicator-y, 0px)) rotate(var(--indicator-rot, 45deg)) var(--indicator-scale, scale(1));
-  /* Fast and snappy smooth ease-out */
-  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
-              border-radius 400ms cubic-bezier(0.22, 1, 0.36, 1),
-              clip-path 400ms cubic-bezier(0.22, 1, 0.36, 1),
+  /* Dynamic timing: snappy on hover, slow on return */
+  transition: transform var(--indicator-dur, 350ms) cubic-bezier(0.22, 1, 0.36, 1),
+              border-radius var(--indicator-dur, 350ms) cubic-bezier(0.22, 1, 0.36, 1),
+              clip-path var(--indicator-dur, 350ms) cubic-bezier(0.22, 1, 0.36, 1),
               opacity 250ms ease;
   pointer-events: none;
   opacity: 0;

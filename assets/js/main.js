@@ -104,7 +104,7 @@
   var menuLinks = document.querySelectorAll('.nav-menu-link');
   var activeLink = document.querySelector('.nav-menu-link.is-active');
 
-  function updateIndicator(target) {
+  function updateIndicator(target, isReturn) {
     if (!target || !indicator || !menuNavElem) return;
     var targetRect = target.getBoundingClientRect();
     var navRect = menuNavElem.getBoundingClientRect();
@@ -135,25 +135,32 @@
     indicator.style.setProperty('--indicator-br', borderRadii[index]);
     indicator.style.setProperty('--indicator-scale', scales[index]);
     indicator.style.setProperty('--indicator-clip', clips[index]);
+    
+    // Dynamic transition duration: fast on hover, slow and smooth on return
+    indicator.style.setProperty('--indicator-dur', isReturn ? '800ms' : '350ms');
   }
 
   if (menuNavElem && indicator && activeLink) {
-    updateIndicator(activeLink);
+    updateIndicator(activeLink, false);
     
     if (navToggle) {
       navToggle.addEventListener('click', function() {
-        setTimeout(function() { updateIndicator(activeLink); }, 50);
+        setTimeout(function() { updateIndicator(activeLink, true); }, 50);
       });
     }
 
+    var leaveTimeout;
     menuLinks.forEach(function(link) {
       link.addEventListener('mouseenter', function() {
-        updateIndicator(link);
+        clearTimeout(leaveTimeout);
+        updateIndicator(link, false);
       });
-    });
-
-    menuNavElem.addEventListener('mouseleave', function() {
-      updateIndicator(activeLink);
+      link.addEventListener('mouseleave', function() {
+        // Return to active page immediately when leaving the <a> tag
+        leaveTimeout = setTimeout(function() {
+          updateIndicator(activeLink, true);
+        }, 50);
+      });
     });
   }
 
