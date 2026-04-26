@@ -90,4 +90,88 @@
     });
   });
 
+  /* ── SCRAMBLE TEXT EFFECT (SpecialText) ─────────────── */
+  var RANDOM_CHARS = "_!X$0-+*#";
+
+  function getRandomChar(prevChar) {
+    var char;
+    do {
+      char = RANDOM_CHARS[Math.floor(Math.random() * RANDOM_CHARS.length)];
+    } while (char === prevChar);
+    return char;
+  }
+
+  var Scrambler = function(el) {
+    this.el = el;
+    this.text = el.dataset.scramble || el.innerText;
+    this.interval = null;
+  };
+
+  Scrambler.prototype.start = function() {
+    if (this.interval) clearInterval(this.interval);
+    var self = this;
+    var step = 0;
+    var maxStepsPhase1 = this.text.length * 2;
+    var speed = 25;
+    var phase = 'phase1';
+    
+    this.interval = setInterval(function() {
+      var chars = [];
+      
+      if (phase === 'phase1') {
+        var currentLength = Math.min(step + 1, self.text.length);
+        for (var i = 0; i < currentLength; i++) {
+          chars.push(getRandomChar(i > 0 ? chars[i-1] : null));
+        }
+        for (var j = currentLength; j < self.text.length; j++) {
+          chars.push('\u00A0');
+        }
+        
+        if (step < maxStepsPhase1 - 1) {
+          step++;
+        } else {
+          phase = 'phase2';
+          step = 0;
+        }
+      } else {
+        var revealedCount = Math.floor(step / 2);
+        for (var k = 0; k < revealedCount && k < self.text.length; k++) {
+          chars.push(self.text[k]);
+        }
+        
+        if (revealedCount < self.text.length) {
+          if (step % 2 === 0) {
+            chars.push("_");
+          } else {
+            chars.push(getRandomChar());
+          }
+        }
+        
+        for (var l = chars.length; l < self.text.length; l++) {
+          chars.push(getRandomChar());
+        }
+        
+        if (step < self.text.length * 2 - 1) {
+          step++;
+        } else {
+          clearInterval(self.interval);
+          self.interval = null;
+          chars = self.text.split('');
+        }
+      }
+      
+      self.el.innerText = chars.join('');
+    }, speed);
+  };
+
+  document.querySelectorAll('[data-scramble]').forEach(function(el) {
+    var scrambler = new Scrambler(el);
+    var btn = el.closest('.btn');
+    if (btn) {
+      btn.addEventListener('mouseenter', function() { scrambler.start(); });
+    } else {
+      el.addEventListener('mouseenter', function() { scrambler.start(); });
+    }
+  });
+
 }());
