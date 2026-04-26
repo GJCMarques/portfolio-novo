@@ -113,11 +113,19 @@
     var index = Array.from(menuLinks).indexOf(target);
     if(index === -1) index = 0;
 
-    // Awwwards shape-shifting arrays based on link index
-    // 0: Diamond, 1: Circle, 2: Leaf 1, 3: Leaf 2, 4: Stretched Pill
-    var rotations = [45, 90, 135, -45, 180];
-    var borderRadii = ['0%', '50%', '50% 0 50% 0', '0 50% 0 50%', '10px'];
-    var scales = ['scale(1)', 'scale(1.2)', 'scale(1.3)', 'scale(1.3)', 'scaleX(1.8) scaleY(0.4)'];
+    // Awwwards shape-shifting: True Morphing (All shapes use 5-point polygons)
+    // By keeping the number of vertices exactly 5, the browser will fluidly animate the shape mid-air!
+    // 0: Losango, 1: Circulo, 2: Triangulo, 3: Pentagono, 4: Quadrado
+    var rotations = [0, 0, 0, 0, 0]; // Rotation handled purely by geometry now
+    var borderRadii = ['0%', '50%', '0%', '0%', '0%'];
+    var scales = ['scale(1.2)', 'scale(1.2)', 'scale(1.2)', 'scale(1.2)', 'scale(1)'];
+    var clips = [
+      'polygon(50% 0%, 100% 50%, 50% 100%, 50% 100%, 0% 50%)', // 0: Losango
+      'polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%)',     // 1: Circulo (clip path reveals full rounded box)
+      'polygon(50% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 100%)', // 2: Triangulo
+      'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',   // 3: Pentagono
+      'polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%)'      // 4: Quadrado
+    ];
 
     // Centered relative to the link
     var offsetTop = targetRect.top - navRect.top + (targetRect.height / 2) - 5; // 5 is half of 10px indicator
@@ -126,6 +134,7 @@
     indicator.style.setProperty('--indicator-rot', rotations[index] + 'deg');
     indicator.style.setProperty('--indicator-br', borderRadii[index]);
     indicator.style.setProperty('--indicator-scale', scales[index]);
+    indicator.style.setProperty('--indicator-clip', clips[index]);
   }
 
   if (menuNavElem && indicator && activeLink) {

@@ -675,9 +675,12 @@ ul, ol { list-style: none; }
   width: 10px; height: 10px;
   background: var(--tertiary);
   border-radius: var(--indicator-br, 0%);
+  clip-path: var(--indicator-clip, none);
   transform: translateY(var(--indicator-y, 0px)) rotate(var(--indicator-rot, 45deg)) var(--indicator-scale, scale(1));
-  transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
-              border-radius 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
+  /* Added Anticipation/Overshoot (up then down effect) */
+  transition: transform 650ms cubic-bezier(0.68, -0.6, 0.32, 1.6),
+              border-radius 650ms cubic-bezier(0.68, -0.6, 0.32, 1.6),
+              clip-path 650ms cubic-bezier(0.68, -0.6, 0.32, 1.6),
               opacity 300ms ease;
   pointer-events: none;
   opacity: 0;
@@ -753,16 +756,16 @@ ul, ol { list-style: none; }
 .nav-menu-arrow {
   flex-shrink: 0; color: var(--tertiary);
   opacity: 0; 
-  transform: translate(-16px, 16px) rotate(-45deg) scale(0.6);
-  transition: opacity 300ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateX(-32px) scale(0.3);
+  transition: opacity 300ms ease, transform 500ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 .nav-menu-arrow svg {
-  width: 28px; height: 28px;
+  width: 32px; height: 32px;
   display: block;
 }
 .nav-menu.is-open .nav-menu-link:hover .nav-menu-arrow { 
   opacity: 1; 
-  transform: translate(0, 0) rotate(0deg) scale(1); 
+  transform: translateX(0) scale(1); 
 }
 
 /* Footer — social links in 2x2 grid */
