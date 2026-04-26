@@ -362,4 +362,32 @@
     }
   });
 
+  /* ── TEXT ROLL INITIALIZATION ────────────────────────── */
+  function initTextRoll() {
+    var rollElems = document.querySelectorAll('.text-roll');
+    rollElems.forEach(function (el) {
+      var text = el.textContent.trim();
+      el.innerHTML = '';
+      text.split('').forEach(function (char, i) {
+        var span = document.createElement('span');
+        span.className = 'text-roll-letter';
+        span.style.setProperty('--index', i);
+        
+        var top = document.createElement('span');
+        top.className = 'text-roll-top';
+        top.innerHTML = char === ' ' ? '&nbsp;' : char;
+        
+        var bottom = document.createElement('span');
+        bottom.className = 'text-roll-bottom';
+        bottom.innerHTML = char === ' ' ? '&nbsp;' : char;
+        
+        span.appendChild(top);
+        span.appendChild(bottom);
+        el.appendChild(span);
+      });
+    });
+  }
+
+  initTextRoll();
+
 }());

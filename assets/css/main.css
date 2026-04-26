@@ -301,6 +301,40 @@ ul, ol { list-style: none; }
 }
 
 /* ============================================================
+   TEXT ROLL UTILITY (Premium Hover Effect)
+   ============================================================ */
+.text-roll {
+  display: inline-flex;
+  overflow: hidden;
+  line-height: 1.1;
+}
+
+.text-roll-letter {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  transition-delay: calc(var(--index) * 0.025s);
+}
+
+/* Original letter (top) */
+.text-roll-top {
+  display: inline-block;
+}
+
+/* Duplicate letter (bottom) */
+.text-roll-bottom {
+  position: absolute;
+  top: 100%; left: 0;
+  display: inline-block;
+  color: #fff; /* Ensure visibility */
+}
+
+/* Hover state triggered by the parent button */
+.btn-nav-cta:hover .text-roll-letter {
+  transform: translateY(-100%);
+}
+
+/* ============================================================
    NAV CTA — Pill com disco deslizante
    Disco parte da direita → desliza para a esquerda no hover
    Padding total mantém-se constante: width não muda
