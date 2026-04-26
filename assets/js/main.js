@@ -108,9 +108,24 @@
     if (!target || !indicator || !menuNavElem) return;
     var targetRect = target.getBoundingClientRect();
     var navRect = menuNavElem.getBoundingClientRect();
+    
+    // Calculate index for shape morphing
+    var index = Array.from(menuLinks).indexOf(target);
+    if(index === -1) index = 0;
+
+    // Awwwards shape-shifting arrays based on link index
+    // 0: Diamond, 1: Circle, 2: Leaf 1, 3: Leaf 2, 4: Stretched Pill
+    var rotations = [45, 90, 135, -45, 180];
+    var borderRadii = ['0%', '50%', '50% 0 50% 0', '0 50% 0 50%', '10px'];
+    var scales = ['scale(1)', 'scale(1.2)', 'scale(1.3)', 'scale(1.3)', 'scaleX(1.8) scaleY(0.4)'];
+
     // Centered relative to the link
-    var offsetTop = targetRect.top - navRect.top + (targetRect.height / 2) - 4;
+    var offsetTop = targetRect.top - navRect.top + (targetRect.height / 2) - 5; // 5 is half of 10px indicator
+    
     indicator.style.setProperty('--indicator-y', offsetTop + 'px');
+    indicator.style.setProperty('--indicator-rot', rotations[index] + 'deg');
+    indicator.style.setProperty('--indicator-br', borderRadii[index]);
+    indicator.style.setProperty('--indicator-scale', scales[index]);
   }
 
   if (menuNavElem && indicator && activeLink) {
