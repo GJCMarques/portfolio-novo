@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="pt" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio de GJC Marques — Desenvolvedor Web & Técnico de Informática. Projetos reais para clientes reais.">
+  <meta name="theme-color" content="#FFF7ED">
+  <title>GJC Marques — Desenvolvimento Web &amp; Sistemas Digitais</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+  <!-- Custom cursor (desktop only) -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+
+  <!-- ================================================
+       NAV
+  ================================================ -->
+  <header class="nav" id="nav" role="banner">
+    <div class="nav-inner">
+
+      <a href="#" class="nav-logo" aria-label="GJC Marques — Topo">
+        <svg class="nav-logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M17 3L21 7L10 18L3 21L6 14L17 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 6L18 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M6 14L10 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-logo-text">GJC Marques</span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" role="navigation" aria-label="Navegação principal">
+        <a href="#projects" class="nav-link">Trabalho</a>
+        <a href="#skills" class="nav-link">Stack</a>
+        <a href="#about" class="nav-link">Sobre</a>
+        <a href="#contact" class="nav-link">Contacto</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-primary">Contactar</a>
+      </div>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- ================================================
+       HERO
+  ================================================ -->
+  <section class="hero" id="hero" aria-label="Introdução">
+
+    <!-- V-shape animated bars -->
+    <div id="hero-bars" class="hero-bars" aria-hidden="true"></div>
+
+    <!-- Ambient glow layers — ember + crimson depth -->
+    <div class="hero-glow hero-glow--ember" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow--crimson" aria-hidden="true"></div>
+
+    <!-- Centered content -->
+    <div class="hero-inner">
+
+      <div class="hero-badge">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        <span>Portfolio 2026 · Disponível para projetos</span>
+      </div>
+
+      <h1 class="hero-headline" aria-label="Desenvolvimento Web e Sistemas Digitais">
+        Desenvolvimento<br>
+        <span class="hero-headline--grad">Web &amp; Sistemas</span><br>
+        Digitais.
+      </h1>
+
+      <p class="hero-sub">
+        Construo interfaces que impressionam e sistemas que funcionam.
+        Projetos reais, clientes reais, código de produção.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary btn--icon">
+          Ver Projetos
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12H19M13 6L19 12L13 18"/></svg>
+        </a>
+        <a href="mailto:dehermenofficial@gmail.com" class="btn btn-ghost btn--icon">
+          Contacto Enterprise
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-n">10+</span>
+          <span class="hero-stat-l">Projetos</span>
+        </div>
+        <div class="hero-stat-sep" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-n">3</span>
+          <span class="hero-stat-l">Clientes Comerciais</span>
+        </div>
+        <div class="hero-stat-sep" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-n">5+</span>
+          <span class="hero-stat-l">Anos de Experiência</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="hero-scroll-line"></div>
+      <span class="hero-scroll-label">scroll</span>
+    </div>
+
+  </section>
+
+  <!-- ================================================
+       PROJECTS
+  ================================================ -->
+  <section class="projects" id="projects" aria-label="Projetos">
+    <div class="section-inner">
+
+      <div class="section-header" data-reveal>
+        <span class="section-label">Trabalho Selecionado</span>
+        <h2 class="section-title">Projetos que<br>geram impacto real.</h2>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- 01 Alojamento GI -->
+        <article class="project-card" data-reveal data-delay="0">
+          <div class="project-card-inner">
+            <div class="project-card-meta">
+              <div class="project-tags">
+                <span class="project-tag project-tag--live">Em Produção</span>
+                <span class="project-tag">E-commerce</span>
+              </div>
+              <span class="project-num" aria-hidden="true">01</span>
+            </div>
+            <!-- TODO: replace with actual screenshot -->
+            <div class="project-thumb" aria-hidden="true">
+              <div class="project-thumb-inner">
+                <span>Alojamento GI</span>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Alojamento GI</h3>
+              <p class="project-sub">A Casa do Gi — Plataforma de Reservas</p>
+              <p class="project-desc">Sistema completo de reservas, e-commerce e gestão para alojamento local em Mogadouro. Gateway IfthenPay, faturação com HMAC-SHA256, painel de administração, multilingue.</p>
+              <div class="project-tech">
+                <span class="tech-tag">PHP 8</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">IfthenPay</span>
+                <span class="tech-tag">PHPMailer</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+            </div>
+            <div class="project-footer">
+              <a href="#" class="link-arrow" aria-label="Ver projeto Alojamento GI">
+                Ver Projeto
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 Cristal Capital Terminal -->
+        <article class="project-card project-card--featured" data-reveal data-delay="80">
+          <div class="project-card-inner">
+            <div class="project-card-meta">
+              <div class="project-tags">
+                <span class="project-tag project-tag--accent">Alta Complexidade</span>
+                <span class="project-tag">FinTech</span>
+              </div>
+              <span class="project-num" aria-hidden="true">02</span>
+            </div>
+            <!-- TODO: replace with actual screenshot -->
+            <div class="project-thumb project-thumb--dark" aria-hidden="true">
+              <div class="project-thumb-inner">
+                <span>Cristal Capital Terminal</span>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Cristal Capital Terminal</h3>
+              <p class="project-sub">Terminal Financeiro Profissional — Estilo Bloomberg</p>
+              <p class="project-desc">Terminal quant tri-camada: TypeScript + Python + WebAssembly. Black-Scholes, Monte Carlo, Heston, GARCH. MFA/TOTP, chat em tempo real com SSE e IA local Ollama.</p>
+              <div class="project-tech">
+                <span class="tech-tag">Next.js 15</span>
+                <span class="tech-tag">React 19</span>
+                <span class="tech-tag">WebAssembly</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Ollama</span>
+                <span class="tech-tag">Zustand</span>
+              </div>
+            </div>
+            <div class="project-footer">
+              <a href="#" class="link-arrow" aria-label="Ver projeto Cristal Capital Terminal">
+                Ver Projeto
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 ExpoLive -->
+        <article class="project-card" data-reveal data-delay="160">
+          <div class="project-card-inner">
+            <div class="project-card-meta">
+              <div class="project-tags">
+                <span class="project-tag">CMS</span>
+                <span class="project-tag">Eventos</span>
+              </div>
+              <span class="project-num" aria-hidden="true">03</span>
+            </div>
+            <!-- TODO: replace with actual screenshot -->
+            <div class="project-thumb" aria-hidden="true">
+              <div class="project-thumb-inner"><span>ExpoLive</span></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">ExpoLive</h3>
+              <p class="project-sub">Plataforma de Gestão de Eventos — 2 Anos</p>
+              <p class="project-desc">CMS completo com 30+ páginas de administração, chatbot com IA, blog, galeria, agenda de eventos, stands e expositores. Desenvolvido ao longo de 2 anos.</p>
+              <div class="project-tech">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">PHPMailer</span>
+                <span class="tech-tag">REST API</span>
+              </div>
+            </div>
+            <div class="project-footer">
+              <a href="#" class="link-arrow" aria-label="Ver projeto ExpoLive">
+                Ver Projeto
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04 Volunta -->
+        <article class="project-card" data-reveal data-delay="0">
+          <div class="project-card-inner">
+            <div class="project-card-meta">
+              <div class="project-tags">
+                <span class="project-tag">Institucional</span>
+                <span class="project-tag">Câmara de Gaia</span>
+              </div>
+              <span class="project-num" aria-hidden="true">04</span>
+            </div>
+            <!-- TODO: replace with actual screenshot -->
+            <div class="project-thumb" aria-hidden="true">
+              <div class="project-thumb-inner"><span>Volunta</span></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Volunta</h3>
+              <p class="project-sub">Câmara Municipal de Vila Nova de Gaia</p>
+              <p class="project-desc">Plataforma de voluntariado e participação cívica para a Câmara de Gaia. Inclui white papers estratégicos, relatórios técnicos e financeiros, identidade visual e vídeos demonstrativos.</p>
+              <div class="project-tech">
+                <span class="tech-tag">Laravel</span>
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">Tailwind CSS</span>
+                <span class="tech-tag">MySQL</span>
+              </div>
+            </div>
+            <div class="project-footer">
+              <a href="#" class="link-arrow" aria-label="Ver projeto Volunta">
+                Ver Projeto
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 GT Móvel -->
+        <article class="project-card" data-reveal data-delay="80">
+          <div class="project-card-inner">
+            <div class="project-card-meta">
+              <div class="project-tags">
+                <span class="project-tag project-tag--live">Em Produção</span>
+                <span class="project-tag">Corporativo</span>
+              </div>
+              <span class="project-num" aria-hidden="true">05</span>
+            </div>
+            <!-- TODO: replace with actual screenshot -->
+            <div class="project-thumb" aria-hidden="true">
+              <div class="project-thumb-inner"><span>GT Móvel</span></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">GT Móvel</h3>
+              <p class="project-sub">Website Institucional — Empresa desde 1977</p>
+              <p class="project-desc">Website completo para empresa de móveis e eletrodomésticos em Vila Nova de Gaia. Catálogo, formulário de orçamentos, portfolio de obras e SEO completo.</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">SEO</span>
+              </div>
+            </div>
+            <div class="project-footer">
+              <a href="#" class="link-arrow" aria-label="Ver projeto GT Móvel">
+                Ver Projeto
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 06 Wise Wallet -->
+        <article class="project-card" data-reveal data-delay="160">
+          <div class="project-card-inner">
+            <div class="project-card-meta">
+              <div class="project-tags">
+                <span class="project-tag">Dashboard</span>
+                <span class="project-tag">IA Local</span>
+              </div>
+              <span class="project-num" aria-hidden="true">06</span>
+            </div>
+            <!-- TODO: replace with actual screenshot -->
+            <div class="project-thumb" aria-hidden="true">
+              <div class="project-thumb-inner"><span>Wise Wallet</span></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Wise Wallet</h3>
+              <p class="project-sub">Gestão Financeira Pessoal com IA</p>
+              <p class="project-desc">Dashboard financeiro com autenticação, gráficos Chart.js, exportação PDF/Excel, temas personalizáveis e integração com Ollama para análise financeira com IA local.</p>
+              <div class="project-tech">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">Chart.js</span>
+                <span class="tech-tag">Ollama</span>
+                <span class="tech-tag">DomPDF</span>
+                <span class="tech-tag">OAuth</span>
+              </div>
+            </div>
+            <div class="project-footer">
+              <a href="#" class="link-arrow" aria-label="Ver projeto Wise Wallet">
+                Ver Projeto
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="projects-more" data-reveal>
+        <a href="#" class="btn btn-outline btn--icon">
+          Ver Todos os Projetos
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12H19M13 6L19 12L13 18"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================
+       SKILLS
+  ================================================ -->
+  <section class="skills" id="skills" aria-label="Stack Técnico">
+    <div class="section-inner">
+
+      <div class="section-header" data-reveal>
+        <span class="section-label">Competências Técnicas</span>
+        <h2 class="section-title">Stack construída<br>em produção real.</h2>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-cat" data-reveal>
+          <h3 class="skill-cat-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Frontend
+          </h3>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML5 Semântico</span>
+            <span class="skill-tag">CSS3 Avançado</span>
+            <span class="skill-tag">JavaScript ES2022+</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">GSAP + ScrollTrigger</span>
+            <span class="skill-tag">Three.js / WebGL</span>
+            <span class="skill-tag">React 19</span>
+            <span class="skill-tag">Chart.js</span>
+          </div>
+        </div>
+
+        <div class="skill-cat" data-reveal data-delay="80">
+          <h3 class="skill-cat-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21H16M12 17V21"/></svg>
+            Backend
+          </h3>
+          <div class="skill-tags">
+            <span class="skill-tag">PHP 8.2+</span>
+            <span class="skill-tag">Laravel 12</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Next.js 15</span>
+            <span class="skill-tag">REST API</span>
+            <span class="skill-tag">Inertia.js</span>
+          </div>
+        </div>
+
+        <div class="skill-cat" data-reveal data-delay="160">
+          <h3 class="skill-cat-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12C21 13.66 16.97 15 12 15C7.03 15 3 13.66 3 12"/><path d="M3 5V19C3 20.66 7.03 22 12 22C16.97 22 21 20.66 21 19V5"/></svg>
+            Bases de Dados
+          </h3>
+          <div class="skill-tags">
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">SQLite</span>
+            <span class="skill-tag">PDO</span>
+            <span class="skill-tag">Eloquent ORM</span>
+            <span class="skill-tag">JSON file-based</span>
+          </div>
+        </div>
+
+        <div class="skill-cat" data-reveal data-delay="0">
+          <h3 class="skill-cat-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Segurança & DevOps
+          </h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Git / GitHub</span>
+            <span class="skill-tag">Docker (Laravel Sail)</span>
+            <span class="skill-tag">GitHub Pages</span>
+            <span class="skill-tag">CSRF Protection</span>
+            <span class="skill-tag">HMAC-SHA256</span>
+            <span class="skill-tag">OAuth</span>
+            <span class="skill-tag">Laravel Sanctum</span>
+            <span class="skill-tag">TOTP / MFA</span>
+          </div>
+        </div>
+
+        <div class="skill-cat" data-reveal data-delay="80">
+          <h3 class="skill-cat-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 8v4l3 3"/></svg>
+            Inteligência Artificial
+          </h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Google Gemini API</span>
+            <span class="skill-tag">Ollama / Llama 3</span>
+            <span class="skill-tag">Chatbot com IA</span>
+            <span class="skill-tag">SSE Real-time</span>
+            <span class="skill-tag">WebAssembly (WASM)</span>
+          </div>
+        </div>
+
+        <div class="skill-cat" data-reveal data-delay="160">
+          <h3 class="skill-cat-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Pagamentos & Exportação
+          </h3>
+          <div class="skill-tags">
+            <span class="skill-tag">IfthenPay MB / Cartão</span>
+            <span class="skill-tag">PHPMailer</span>
+            <span class="skill-tag">DomPDF</span>
+            <span class="skill-tag">PHPSpreadsheet</span>
+            <span class="skill-tag">SEO Técnico</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================
+       ABOUT
+  ================================================ -->
+  <section class="about" id="about" aria-label="Sobre">
+    <div class="section-inner">
+
+      <div class="about-grid">
+
+        <div class="about-content" data-reveal>
+          <span class="section-label">Sobre</span>
+          <h2 class="section-title">Técnico IT.<br>Developer.<br>Criador.</h2>
+          <p class="about-text">
+            Desenvolvedor web com formação técnica em informática, a construir soluções digitais que geram impacto real. Do website institucional à plataforma financeira de nível profissional — cada projeto é pensado do ponto de vista da performance, segurança e escalabilidade.
+          </p>
+          <p class="about-text">
+            Trabalho em colaboração com uma equipa de engenheiros informáticos, o que me permite abordar projetos ambiciosos com metodologia profissional e entrega com qualidade.
+          </p>
+          <ul class="about-list" role="list">
+            <li class="about-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17L4 12"/></svg>
+              3 projetos em produção para clientes reais
+            </li>
+            <li class="about-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17L4 12"/></svg>
+              Projeto para Câmara Municipal de Vila Nova de Gaia
+            </li>
+            <li class="about-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17L4 12"/></svg>
+              PAP com plataforma financeira Laravel 12 de alta complexidade
+            </li>
+            <li class="about-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17L4 12"/></svg>
+              Plataforma ISCAP/CEI com 250+ itens curados
+            </li>
+          </ul>
+        </div>
+
+        <div class="about-visual" data-reveal data-delay="150">
+          <!-- TODO: replace with actual profile photo -->
+          <div class="about-photo" aria-label="Fotografia de perfil — a adicionar">
+            <span class="about-photo-initials" aria-hidden="true">GJC</span>
+          </div>
+
+          <div class="about-card glass-card">
+            <div class="about-row">
+              <span class="about-row-label">Localização</span>
+              <span class="about-row-value">Portugal</span>
+            </div>
+            <div class="about-row-divider" aria-hidden="true"></div>
+            <div class="about-row">
+              <span class="about-row-label">Formação</span>
+              <span class="about-row-value">Técnico de Informática</span>
+            </div>
+            <div class="about-row-divider" aria-hidden="true"></div>
+            <div class="about-row">
+              <span class="about-row-label">Disponibilidade</span>
+              <span class="about-row-value about-row-value--live">
+                <span class="status-dot" aria-hidden="true"></span>
+                Disponível
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================
+       CONTACT
+  ================================================ -->
+  <section class="contact" id="contact" aria-label="Contacto">
+    <div class="section-inner">
+      <div class="contact-inner" data-reveal>
+
+        <span class="section-label">Contacto</span>
+
+        <h2 class="contact-headline">
+          Vamos construir<br>algo extraordinário.
+        </h2>
+
+        <p class="contact-sub">
+          Disponível para projetos freelance, colaborações e oportunidades profissionais.
+        </p>
+
+        <div class="contact-actions">
+          <a href="mailto:dehermenofficial@gmail.com" class="btn btn-primary btn--large btn--icon">
+            Enviar Mensagem
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12H19M13 6L19 12L13 18"/></svg>
+          </a>
+          <!-- TODO: replace with actual LinkedIn URL -->
+          <a href="#" class="btn btn-ghost btn--large btn--icon" target="_blank" rel="noopener noreferrer" aria-label="Perfil LinkedIn">
+            LinkedIn
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </a>
+        </div>
+
+        <a href="mailto:dehermenofficial@gmail.com" class="contact-email">dehermenofficial@gmail.com</a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       FOOTER
+  ================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <a href="#" class="footer-logo" aria-label="GJC Marques — Voltar ao topo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M17 3L21 7L10 18L3 21L6 14L17 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 6L18 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          GJC Marques
+        </a>
+        <p class="footer-tagline">Desenvolvimento Web &amp; Sistemas Digitais</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Rodapé — navegação">
+        <a href="#projects" class="footer-link">Trabalho</a>
+        <a href="#skills" class="footer-link">Stack</a>
+        <a href="#about" class="footer-link">Sobre</a>
+        <a href="mailto:dehermenofficial@gmail.com" class="footer-link">Contacto</a>
+      </nav>
+
+      <p class="footer-copy">© 2026 GJC Marques</p>
+
+    </div>
+  </footer>
+
+  <!-- ================================================
+       SCRIPTS
+  ================================================ -->
+  <!-- No third-party animation libs — pure CSS + rAF JS -->
+
+  <script src="assets/js/webgl.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>
