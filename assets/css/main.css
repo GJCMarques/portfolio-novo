@@ -180,45 +180,68 @@ ul, ol { list-style: none; }
   font-size: 22px; color: var(--primary); 
   text-transform: uppercase;
   line-height: 1;
+  position: relative;
+  z-index: 1;
 }
+
+/* The Digital Highlight */
+.nav-logo-text::before {
+  content: ''; position: absolute;
+  top: -6px; left: -8px; right: -8px; bottom: -6px;
+  background: var(--primary);
+  transform: scaleX(0); transform-origin: right;
+  transition: transform 750ms cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+
 .logo-first { 
   font-weight: 800; 
   letter-spacing: -0.04em;
-  transition: color 300ms ease;
+  transition: color 500ms ease;
 }
 .logo-last { 
   font-weight: 400; 
   letter-spacing: -0.02em;
-  transition: color 300ms ease;
+  transition: color 500ms ease;
 }
 .logo-dot { 
-  color: var(--tertiary); font-weight: 900;
-  transition: transform 300ms var(--ease-out);
+  font-size: 0; /* Hides the text dot */
+  display: inline-block;
+  width: 7px; height: 7px;
+  background-color: var(--tertiary);
+  margin-left: 3px;
+  transform-origin: center center;
+  vertical-align: 2px; /* Lifts it slightly to match text baseline visually */
+  transition: transform 750ms cubic-bezier(0.65, 0, 0.35, 1), background-color 500ms ease;
 }
 
 .nav-logo {
   display: flex; align-items: center; gap: 6px; flex-shrink: 0;
-  transition: opacity 150ms ease;
 }
-.nav-logo:hover { opacity: 1; }
 .nav-logo-icon { 
   width: 44px; height: 44px;
   color: var(--primary); 
-  transition: transform 400ms var(--ease-out), color 400ms ease;
+  transition: transform 750ms cubic-bezier(0.65, 0, 0.35, 1), color 500ms ease;
 }
 
 .nav-logo:hover .nav-logo-icon { 
   transform: rotate(15deg) scale(1.05); 
   color: var(--tertiary);
 }
-.nav-logo:hover .logo-first { 
-  color: var(--secondary); 
-  letter-spacing: -0.01em; 
+
+.nav-logo:hover .nav-logo-text::before {
+  transform: scaleX(1);
+  transform-origin: left;
 }
+
+/* Invert text color on hover */
+.nav-logo:hover .logo-first,
 .nav-logo:hover .logo-last { 
-  letter-spacing: 0.05em; 
+  color: var(--bg);
 }
-.nav-logo:hover .logo-dot { transform: translateY(-2px); }
+.nav-logo:hover .logo-dot {
+  transform: rotate(45deg);
+}
 
 .nav-links { display: none; }
 
