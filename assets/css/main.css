@@ -614,10 +614,10 @@ ul, ol { list-style: none; }
 }
 .nav-menu.is-open { transform: translateX(0); }
 
-/* Accent bar at top - extended to cover curve */
+/* Accent bar — only the panel rectangle, NOT the curve area */
 .nav-menu::after {
   content: '';
-  position: absolute; top: 0; left: -140px; right: 0;
+  position: absolute; top: 0; left: 0; right: 0;
   height: 3px; background: var(--tertiary);
 }
 
@@ -627,11 +627,11 @@ ul, ol { list-style: none; }
   fill: #fff; stroke: none; pointer-events: none;
   overflow: visible;
   opacity: 0;
-  transition: opacity 0ms 820ms; /* hide after slide-out finishes */
+  transition: opacity 300ms ease 500ms; /* fade out near end of slide-out */
 }
 .nav-menu.is-open .nav-menu-curve {
   opacity: 1;
-  transition: opacity 0ms 0ms; /* show instantly on open */
+  transition: opacity 250ms ease 0ms; /* fade in as menu starts sliding in */
 }
 
 .nav-menu-inner {
@@ -711,10 +711,16 @@ ul, ol { list-style: none; }
 /* Letter spans injected by JS */
 .nav-menu-letter {
   display: inline-block;
-  transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  transition-delay: calc(var(--i, 0) * 18ms);
+  /* Exit: smooth deceleration, all letters together */
+  transition: transform 500ms cubic-bezier(0.65, 0, 0.35, 1) 0ms;
 }
-.nav-menu-link:hover .nav-menu-letter { transform: translateY(-4px); }
+.nav-menu-link:hover .nav-menu-letter {
+  transform: translateY(-8px);
+  /* Enter: spring bounce with per-letter stagger */
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-duration: 420ms;
+  transition-delay: calc(var(--i, 0) * 22ms);
+}
 
 /* Arrow on right */
 .nav-menu-arrow {
@@ -740,13 +746,30 @@ ul, ol { list-style: none; }
   padding: 7px 0;
   color: rgba(17, 24, 39, 0.38);
   text-decoration: none;
-  transition: color 250ms ease;
+  transition: color 300ms ease, transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.nav-menu-social:hover { color: var(--primary); }
+.nav-menu-social:hover {
+  color: var(--primary);
+  transform: translateX(6px);
+}
+.nav-menu-social svg {
+  flex-shrink: 0;
+  transition: transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.nav-menu-social:hover svg { transform: scale(1.2); }
 .nav-menu-social span {
   font-size: 11px; font-weight: 400;
   letter-spacing: 0.12em; text-transform: uppercase;
+  position: relative;
 }
+.nav-menu-social span::after {
+  content: '';
+  position: absolute; left: 0; bottom: -2px;
+  width: 0; height: 1px;
+  background: var(--primary);
+  transition: width 300ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.nav-menu-social:hover span::after { width: 100%; }
 
 body.menu-open { overflow: hidden; }
 
