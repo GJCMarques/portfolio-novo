@@ -614,11 +614,12 @@ ul, ol { list-style: none; }
 }
 .nav-menu.is-open { transform: translateX(0); }
 
-/* Accent bar — only the panel rectangle, NOT the curve area */
+/* Accent bar — covers the top of the panel */
 .nav-menu::after {
   content: '';
-  position: absolute; top: 0; left: 0; right: 0;
+  position: absolute; top: 0; left: 0; width: 100%;
   height: 3px; background: var(--tertiary);
+  z-index: 10;
 }
 
 .nav-menu-curve {
@@ -688,9 +689,10 @@ ul, ol { list-style: none; }
 .nav-menu.is-open .nav-menu-link:nth-child(4) .nav-menu-num { opacity: 1; transform: none; transition-delay: 290ms; }
 .nav-menu.is-open .nav-menu-link:nth-child(5) .nav-menu-num { opacity: 1; transform: none; transition-delay: 360ms; }
 
-/* Mask wrapper — hides text below during reveal */
+/* Mask wrapper — hides text below during reveal, but allows top movement */
 .nav-menu-text-wrap {
   flex: 1; overflow: hidden;
+  padding-top: 12px; margin-top: -12px;
   padding-bottom: 6px; margin-bottom: -6px;
 }
 
@@ -744,12 +746,20 @@ ul, ol { list-style: none; }
 .nav-menu-social {
   display: flex; align-items: center; gap: 12px;
   padding: 7px 0;
-  color: rgba(17, 24, 39, 0.38);
-  text-decoration: none;
-  transition: color 300ms ease, transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.nav-menu-social:hover {
   color: var(--primary);
+  text-decoration: none;
+  transition: opacity 300ms ease, color 300ms ease, transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Group hover effect: dim all when footer is hovered */
+.nav-menu-footer:hover .nav-menu-social {
+  opacity: 0.35;
+}
+
+/* Brighten and animate the currently hovered item */
+.nav-menu-footer .nav-menu-social:hover {
+  opacity: 1;
+  color: var(--tertiary);
   transform: translateX(6px);
 }
 .nav-menu-social svg {
