@@ -98,6 +98,42 @@
     });
   }
 
+  /* ── MAGIC DIAMOND INDICATOR ───────────── */
+  var menuNavElem = document.getElementById('nav-menu-nav');
+  var indicator = document.getElementById('nav-menu-indicator');
+  var menuLinks = document.querySelectorAll('.nav-menu-link');
+  var activeLink = document.querySelector('.nav-menu-link.is-active');
+
+  function updateIndicator(target) {
+    if (!target || !indicator || !menuNavElem) return;
+    var targetRect = target.getBoundingClientRect();
+    var navRect = menuNavElem.getBoundingClientRect();
+    // Centered relative to the link
+    var offsetTop = targetRect.top - navRect.top + (targetRect.height / 2) - 4;
+    indicator.style.setProperty('--indicator-y', offsetTop + 'px');
+  }
+
+  if (menuNavElem && indicator && activeLink) {
+    updateIndicator(activeLink);
+    
+    if (navToggle) {
+      navToggle.addEventListener('click', function() {
+        setTimeout(function() { updateIndicator(activeLink); }, 50);
+      });
+    }
+
+    menuLinks.forEach(function(link) {
+      link.addEventListener('mouseenter', function() {
+        updateIndicator(link);
+      });
+    });
+
+    menuNavElem.addEventListener('mouseleave', function() {
+      updateIndicator(activeLink);
+    });
+  }
+
+
   /* ── SCROLL REVEALS — IntersectionObserver ───────────── */
   if (!isReduced) {
     var revealSel = [
