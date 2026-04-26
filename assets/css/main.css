@@ -614,13 +614,16 @@ ul, ol { list-style: none; }
 }
 .nav-menu.is-open { transform: translateX(0); }
 
-/* Accent bar — covers the top of the panel */
-.nav-menu::after {
+/* Accent bars — covers top and bottom of the panel and curve */
+.nav-menu::after,
+.nav-menu::before {
   content: '';
-  position: absolute; top: 0; left: 0; width: 100%;
+  position: absolute; left: -69px; right: 0;
   height: 3px; background: var(--tertiary);
   z-index: 10;
 }
+.nav-menu::after { top: 0; }
+.nav-menu::before { bottom: 0; }
 
 .nav-menu-curve {
   position: absolute; top: 0; left: -139px;
