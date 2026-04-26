@@ -156,10 +156,10 @@
         updateIndicator(link, false);
       });
       link.addEventListener('mouseleave', function() {
-        // Return to active page immediately when leaving the <a> tag
+        // Wait 250ms to confirm user actually left the menu, preventing stutter if spamming
         leaveTimeout = setTimeout(function() {
           updateIndicator(activeLink, true);
-        }, 50);
+        }, 250);
       });
     });
   }
