@@ -26,7 +26,8 @@
   var navOverlay = document.getElementById('nav-overlay');
   var curvePath  = navMenu ? navMenu.querySelector('.nav-menu-curve-path') : null;
 
-  if (curvePath) curvePath.setAttribute('d', 'M100 0 L200 0 L200 1000 L100 1000 Q-100 500 100 0');
+  /* Wider curve — control point at -180 for dramatic bow */
+  if (curvePath) curvePath.setAttribute('d', 'M100 0 L200 0 L200 1000 L100 1000 Q-180 500 100 0');
 
   /* Split menu text into letter spans for stagger hover */
   if (navMenu) {
@@ -41,7 +42,7 @@
 
   /* Curve morph via rAF */
   var curveRaf = null;
-  var curveX   = -100;
+  var curveX   = -180;
 
   function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -81,7 +82,7 @@
     if (navOverlay) navOverlay.classList.remove('is-open');
     document.body.classList.remove('menu-open');
     if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-    animateCurve(-100);
+    animateCurve(-180);
   }
 
   if (navToggle && navMenu) {
