@@ -158,7 +158,7 @@ ul, ol { list-style: none; }
    NAVIGATION — transparent → warm glass on scroll
    ============================================================ */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   height: var(--nav-h);
   transition: background 300ms ease, border-color 300ms ease,
               backdrop-filter 300ms ease;
@@ -589,6 +589,115 @@ ul, ol { list-style: none; }
   .hero-stat-sep { display: none; }
   .hero-scroll { display: none; }
 }
+
+/* ============================================================
+   NAV MENU — Slide-in panel com curva lateral
+   ============================================================ */
+.nav-overlay {
+  position: fixed; inset: 0;
+  background: rgba(17, 24, 39, 0.30);
+  z-index: 940;
+  opacity: 0; pointer-events: none;
+  transition: opacity 500ms ease;
+}
+.nav-overlay.is-open { opacity: 1; pointer-events: all; }
+
+.nav-menu {
+  position: fixed; right: 0; top: 0;
+  width: min(540px, 100vw);
+  height: 100dvh;
+  background: #fff;
+  z-index: 960;
+  transform: translateX(calc(100% + 110px));
+  transition: transform 800ms cubic-bezier(0.76, 0, 0.24, 1);
+  display: flex; flex-direction: column;
+}
+.nav-menu.is-open { transform: translateX(0); }
+
+.nav-menu-curve {
+  position: absolute; top: 0; left: -99px;
+  width: 100px; height: 100%;
+  fill: #fff; stroke: none; pointer-events: none;
+}
+
+.nav-menu-inner {
+  height: 100%;
+  padding: var(--nav-h) 44px 44px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  gap: var(--sp5);
+}
+@media (min-width: 768px) {
+  .nav-menu-inner { padding: var(--nav-h) 64px 56px; }
+}
+
+.nav-menu-label {
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.35);
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.10);
+  margin: 0;
+}
+
+.nav-menu-nav {
+  flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+
+.nav-menu-link {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  text-decoration: none; color: var(--primary);
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 500ms ease, transform 500ms ease, border-color 300ms ease;
+}
+.nav-menu.is-open .nav-menu-link               { opacity: 1; transform: translateY(0); }
+.nav-menu.is-open .nav-menu-link:nth-child(1)  { transition-delay: 180ms; }
+.nav-menu.is-open .nav-menu-link:nth-child(2)  { transition-delay: 260ms; }
+.nav-menu.is-open .nav-menu-link:nth-child(3)  { transition-delay: 340ms; }
+.nav-menu.is-open .nav-menu-link:nth-child(4)  { transition-delay: 420ms; }
+.nav-menu-link:hover { border-color: rgba(17, 24, 39, 0.25); }
+
+.nav-menu-num {
+  font-size: 12px; font-weight: 400; letter-spacing: 0.05em;
+  color: rgba(17, 24, 39, 0.28);
+  flex-shrink: 0; align-self: flex-start; padding-top: 8px;
+}
+
+.nav-menu-text {
+  font-size: clamp(34px, 7vw, 54px);
+  font-weight: 200; letter-spacing: -0.025em;
+  text-transform: uppercase; line-height: 1;
+  display: flex;
+}
+
+/* Letter spans injected by JS */
+.nav-menu-letter {
+  display: inline-block;
+  transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--i, 0) * 22ms);
+}
+.nav-menu-link:hover .nav-menu-letter { transform: translateY(-5px); }
+
+.nav-menu-footer {
+  display: flex; gap: 28px; align-items: center;
+  padding-top: 28px;
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+  opacity: 0; transition: opacity 350ms ease 0ms;
+}
+.nav-menu.is-open .nav-menu-footer { opacity: 1; transition-delay: 540ms; }
+
+.nav-menu-social {
+  color: rgba(17, 24, 39, 0.35);
+  display: flex; align-items: center;
+  transition: color 250ms ease;
+}
+.nav-menu-social:hover { color: var(--primary); }
+
+body.menu-open { overflow: hidden; }
 
 /* ============================================================
    SCROLL REVEALS — IntersectionObserver adds .is-visible
