@@ -1,0 +1,1673 @@
+gsap.registerPlugin(ScrollTrigger, Flip);
+
+//////////////// Pages Start //////////////
+
+function reinitialiseWebflow(data) {
+  let parser = new DOMParser();
+  let dom = parser.parseFromString(data.next.html, "text/html");
+  let webflowPageId = $(dom).find("html").attr("data-wf-page");
+
+  $("html").attr("data-wf-page", webflowPageId);
+
+  window.Webflow && window.Webflow.destroy();
+  window.Webflow && window.Webflow.ready();
+
+  window.Webflow && window.Webflow.require("ix2").init();
+}
+
+globalScript = () => {
+  //////////////// Utilities Start //////////////
+
+  gsap.registerPlugin(ScrollTrigger, Flip);
+
+  const lenis = new Lenis();
+
+  lenis.on("scroll", ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000); // Convert time from seconds to milliseconds
+  });
+
+  gsap.ticker.lagSmoothing(0);
+
+  $("[data-lenis-start]").on("click", function () {
+    lenis.start();
+  });
+  $("[data-lenis-stop]").on("click", function () {
+    lenis.stop();
+  });
+  $("[data-lenis-toggle]").on("click", function () {
+    $(this).toggleClass("stop-scroll");
+    if ($(this).hasClass("stop-scroll")) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+  });
+
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+  });
+
+  //////////////// Utilities End //////////////
+
+  //////////////// Nav Start //////////////
+
+  $("[data-nav=wrap]").each(() => {
+    const btn = document.querySelector(".nav_button");
+    const lineT = document.querySelector(".nav_line.top");
+    const lineB = document.querySelector(".nav_line.bottom");
+    const menu = document.querySelector(".menu_wrap");
+    const menuContent = document.querySelector(".menu_content");
+    const socials = document.querySelector(".menu_socials");
+
+    if (!btn || !lineT || !lineB || !menu || !menuContent || !socials) return;
+
+    // Reduced motion fallback
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      btn.setAttribute("aria-expanded", "false");
+      menu.style.display = "none";
+
+      btn.addEventListener("click", () => {
+        const open = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!open));
+        menu.style.display = open ? "none" : "flex";
+      });
+
+      return;
+    }
+
+    const linksInMenu = menuContent.querySelectorAll(".menu_link");
+
+    // --- INITIAL CLOSED STATE ---
+    gsap.set(menu, { display: "none" });
+    gsap.set(btn, { rotate: 0 });
+    gsap.set(lineT, { y: 0, rotate: 0 });
+    gsap.set(lineB, { y: 0, rotate: 0 });
+    gsap.set(linksInMenu, {
+      opacity: 0,
+      scale: 0.9,
+      rotateX: 45,
+      rotateY: 15,
+    });
+    gsap.set(socials, { opacity: 0 });
+
+    gsap.set(menuContent, {
+      transformPerspective: 800,
+      transformStyle: "preserve-3d",
+    });
+
+    // --- TIMELINE ---
+    const tl = gsap.timeline({
+      paused: true,
+      defaults: { ease: "power2.out" },
+      onStart: () => gsap.set(btn, { pointerEvents: "none" }),
+      onComplete: () => gsap.set(btn, { pointerEvents: "auto" }),
+      onReverseComplete: () => gsap.set(menu, { display: "none" }),
+    });
+
+    tl
+      // menu open
+      .fromTo(menu, { yPercent: -100 }, { yPercent: 0, duration: 1 }, 0)
+      .to(btn, { rotate: 180, duration: 1 }, 0)
+      .to(lineT, { y: 5, rotate: 45, duration: 1 }, 0)
+      .to(lineB, { y: -5, rotate: -45, duration: 1 }, 0)
+      // menu links
+      .to(
+        linksInMenu,
+        {
+          opacity: 1,
+          scale: 1,
+          rotateX: 0,
+          rotateY: 0,
+          duration: 0.6,
+          stagger: 0.2,
+        },
+        "-=0.2"
+      )
+      // socials fade in
+      .to(socials, { opacity: 1, duration: 0.4 }, ">-0.1");
+
+    const reverseTl = gsap.timeline({
+      paused: true,
+      defaults: { ease: "power2.out" },
+      onStart: () => gsap.set(btn, { pointerEvents: "none" }),
+      onComplete: () => {
+        gsap.set(btn, { pointerEvents: "auto" });
+        gsap.set(menu, { display: "none" });
+      },
+    });
+
+    reverseTl
+      // socials fade out
+      .to(socials, { opacity: 0, duration: 0.4 }, 0)
+      // menu links
+      .to(
+        linksInMenu,
+        {
+          opacity: 0,
+          scale: 0.9,
+          rotateX: 45,
+          rotateY: 15,
+          duration: 0.6,
+          stagger: 0.2,
+        },
+        "<0.1"
+      )
+      // menu close
+      .to(menu, { yPercent: -100, duration: 1 }, "-=0.2")
+      .to(btn, { rotate: 0, duration: 1 }, "<")
+      .to(lineT, { y: 0, rotate: 0, duration: 1 }, "<")
+      .to(lineB, { y: 0, rotate: 0, duration: 1 }, "<");
+    // --- TOGGLE FUNCTION ---
+    let isMenuOpen = false;
+
+    const toggleMenu = () => {
+      if (!isMenuOpen) {
+        // Menu is closed, open it
+        gsap.set(menu, { display: "flex" });
+        reverseTl.pause(0); // Reset reverse timeline
+        tl.play(0);
+        btn.setAttribute("aria-expanded", "true");
+        isMenuOpen = true;
+      } else {
+        // Menu is open, close it
+        tl.pause(); // Reset open timeline
+        reverseTl.play(0);
+        btn.setAttribute("aria-expanded", "false");
+        isMenuOpen = false;
+      }
+    };
+
+    btn.addEventListener("click", toggleMenu);
+    btn.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleMenu();
+      }
+    });
+
+    // --- CLOSE MENU ON LINK CLICK ---
+    linksInMenu.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (isMenuOpen) {
+          tl.pause(); // Reset open timeline
+          reverseTl.play(0);
+          btn.setAttribute("aria-expanded", "false");
+          isMenuOpen = false;
+        }
+      });
+    });
+
+    // Nav Hovers
+
+    // hover-capable only
+    const isHoverCapable = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+    if (!isHoverCapable) return;
+
+    // optional: respect reduced motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const menuLinks = {
+      "[data-menu=work-link]": "[data-menu=work-image]",
+      "[data-menu=about-link]": "[data-menu=about-image]",
+      "[data-menu=process-link]": "[data-menu=process-image]",
+    };
+
+    let zCounter = 1;
+
+    Object.entries(menuLinks).forEach(([linkSelector, imagesSelector]) => {
+      const link = document.querySelector(linkSelector);
+      const images = gsap.utils.toArray(imagesSelector);
+
+      if (!link || !images.length) return;
+
+      const showEl = link.querySelector(".menu_link_text-visible");
+      const hideEl = link.querySelector(".menu_link_text-hidden");
+
+      // prep text states if present
+      if (showEl && hideEl) {
+        gsap.set(showEl, { yPercent: 0, willChange: "transform" });
+        gsap.set(hideEl, { yPercent: 100, willChange: "transform" });
+      }
+
+      const enter = () => {
+        // Image reveal
+        gsap.set(images, { zIndex: ++zCounter });
+        gsap.fromTo(
+          images,
+          {
+            clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
+            scale: 1.25,
+          },
+          {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+            scale: 1,
+            duration: 0.66,
+            ease: "power2.out",
+          }
+        );
+
+        // Text swap
+        if (showEl && hideEl) {
+          gsap.to(showEl, {
+            yPercent: -100,
+            duration: 0.33,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+          gsap.to(hideEl, {
+            yPercent: -103,
+            duration: 0.33,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        }
+      };
+
+      const leave = () => {
+        // Image hide
+        gsap.to(images, {
+          clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
+          duration: 0.66,
+          ease: "power2.inOut",
+        });
+
+        // Text reset
+        if (showEl && hideEl) {
+          gsap.to(showEl, {
+            yPercent: 0,
+            duration: 0.33,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+          gsap.to(hideEl, {
+            yPercent: 100,
+            duration: 0.33,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        }
+      };
+
+      // hover and keyboard support
+      link.addEventListener("mouseenter", enter);
+      link.addEventListener("mouseleave", leave);
+    });
+  });
+
+  //////////////// Nav End //////////////
+
+  //////////////// Footer Start //////////////
+
+  $("[data-footer=wrap]").each(() => {
+    const buttons = document.querySelectorAll(".footer_button");
+
+    buttons.forEach((btn) => {
+      const textVisible = btn.querySelector(".footer_button_text_visible");
+      const textHidden = btn.querySelector(".footer_button_text_hidden");
+
+      let tl = gsap.timeline({ paused: true });
+
+      // slide visible text down
+      tl.to(textVisible, {
+        yPercent: 100,
+        duration: 0.6,
+        ease: "power4.out",
+      });
+
+      // slide hidden text up with overlap
+      tl.to(
+        textHidden,
+        {
+          yPercent: 100,
+          duration: 0.6,
+          ease: "power4.out",
+        },
+        "-=0.5"
+      ); // start 0.5s before the first one ends
+
+      // hook up hover
+      btn.addEventListener("mouseenter", () => tl.play());
+      btn.addEventListener("mouseleave", () => tl.reverse());
+    });
+  });
+
+  //////////////// Footer End //////////////
+};
+
+homeScript = () => {
+  gsap.registerPlugin(ScrollTrigger, Flip);
+
+  window.scrollTo(0, 0);
+
+  $("[data-loader=wrap]").each(() => {
+    gsap.set(".loader_logo", { visibility: "visible" });
+
+    const master = gsap.timeline({
+      delay: 0.8,
+      onComplete: () => {
+        ScrollTrigger.refresh();
+        console.log("refreshed");
+      },
+    });
+
+    // === SVG LOADER ANIMATION ===
+    master.add(
+      gsap
+        .timeline({ defaults: { ease: "power4.out", duration: 0.8 } })
+        .fromTo(
+          ".loader_svg_felix",
+          { y: "110%" },
+          { y: "0%", ease: "power2.out" },
+          0
+        )
+        .fromTo(
+          ".loader_svg_nieto",
+          { y: "-110%" },
+          { y: "0%", ease: "power2.out" },
+          0
+        )
+    );
+
+    // === ROTATE loader_square_wrap ===
+    master.add(
+      gsap.fromTo(
+        ".loader_square_wrap",
+        { rotate: 180, x: "110%" },
+        {
+          rotate: 0,
+          x: 0,
+          duration: 0.6,
+          ease: "power3.out",
+        }
+      )
+    );
+
+    // === FLIP ANIMATION + FADE OUT loader_wrap ===
+    master.add(() => {
+      const square = document.querySelector(".loader_square_icon");
+      const wrap = document.querySelector(".loader_wrap");
+
+      const state = Flip.getState(square);
+      wrap.appendChild(square);
+
+      const tl = gsap.timeline();
+
+      // FLIP
+      tl.add(
+        Flip.from(state, {
+          duration: 0.8,
+          ease: "power2.inOut",
+          absolute: true,
+          onEnter: (el) => {
+            gsap.set(el, {
+              width: "100%",
+              height: "100%",
+              top: 0,
+              left: 0,
+              position: "absolute",
+            });
+          },
+        })
+      );
+
+      // FADE OUT + HIDE
+      tl.to(".loader_wrap", {
+        opacity: 0,
+        duration: 0.6,
+        ease: "power1.out",
+        onComplete: () => {
+          gsap.set(".loader_wrap", { display: "none" });
+        },
+      });
+
+      return tl;
+    });
+
+    // === LETTER ANIMATION (animate all holding_title-texts together) ===
+    const allTitleChars = [];
+
+    document.querySelectorAll(".holding_title-text").forEach((target) => {
+      const split = new SplitText(target, { type: "chars" });
+
+      split.chars.forEach((char) => {
+        const wrapper = document.createElement("span");
+        wrapper.classList.add("char-wrapper");
+        wrapper.style.overflow = "hidden";
+        wrapper.style.display = "inline-block";
+
+        const animated = document.createElement("span");
+        animated.classList.add("char-mask");
+        animated.style.display = "inline-block";
+
+        char.parentNode.insertBefore(wrapper, char);
+        wrapper.appendChild(animated);
+        animated.appendChild(char);
+
+        allTitleChars.push(animated);
+      });
+
+      gsap.set(target, { visibility: "visible" });
+    });
+
+    const titleTl = gsap.timeline({
+      defaults: { ease: "power2.out", duration: 1 },
+      delay: 0.6, // ✅ Delay before animating titles
+    });
+
+    titleTl.from(allTitleChars, {
+      x: "-110%",
+      stagger: 0.03,
+    });
+
+    master.add(titleTl);
+
+    // === PARAGRAPH ANIMATION (animate all .holding_paragraph together) ===
+    const allParagraphWords = [];
+
+    document.querySelectorAll(".holding_paragraph").forEach((target) => {
+      const split = new SplitText(target, { type: "lines,words" });
+
+      split.words.forEach((word) => {
+        const wrapper = document.createElement("span");
+        wrapper.classList.add("word-wrapper");
+        wrapper.style.overflow = "hidden";
+        wrapper.style.display = "inline-block";
+
+        const animated = document.createElement("span");
+        animated.classList.add("word-mask");
+        animated.style.display = "inline-block";
+
+        word.parentNode.insertBefore(wrapper, word);
+        wrapper.appendChild(animated);
+        animated.appendChild(word);
+
+        allParagraphWords.push(animated);
+      });
+
+      split.lines.forEach((line) => {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("line-mask");
+        wrapper.style.overflow = "hidden";
+        wrapper.style.display = "block";
+        line.parentNode.insertBefore(wrapper, line);
+        wrapper.appendChild(line);
+      });
+
+      gsap.set(target, { visibility: "visible" });
+    });
+
+    const paraTl = gsap.timeline({
+      defaults: { ease: "power4.out", duration: 1 },
+    });
+
+    paraTl.from(allParagraphWords, {
+      y: "100%",
+      stagger: 0.03,
+    });
+
+    master.add(paraTl, "-=0.5");
+
+    // === CURTAIN + BRUSH CURTAINS ANIMATION (final step) ===
+    master.add(() => {
+      const tl = gsap.timeline();
+
+      // Animate main curtain
+      //  tl.to(".holding_curtain", {
+      //     width: "50%",
+      //     duration: .8,
+      //     ease: "power2.Out"
+      //   }, 0); // start at time 0 of this timeline
+
+      tl.to(
+        ".holding_lb",
+        {
+          clipPath:
+            "polygon(0% 0%, 0% 100%, 0% 100%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 100%, 100% 100%, 100% 0%)",
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        0
+      );
+
+      // Animate both brush curtains
+      tl.to(
+        [".brush-curtain_left", ".brush-curtain_right"],
+        {
+          width: "0%",
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        0
+      ); // synced with main curtain
+
+      return tl;
+    }, "-=1"); // ⬅️ starts 1s before previous timeline ends
+  });
+
+  $("[data-reel=component]").each(() => {
+    gsap.set(".holding_lb", {
+      clipPath:
+        "polygon(0% 0%, 0% 100%, 0% 100%, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 100%, 100% 100%, 100% 0%)",
+    });
+
+    // SCROLL FLIP POWER-UP
+    // attribute value checker
+    function attr(defaultVal, attrVal) {
+      const defaultValType = typeof defaultVal;
+      if (typeof attrVal !== "string" || attrVal.trim() === "")
+        return defaultVal;
+      if (attrVal === "true" && defaultValType === "boolean") return true;
+      if (attrVal === "false" && defaultValType === "boolean") return false;
+      if (isNaN(attrVal) && defaultValType === "string") return attrVal;
+      if (!isNaN(attrVal) && defaultValType === "number") return +attrVal;
+      return defaultVal;
+    }
+    //ScrollTrigger.normalizeScroll(true);
+    // scrollflip component
+    $("[tr-scrollflip-element='component']").each(function (index) {
+      let componentEl = $(this),
+        originEl = componentEl.find("[tr-scrollflip-element='origin']"),
+        targetEl = componentEl.find("[tr-scrollflip-element='target']"),
+        scrubStartEl = componentEl.find("[tr-scrollflip-scrubstart]"),
+        scrubEndEl = componentEl.find("[tr-scrollflip-scrubend]");
+      let startSetting = attr(
+          "top top",
+          scrubStartEl.attr("tr-scrollflip-scrubstart")
+        ),
+        endSetting = attr(
+          "bottom bottom",
+          scrubEndEl.attr("tr-scrollflip-scrubend")
+        ),
+        staggerSpeedSetting = attr(
+          0,
+          componentEl.attr("tr-scrollflip-staggerspeed")
+        ),
+        staggerDirectionSetting = attr(
+          "start",
+          componentEl.attr("tr-scrollflip-staggerdirection")
+        ),
+        scaleSetting = attr(false, componentEl.attr("tr-scrollflip-scale")),
+        breakpointSetting = attr(
+          0,
+          componentEl.attr("tr-scrollflip-breakpoint")
+        );
+      let componentIndex = index,
+        timeline,
+        resizeTimer;
+      // asign matching data flip ids
+      originEl.each(function (index) {
+        let flipId = `${componentIndex}-${index}`;
+        $(this).attr("data-flip-id", flipId);
+        targetEl.eq(index).attr("data-flip-id", flipId);
+      });
+      // create timeline
+      function createTimeline() {
+        if (timeline) {
+          timeline.kill();
+          gsap.set(targetEl, { clearProps: "all" });
+        }
+        $("body").addClass("scrollflip-relative");
+        gsap.matchMedia().add(`(min-width: ${breakpointSetting}px)`, () => {
+          const state = Flip.getState(originEl);
+          timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: scrubStartEl,
+              endTrigger: scrubEndEl,
+              start: startSetting,
+              end: endSetting,
+              scrub: true,
+            },
+          });
+          timeline.add(
+            Flip.from(state, {
+              targets: targetEl,
+              scale: scaleSetting,
+              stagger: {
+                amount: staggerSpeedSetting,
+                from: staggerDirectionSetting,
+              },
+            })
+          );
+        });
+        $("body").removeClass("scrollflip-relative");
+      }
+      createTimeline();
+      // update on window resize
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          createTimeline();
+        }, 250);
+      });
+    });
+  });
+
+  $("[data-intro=wrap]").each(() => {
+    document.querySelectorAll(".intro_word").forEach((word) => {
+      gsap.to(word.children, {
+        yPercent: "+=100", // move down by 100%
+        ease: "power1.inOut",
+        scrollTrigger: {
+          trigger: word, // each word animates individually
+          start: "bottom 55%", // when bottom of word hits bottom of viewport
+          end: "top 35%", // until top of word reaches 42.5% of viewport
+          scrub: 0.4, // smooth scrub
+          markers: false, // remove once tested
+        },
+      });
+    });
+  });
+
+  $("[data-spiral=wrap]").each(() => {
+    const isHoverCapable = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+    if (!isHoverCapable) return;
+
+    // optional: respect reduced motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const root = document.querySelector(".spiral_wrap");
+    const pinHeight = root.querySelector(".spiral_height");
+    const container = root.querySelector(".spiral_contain");
+    const wrappers = root.querySelectorAll(".spiral_media_wrap");
+    const medias = root.querySelectorAll(".spiral_media_item");
+
+    // // pin the container during scroll
+    // ScrollTrigger.create({
+    //   trigger: pinHeight,
+    //   start: "top top",
+    //   end: "bottom bottom",
+    //   // pin: container,
+    //   // pinSpacing: true, // keep spacing so layout doesn’t jump
+    //   // markers: true,
+    // });
+
+    // set initial rotations
+    const angle = 360 / wrappers.length;
+    wrappers.forEach((wrapper, i) => {
+      gsap.set(wrapper, { rotation: -angle * i });
+      gsap.set(medias[i], { rotation: angle * i });
+    });
+
+    // timeline scrubbed by scroll
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: pinHeight,
+        start: "top 50%",
+        end: "bottom bottom",
+        scrub: true,
+        markers: false,
+      },
+    });
+
+    tl.to(wrappers, {
+      rotation: "+=180",
+      stagger: 0.04,
+      ease: "power1.out",
+    }).to(
+      medias,
+      {
+        x: 0,
+        rotation: "-=180",
+        ease: "power1.out",
+        stagger: 0.04,
+      },
+      "<"
+    );
+
+    tl.to(
+      medias,
+      {
+        opacity: 1,
+        duration: 0.03,
+        stagger: 0.04,
+      },
+      "<"
+    );
+  });
+
+  $("[data-mobile-gallery=wrap]").each(function () {
+    let mm = gsap.matchMedia();
+
+    mm.add("(max-width: 767px)", () => {
+      gsap.to(".mob-gallery_scroll", {
+        x: "-50%",
+        duration: 30,
+        ease: "none",
+        repeat: -1,
+        modifiers: {
+          x: gsap.utils.unitize((x) => parseFloat(x) % -50),
+        },
+      });
+    });
+  });
+
+  $("[data-projects=wrap]").each(function () {
+    /* Project slides */
+    // ---- guard: desktop / hover-capable only ----
+    var isHoverCapable = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+
+    // helper: play only the active video's media, pause the rest
+    function handleVideos(items, activeIndex) {
+      items.forEach((item, i) => {
+        const vids = item.querySelectorAll("video");
+        vids.forEach((v) => {
+          try {
+            if (i === activeIndex) {
+              v.currentTime = v.currentTime || 0;
+              v.play();
+            } else {
+              v.pause();
+            }
+          } catch (e) {}
+        });
+      });
+    }
+
+    // ========== DESKTOP: HOVER-BASED CURSOR ==========
+    if (isHoverCapable) {
+      document.querySelectorAll(".projects_wrap").forEach((section) => {
+        const slides = Array.from(
+          section.querySelectorAll(".projects_cms_item")
+        );
+        const cursorList = document.querySelector(".cursor_cms_list");
+        const cursorItems = Array.from(
+          document.querySelectorAll(".cursor_cms_item")
+        );
+        const cursorContainer =
+          section.querySelector(".projects_cursor_container") ||
+          cursorList?.parentElement;
+        const pointer = document.querySelector(".projects_cursor_pointer");
+
+        if (!slides.length || !cursorList || !cursorItems.length || !pointer)
+          return;
+
+        cursorList.style.willChange = "transform";
+        cursorList.style.transform = "translate3d(0,0,0)";
+        if (cursorContainer) cursorContainer.style.overflow = "hidden";
+
+        let offsets = [];
+        const computeOffsets = () => {
+          const pointerHeight = pointer.offsetHeight;
+          offsets = cursorItems.map((el, index) => {
+            return index * 100;
+          });
+        };
+        computeOffsets();
+
+        const ro = new ResizeObserver(() => computeOffsets());
+        ro.observe(cursorList);
+        ro.observe(pointer);
+
+        let currentIndex = 0;
+        let tween;
+        function goTo(index, immediate = false) {
+          const maxIndex = Math.min(slides.length, cursorItems.length) - 1;
+          const i = Math.max(0, Math.min(index, maxIndex));
+          currentIndex = i;
+
+          const yPercent = -offsets[i];
+
+          if (tween) tween.kill?.();
+          tween = gsap.to(cursorList, {
+            yPercent,
+            duration: immediate ? 0 : 0.5,
+            ease: "power3.out",
+          });
+
+          handleVideos(cursorItems, i);
+        }
+
+        goTo(0, true);
+
+        slides.forEach((slide, i) => {
+          slide.addEventListener("mouseenter", () => goTo(i, false));
+        });
+
+        window.addEventListener("load", () => {
+          computeOffsets();
+          goTo(currentIndex, true);
+        });
+      });
+
+      // Desktop pointer follow
+      document.querySelectorAll(".projects_wrap").forEach((section) => {
+        const pointer = document.querySelector(".projects_cursor_pointer");
+        const coordContainer =
+          document.querySelector(".projects_cursor_container") || section;
+        if (!pointer) return;
+
+        pointer.style.position = "absolute";
+        pointer.style.pointerEvents = "none";
+        pointer.style.willChange = "transform";
+
+        gsap.set(pointer, {
+          xPercent: -50,
+          yPercent: -50,
+          autoAlpha: 0,
+          scale: 0.8,
+          rotateX: -50,
+        });
+
+        const offsetXPercent = -50;
+        const offsetYPercent = -50;
+
+        const moveX = gsap.quickTo(pointer, "x", {
+          duration: 0.6,
+          ease: "power3.out",
+        });
+        const moveY = gsap.quickTo(pointer, "y", {
+          duration: 0.6,
+          ease: "power3.out",
+        });
+
+        let active = false;
+        let frozen = false;
+
+        function freezePointer() {
+          frozen = true;
+          gsap.killTweensOf(pointer);
+          const computed = window.getComputedStyle(pointer);
+          pointer.style.transform = computed.transform;
+        }
+
+        function unfreezePointer() {
+          frozen = false;
+        }
+
+        function toLocalXY(e) {
+          const r = coordContainer.getBoundingClientRect();
+          return { x: e.clientX - r.left, y: e.clientY - r.top };
+        }
+
+        function applyOffsets(x, y) {
+          const w = pointer.offsetWidth;
+          const h = pointer.offsetHeight;
+          return {
+            x: x + (w * offsetXPercent) / 100,
+            y: y + (h * offsetYPercent) / 100,
+          };
+        }
+
+        function onEnter(e) {
+          if (frozen) return;
+          active = true;
+          let { x, y } = toLocalXY(e);
+          ({ x, y } = applyOffsets(x, y));
+          gsap.set(pointer, { x, y });
+          gsap.fromTo(
+            pointer,
+            { autoAlpha: 0, scale: 0.8, rotateX: -50 },
+            {
+              autoAlpha: 1,
+              scale: 1,
+              rotateX: 0,
+              duration: 0.5,
+              ease: "power3.out",
+              delay: 0.2,
+            }
+          );
+        }
+
+        function onMove(e) {
+          if (!active || frozen) return;
+          let { x, y } = toLocalXY(e);
+          ({ x, y } = applyOffsets(x, y));
+          moveX(x);
+          moveY(y);
+        }
+
+        function onLeave() {
+          if (frozen) return;
+          active = false;
+          gsap.to(pointer, {
+            autoAlpha: 0,
+            scale: 0.8,
+            rotateX: -50,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+        }
+
+        section.addEventListener("mouseenter", onEnter);
+        section.addEventListener("mousemove", onMove);
+        section.addEventListener("mouseleave", onLeave);
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "f") freezePointer();
+          if (e.key === "u") unfreezePointer();
+        });
+      });
+    }
+
+    // ========== MOBILE: SCROLL-BASED CURSOR ==========
+    if (!isHoverCapable) {
+      document.querySelectorAll(".projects_wrap").forEach((section) => {
+        const slides = Array.from(
+          section.querySelectorAll(".projects_cms_item")
+        );
+        const cursorList = document.querySelector(".cursor_cms_list");
+        const cursorItems = Array.from(
+          document.querySelectorAll(".cursor_cms_item")
+        );
+        const cursorContainer =
+          section.querySelector(".projects_cursor_container") ||
+          cursorList?.parentElement;
+
+        if (!slides.length || !cursorList || !cursorItems.length) return;
+
+        cursorList.style.willChange = "transform";
+        cursorList.style.transform = "translate3d(0,0,0)";
+        if (cursorContainer) cursorContainer.style.overflow = "hidden";
+
+        // Create scroll triggers for each section
+        slides.forEach((slide, index) => {
+          // Ensure we don't go out of bounds and match number of triggers (3)
+          if (index >= cursorItems.length || index >= 3) return;
+
+          const targetYPercent = -(index * 100);
+
+          gsap.to(cursorList, {
+            scrollTrigger: {
+              trigger: slide,
+              start: "top center",
+              end: "top center",
+              onEnter: () => {
+                gsap.to(cursorList, {
+                  yPercent: targetYPercent,
+                  duration: 1,
+                  ease: "expo.out",
+                });
+              },
+              onEnterBack: () => {
+                gsap.to(cursorList, {
+                  yPercent: targetYPercent,
+                  duration: 1,
+                  ease: "expo.out",
+                });
+              },
+              markers: false,
+            },
+          });
+        });
+
+        // Handle videos
+        slides.forEach((slide, index) => {
+          if (index >= cursorItems.length || index >= 3) return;
+
+          gsap.to(cursorList, {
+            scrollTrigger: {
+              trigger: slide,
+              scroller: window,
+              start: "bottom center",
+              end: "bottom center",
+              markers: false,
+              onEnter: () => handleVideos(cursorItems, index),
+              onEnterBack: () => handleVideos(cursorItems, index),
+            },
+          });
+        });
+      });
+    }
+  });
+
+  $("[data-reviews=wrap]").each(() => {
+    // Loop every .reviews_logos section you have
+    document.querySelectorAll(".reviews_logos").forEach((wrap) => {
+      const track = wrap.querySelector(".reviews_logos_scroll");
+      if (!track) return;
+
+      // Start at 0
+      gsap.set(track, { xPercent: 0 });
+
+      // Marquee tween (paused until scrolled into view)
+      const marquee = gsap.to(track, {
+        xPercent: -50,
+        duration: 20,
+        ease: "none", // linear
+        repeat: -1,
+        paused: true,
+      });
+
+      // Play/pause based on visibility
+      ScrollTrigger.create({
+        trigger: wrap,
+        start: "top 80%",
+        end: "bottom top",
+        onEnter: () => marquee.play(),
+        onEnterBack: () => marquee.play(),
+        onLeave: () => marquee.pause(),
+        onLeaveBack: () => marquee.pause(),
+      });
+    });
+  });
+};
+
+aboutScript = () => {
+  $("[data-h-about=wrap]").each(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* LENIS SMOOTH SCROLL (OPTIONAL) */
+    const lenis = new Lenis({
+      autoRaf: true,
+    });
+    /* LENIS SMOOTH SCROLL (OPTIONAL) */
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      const root = document.querySelector(".h-about_wrap");
+      if (!root) return;
+
+      const pinHeight = root.querySelector(".h-about_height");
+      const container = root.querySelector(".h-about_contain.u-container");
+      const paragraphs = root.querySelectorAll(".u-paragraph");
+
+      // utility to wrap words in spans
+      function wrapWordsInSpan(element) {
+        const text = element.textContent;
+        element.innerHTML = text
+          .split(" ")
+          .map((word) => `<span class="word"><span>${word}</span></span>`)
+          .join(" ");
+      }
+
+      paragraphs.forEach((paragraph) => {
+        wrapWordsInSpan(paragraph);
+      });
+
+      // pin container
+      ScrollTrigger.create({
+        trigger: pinHeight,
+        start: "top top",
+        end: "bottom bottom",
+        pin: container,
+        pinSpacing: true,
+        // markers: true
+      });
+
+      // timeline scrubbed with scroll
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: pinHeight,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+          // markers: true
+        },
+      });
+
+      paragraphs.forEach((paragraph, index) => {
+        if (paragraphs[index + 1]) {
+          tl.to(paragraphs[index].querySelectorAll(".word span"), {
+            y: "100%",
+            duration: 1,
+            stagger: 0.2,
+            ease: "power4.in",
+          });
+          tl.to(
+            paragraphs[index + 1].querySelectorAll(".word span"),
+            {
+              y: "0%",
+              duration: 1,
+              delay: 1,
+              stagger: 0.2,
+              ease: "power4.out",
+            },
+            "<"
+          );
+        }
+      });
+    });
+  });
+
+  $("[data-intro-about=wrap]").each(() => {
+    var isHoverCapable = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+
+    if (isHoverCapable) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ---------------------------------------
+      // OPTIONAL: Lenis ↔ ScrollTrigger wiring
+      // If your project already does this globally, this block will safely skip.
+      // ---------------------------------------
+      (function setupLenisProxyOnce() {
+        if (window.__lenisProxyReady) return; // already set somewhere else
+
+        // Try to find an existing Lenis instance (common globals: window.lenis / window.Lenis)
+        const lenis =
+          window.lenis || window.Lenis?.prototype?._instance || null;
+
+        // Only wire the proxy if we *can* touch a Lenis instance and nothing has done it yet
+        if (lenis && typeof lenis.on === "function") {
+          try {
+            lenis.on("scroll", ScrollTrigger.update);
+
+            ScrollTrigger.scrollerProxy(document.body, {
+              scrollTop(value) {
+                return arguments.length
+                  ? lenis.scrollTo(value, { immediate: true })
+                  : window.scrollY;
+              },
+              getBoundingClientRect() {
+                return {
+                  top: 0,
+                  left: 0,
+                  width: innerWidth,
+                  height: innerHeight,
+                };
+              },
+              pinType: document.body.style.transform ? "transform" : "fixed",
+            });
+
+            window.__lenisProxyReady = true;
+          } catch (e) {
+            console.warn("[Lenis proxy] Skipped:", e);
+          }
+        }
+      })();
+
+      // ---------------------------------------
+      // Word wrapper (no opacity used)
+      // ---------------------------------------
+      function wrapWordsInSpan(el) {
+        if (!el) return;
+        const text = el.textContent.trim();
+        if (!text) return;
+        el.innerHTML = text
+          .split(/\s+/)
+          .map((w) => `<span class="word">${w}</span>`)
+          .join(" ");
+      }
+
+      // Map to your Webflow structure
+      const pinHeight = document.querySelector(".intro-about_height"); // scroll area (tall)
+      const container = document.querySelector(".intro-about_contain"); // pinned element
+      const paragraph = document.querySelector(".intro-about_paragraph"); // split target
+
+      if (!pinHeight || !container || !paragraph) {
+        console.warn(
+          "[intro-about] Missing .intro-about_height / .intro-about_contain / .intro-about_paragraph"
+        );
+        return;
+      }
+
+      wrapWordsInSpan(paragraph);
+      const words = container.querySelectorAll(".word");
+      if (!words.length) {
+        console.warn("[intro-about] No words found after wrapping.");
+        return;
+      }
+
+      // NOTE:
+      // Your CSS sets the start position:
+      // .mwg_effect005 .word { display:inline-block; transform: translateX(100vw); }
+      // We only animate translateX back to 0. No opacity used.
+      gsap.to(words, {
+        x: 0,
+        stagger: 0.02,
+        ease: "power4.inOut",
+        scrollTrigger: {
+          trigger: pinHeight, // the tall wrapper that defines scroll distance
+          start: "top top",
+          end: "bottom bottom", // extend/shorten as you like
+          scrub: true,
+          pin: container, // pin the container while scrubbing
+          anticipatePin: 1,
+          pinSpacing: true,
+          markers: false, // keep on while debugging
+        },
+      });
+
+      // Keep measurements fresh (esp. with Lenis)
+      ScrollTrigger.addEventListener("refresh", () => {
+        if (window.lenis?.resize) window.lenis.resize();
+      });
+      ScrollTrigger.refresh();
+    }
+  });
+
+  $("[data-values=wrap]").each(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.querySelectorAll(".values_cms_wrap").forEach((wrap) => {
+      const items = wrap.querySelectorAll(".values_cms_item");
+      if (!items.length) return;
+
+      // start state
+      gsap.set(items, { opacity: 0 });
+
+      // animate in when 25% of the wrap enters the viewport
+      gsap.to(items, {
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: wrap,
+          start: "30% bottom", // aka top hits 75% of viewport
+          once: true,
+          markers: false, // uncomment to debug
+        },
+      });
+    });
+
+    // Only run on hover-capable pointers (desktops/laptops)
+    const isHoverCapable = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+    if (!isHoverCapable) return;
+
+    const remPx =
+      parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+
+    document.querySelectorAll(".values_cms_item").forEach((item) => {
+      const bg = item.querySelector(".values_cms_bg");
+      if (!bg) return;
+
+      // Capture base values so we can return precisely
+      const basePad = parseFloat(getComputedStyle(item).paddingLeft) || 0;
+      const hoverPad = basePad + remPx; // +1rem
+      const baseColor = getComputedStyle(item).color || "";
+
+      // Ensure a clean start for the background bar
+      gsap.set(bg, { height: "0%" });
+
+      function onEnter() {
+        gsap.killTweensOf([item, bg]);
+        gsap.to(item, {
+          paddingLeft: hoverPad,
+          color: "#ffffff",
+          duration: 0.3,
+          ease: "power4.out",
+          overwrite: "auto",
+        });
+        gsap.to(bg, {
+          height: "100%",
+          duration: 0.4,
+          ease: "power4.out",
+          overwrite: "auto",
+        });
+      }
+
+      function onLeave() {
+        gsap.killTweensOf([item, bg]);
+        gsap.to(item, {
+          paddingLeft: basePad,
+          color: baseColor,
+          duration: 0.3,
+          ease: "power4.out",
+          overwrite: "auto",
+        });
+        gsap.to(bg, {
+          height: "0%",
+          duration: 0.5,
+          ease: "power4.out",
+          overwrite: "auto",
+        });
+      }
+
+      item.addEventListener("mouseenter", onEnter);
+      item.addEventListener("mouseleave", onLeave);
+    });
+  });
+
+  $("[data-process=wrap]").each(() => {
+    var isHoverCapable = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+
+    if (isHoverCapable) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const section = document.querySelector(".process_wrap"); // trigger
+      const pinBox = document.querySelector(".process_contain"); // pinned element
+      const track = document.querySelector(".process_horizontal"); // moves horizontally
+      const overlay = document.querySelector(".process_timeline_overlay"); // the shrinking bar
+
+      if (!section || !pinBox || !track) {
+        console.warn("[process] Missing required elements.");
+        return;
+      }
+
+      // --- visuals stack ---
+      const visuals = gsap.utils.toArray(
+        ".process_visuals_wrap .g_visual_wrap"
+      );
+      if (visuals.length) {
+        gsap.set(visuals, { opacity: 0 });
+        gsap.set(visuals[0], { opacity: 1 }); // first one visible
+      }
+      let currentIdx = 0;
+
+      // Ensure overlay is transform-optimized
+      if (overlay) {
+        gsap.set(overlay, {
+          transformOrigin: "right center",
+          scaleX: 1,
+          willChange: "transform",
+        });
+        // If you insist on width instead of transforms, comment the set above and ensure overlay has width:100% in CSS.
+      }
+
+      // Ensure overflow is visible if you want edges to show
+      pinBox.style.overflow = "visible";
+
+      // One timeline drives horizontal move, visual swaps, and the overlay shrink
+      const tl = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "bottom bottom", // your 400vh height defines pacing (≈100vh per slide)
+          scrub: true,
+          pin: pinBox,
+          anticipatePin: 1,
+          pinSpacing: true,
+          // markers: true,
+          onUpdate(self) {
+            if (!visuals.length) return;
+
+            const segments = visuals.length; // e.g., 4 images = 4 segments
+            let idx = Math.min(
+              segments - 1,
+              Math.floor(self.progress * segments)
+            );
+
+            if (idx !== currentIdx) {
+              gsap.to(visuals[currentIdx], {
+                opacity: 0,
+                duration: 0.35,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+              gsap.to(visuals[idx], {
+                opacity: 1,
+                duration: 0.35,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+              currentIdx = idx;
+            }
+          },
+        },
+      });
+
+      // Horizontal movement across the full width of the track
+      tl.to(
+        track,
+        {
+          x: () => {
+            const dist = track.scrollWidth - pinBox.clientWidth; // total pixels to travel
+            return dist > 0 ? -dist : 0; // move left
+          },
+          duration: 1,
+          invalidateOnRefresh: true,
+        },
+        0
+      );
+
+      // Overlay shrink (preferred: transform for performance)
+      if (overlay) {
+        tl.to(overlay, { scaleX: 0, duration: 1 }, 0);
+
+        // --- Width-based fallback (less performant) ---
+        // tl.to(overlay, { width: "0%", duration: 1 }, 0);
+      }
+
+      ScrollTrigger.refresh();
+    }
+  });
+};
+
+//////////////// Pages End //////////////
+
+document.addEventListener("DOMContentLoaded", () => {
+  let targetSection = null; // Track which section to scroll to
+
+  // Add event listeners to anchor links
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+
+    // Check if link contains #work or #process
+    if (href && href.includes("#work")) {
+      targetSection = "work";
+    } else if (href && href.includes("#process")) {
+      targetSection = "process";
+    }
+  });
+
+  barba.hooks.enter((data) => {
+    // Always reset scroll first
+    window.scrollTo(0, 0);
+  });
+
+  barba.init({
+    debug: true,
+    views: [
+      {
+        namespace: "home",
+        async beforeEnter(data) {
+          await globalScript(); // Run loader animation every time home is entered
+          await homeScript();
+        },
+        afterEnter(data) {
+          reinitialiseWebflow(data);
+        },
+      },
+      {
+        namespace: "about",
+        async beforeEnter(data) {
+          console.log("about entered");
+          await aboutScript();
+        },
+        afterEnter(data) {
+          reinitialiseWebflow(data);
+        },
+      },
+      {
+        namespace: "project",
+        afterLeave(data) {
+          const cursorParent = document.querySelector(
+            "[projects-cursor-height]"
+          );
+          if (cursorParent) {
+            cursorParent.remove();
+          }
+        },
+        afterEnter(data) {
+          reinitialiseWebflow(data);
+
+          gsap.set("[data-reveal=text-char]", {
+            opacity: 1,
+          });
+
+          const split = new SplitText("[data-reveal=text-char]", {
+            type: "chars",
+            mask: "chars",
+          });
+
+          gsap.fromTo(
+            split.chars,
+            { yPercent: 100 },
+            {
+              yPercent: 0,
+              duration: 1,
+              ease: "power3.out",
+              stagger: 0.03,
+            }
+          );
+        },
+      },
+    ],
+    transitions: [
+      {
+        name: "home-to-project",
+        from: { namespace: ["home"] },
+        to: { namespace: ["project"] },
+
+        async leave(data) {
+          const pageWrap = document.querySelector(".page_wrap");
+          const parent = data.current.container.querySelector(
+            "[projects-cursor-height]"
+          );
+          const pointer = data.current.container.querySelector(
+            "[projects-cursor-pointer]"
+          );
+          const pointerContent = data.current.container.querySelectorAll(
+            "[cursor-cms-content]"
+          );
+          const originalVideo = data.next.container.querySelector(
+            "[data-original-video]"
+          );
+          originalVideo.remove();
+
+          const event = new KeyboardEvent("keydown", {
+            key: "f",
+            code: "KeyF",
+            keyCode: 70,
+            which: 70,
+            bubbles: true,
+          });
+
+          document.dispatchEvent(event);
+
+          if (parent && pageWrap) {
+            pageWrap.appendChild(parent);
+          }
+
+          const tl = gsap.timeline();
+
+          tl.to(pointerContent, {
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+          });
+
+          tl.to(
+            pointer,
+            {
+              width: "100%",
+              height: "100%",
+              transform: "translate(0,0)",
+              duration: 1,
+              ease: "power2.inOut",
+              onComplete: () => {
+                gsap.set(data.current.container, {
+                  position: "absolute",
+                });
+              },
+            },
+            "<"
+          );
+
+          await tl;
+        },
+
+        async enter(data) {
+          const parent = document.querySelector("[projects-cursor-height]");
+
+          if (parent) {
+            gsap.set(parent, {
+              position: "absolute",
+              bottom: "auto",
+              height: "100vh",
+              overflow: "clip",
+            });
+          }
+
+          const newContainer = data.next.container;
+          gsap.set(newContainer, { opacity: 0 });
+
+          await gsap.to(newContainer, {
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out",
+          });
+        },
+      },
+      {
+        name: "default",
+        async once(data) {
+          // Only run the script for whichever page loads first
+          await globalScript();
+
+          if (data.current.namespace === "home") {
+            await homeScript();
+          } else if (data.current.namespace === "about") {
+            await aboutScript();
+          }
+        },
+        async leave(data) {
+          await gsap.to(data.current.container, {
+            opacity: 0,
+            duration: 1,
+            onComplete: () => {
+              gsap.set(data.current.container, {
+                position: "absolute",
+              });
+            },
+          });
+        },
+
+        async enter(data) {
+          gsap.set(data.next.container, { opacity: 0 });
+
+          // Handle anchor scrolling BEFORE revealing the page
+          if (targetSection) {
+            // Scroll to home#work
+            if (targetSection === "work" && data.next.namespace === "home") {
+              const target = data.next.container.querySelector("#work");
+              if (target) {
+                // Use scrollIntoView with instant behavior
+                target.scrollIntoView({ behavior: "instant", block: "start" });
+                // Update URL hash
+                history.replaceState(null, null, "#work");
+              }
+            }
+            // Scroll to about#process
+            else if (
+              targetSection === "process" &&
+              data.next.namespace === "about"
+            ) {
+              const target = data.next.container.querySelector("#process");
+              if (target) {
+                // Use scrollIntoView with instant behavior
+                target.scrollIntoView({ behavior: "instant", block: "start" });
+                // Update URL hash
+                history.replaceState(null, null, "#process");
+              }
+            }
+
+            // Reset the target section
+            targetSection = null;
+          }
+
+          // Now reveal the page with the scroll already in position
+          await gsap.to(data.next.container, {
+            delay: 1,
+            opacity: 1,
+            duration: 1,
+          });
+        },
+      },
+    ],
+  });
+});
+
+//////////////// Barba End //////////////

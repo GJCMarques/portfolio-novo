@@ -1,0 +1,7 @@
+.spiral_media_item {
+  transform: translate(60vw, 0);
+}
+
+[data-reveal="text-char"] {
+  opacity: 0;
+}

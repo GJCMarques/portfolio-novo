@@ -10,56 +10,6 @@
   var isTouch    = window.matchMedia('(pointer: coarse)').matches;
   var isReduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── CUSTOM CURSOR ───────────────────────────────────── */
-  var cursor    = document.getElementById('cursor');
-  var cursorDot = document.getElementById('cursor-dot');
-
-  if (!isTouch && cursor && cursorDot) {
-    var cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-    var dx = cx, dy = cy;
-
-    document.addEventListener('mousemove', function (e) {
-      dx = e.clientX; dy = e.clientY;
-    }, { passive: true });
-
-    (function cursorLoop() {
-      requestAnimationFrame(cursorLoop);
-      cx += (dx - cx) * 0.12;
-      cy += (dy - cy) * 0.12;
-      cursor.style.transform    = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%)';
-      cursorDot.style.transform = 'translate(' + dx + 'px,' + dy + 'px) translate(-50%,-50%)';
-    })();
-
-    var hoverSel = 'a, button, [role="button"], label[for], input, select, textarea';
-
-    document.addEventListener('mouseover', function (e) {
-      if (e.target.closest(hoverSel)) cursor.classList.add('cursor--hover');
-    });
-    document.addEventListener('mouseout', function (e) {
-      if (e.target.closest(hoverSel)) cursor.classList.remove('cursor--hover');
-    });
-    document.addEventListener('mousedown', function () { cursor.classList.add('cursor--active'); });
-    document.addEventListener('mouseup',   function () { cursor.classList.remove('cursor--active'); });
-
-    document.addEventListener('mouseleave', function () {
-      cursor.style.opacity = '0'; cursorDot.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', function () {
-      cursor.style.opacity = '1'; cursorDot.style.opacity = '1';
-    });
-
-    /* Switch cursor style when leaving dark hero into light sections */
-    var heroEl = document.getElementById('hero');
-    if (heroEl) {
-      var heroObserver = new IntersectionObserver(function (entries) {
-        var inHero = entries[0].isIntersecting;
-        cursor.classList.toggle('cursor--light', !inHero);
-        cursorDot.classList.toggle('cursor-dot--light', !inHero);
-      }, { threshold: 0.1 });
-      heroObserver.observe(heroEl);
-    }
-  }
-
   /* ── NAV SCROLL STATE ────────────────────────────────── */
   var navEl = document.getElementById('nav');
 
@@ -90,12 +40,7 @@
   /* ── SCROLL REVEALS — IntersectionObserver ───────────── */
   if (!isReduced) {
     var revealSel = [
-      '[data-reveal]',
-      '.project-card',
-      '.skill-cat',
-      '.about-visual',
-      '.contact-inner',
-      '.projects-more'
+      '[data-reveal]'
     ].join(', ');
 
     var revealObserver = new IntersectionObserver(function (entries) {
@@ -127,7 +72,7 @@
   } else {
     /* Reduced motion — make everything visible immediately */
     document.querySelectorAll(
-      '[data-reveal], .project-card, .skill-cat, .about-visual, .contact-inner, .projects-more'
+      '[data-reveal]'
     ).forEach(function (el) {
       el.classList.add('is-visible');
     });
