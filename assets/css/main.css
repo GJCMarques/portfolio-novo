@@ -107,6 +107,53 @@ ul, ol { list-style: none; }
 }
 
 /* ============================================================
+   PRELOADER / LOADING SCREEN (MORPHING MONOLITH)
+   ============================================================ */
+body.is-loading { overflow: hidden !important; }
+
+.loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg); color: var(--primary);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.8s cubic-bezier(0.76, 0, 0.24, 1), 
+              visibility 0.8s;
+}
+.loader.is-loaded { 
+  opacity: 0; visibility: hidden; pointer-events: none; 
+}
+
+.loader-monolith {
+  width: 25vw; height: 25vw;
+  min-width: 150px; min-height: 150px;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.loader.is-loaded .loader-monolith {
+  transform: scale(15); /* Explosion effect into the site */
+}
+
+.monolith-svg {
+  width: 100%; height: 100%;
+}
+
+#monolith-path {
+  fill: var(--primary);
+  /* This ensures the path morphs fluidly between d attributes */
+  transition: d 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.loader-footer {
+  position: absolute; bottom: 40px;
+  text-align: center;
+}
+.loader-name {
+  font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.5em;
+  color: var(--secondary);
+  opacity: 0.4;
+}
+
+/* ============================================================
    BUTTONS
    ============================================================ */
 .btn {
