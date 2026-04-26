@@ -154,23 +154,37 @@
     // Proximity Tracking: Instead of discrete enter events, we track the mouse 
     // across the whole nav to find the closest link. This prevents "stuck" states 
     // during ultra-fast swipes.
+    var previewItems = document.querySelectorAll('.nav-preview-item');
+    var previewContainer = document.getElementById('nav-menu-preview');
+
+    // Initialize with the default image (index 0)
+    if (previewItems[0]) {
+      previewItems[0].classList.add('is-active');
+    }
+
     menuNavElem.addEventListener('mousemove', function(e) {
       clearTimeout(leaveTimeout);
       var mouseY = e.clientY;
+      var mouseX = e.clientX;
       
-      // Boundary Check: Only track if mouse is within the vertical area of the links
+      // Boundary Check
       var firstRect = menuLinks[0].getBoundingClientRect();
       var lastRect = menuLinks[menuLinks.length - 1].getBoundingClientRect();
       
       if (mouseY < firstRect.top - 30 || mouseY > lastRect.bottom + 30) {
         updateIndicator(activeLink, true);
+        // Return to default image
+        previewItems.forEach((item, i) => {
+          item.classList.toggle('is-active', i === 0);
+        });
         return;
       }
 
       var closestLink = null;
       var minDistance = Infinity;
+      var closestIndex = -1;
 
-      menuLinks.forEach(function(link) {
+      menuLinks.forEach(function(link, i) {
         var rect = link.getBoundingClientRect();
         var centerY = rect.top + rect.height / 2;
         var distance = Math.abs(mouseY - centerY);
@@ -178,18 +192,34 @@
         if (distance < minDistance) {
           minDistance = distance;
           closestLink = link;
+          closestIndex = i;
         }
       });
 
       if (closestLink) {
         updateIndicator(closestLink, false);
+        
+        // Show corresponding preview (Index 0 is default, so we use i + 1)
+        previewItems.forEach((item, i) => {
+          item.classList.toggle('is-active', i === closestIndex + 1);
+        });
+
+        // Parallax effect
+        if (previewContainer) {
+          var moveX = (mouseX / window.innerWidth - 0.5) * 30;
+          var moveY = (mouseY / window.innerHeight - 0.5) * 30;
+          previewContainer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }
       }
     });
 
     menuNavElem.addEventListener('mouseleave', function() {
-      // Confirm user actually left the whole navigation area
       leaveTimeout = setTimeout(function() {
         updateIndicator(activeLink, true);
+        // Return to default image
+        previewItems.forEach((item, i) => {
+          item.classList.toggle('is-active', i === 0);
+        });
       }, 300);
     });
   }
