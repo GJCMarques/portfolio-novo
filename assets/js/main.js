@@ -137,7 +137,7 @@
     indicator.style.setProperty('--indicator-clip', clips[index]);
     
     // Dynamic transition duration: fast on hover, slow and smooth on return
-    indicator.style.setProperty('--indicator-dur', isReturn ? '800ms' : '350ms');
+    indicator.style.setProperty('--indicator-dur', isReturn ? '950ms' : '550ms');
   }
 
   if (menuNavElem && indicator && activeLink) {
@@ -150,17 +150,47 @@
     }
 
     var leaveTimeout;
-    menuLinks.forEach(function(link) {
-      link.addEventListener('mouseenter', function() {
-        clearTimeout(leaveTimeout);
-        updateIndicator(link, false);
+
+    // Proximity Tracking: Instead of discrete enter events, we track the mouse 
+    // across the whole nav to find the closest link. This prevents "stuck" states 
+    // during ultra-fast swipes.
+    menuNavElem.addEventListener('mousemove', function(e) {
+      clearTimeout(leaveTimeout);
+      var mouseY = e.clientY;
+      
+      // Boundary Check: Only track if mouse is within the vertical area of the links
+      var firstRect = menuLinks[0].getBoundingClientRect();
+      var lastRect = menuLinks[menuLinks.length - 1].getBoundingClientRect();
+      
+      if (mouseY < firstRect.top - 30 || mouseY > lastRect.bottom + 30) {
+        updateIndicator(activeLink, true);
+        return;
+      }
+
+      var closestLink = null;
+      var minDistance = Infinity;
+
+      menuLinks.forEach(function(link) {
+        var rect = link.getBoundingClientRect();
+        var centerY = rect.top + rect.height / 2;
+        var distance = Math.abs(mouseY - centerY);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestLink = link;
+        }
       });
-      link.addEventListener('mouseleave', function() {
-        // Wait 250ms to confirm user actually left the menu, preventing stutter if spamming
-        leaveTimeout = setTimeout(function() {
-          updateIndicator(activeLink, true);
-        }, 250);
-      });
+
+      if (closestLink) {
+        updateIndicator(closestLink, false);
+      }
+    });
+
+    menuNavElem.addEventListener('mouseleave', function() {
+      // Confirm user actually left the whole navigation area
+      leaveTimeout = setTimeout(function() {
+        updateIndicator(activeLink, true);
+      }, 300);
     });
   }
 
