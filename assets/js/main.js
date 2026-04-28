@@ -423,4 +423,20 @@
 
   initTextRoll();
 
+  /* ── NATURE HERO SLIDER ──────────────────────────────── */
+  function initNatureSlider() {
+    var images = document.querySelectorAll('.nature-img');
+    if (images.length === 0) return;
+    
+    var currentIndex = 0;
+    
+    setInterval(function() {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].classList.add('active');
+    }, 6000); // Crossfade every 6 seconds
+  }
+  
+  initNatureSlider();
+
 }());
