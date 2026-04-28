@@ -434,7 +434,7 @@
       images[currentIndex].classList.remove('active');
       currentIndex = (currentIndex + 1) % images.length;
       images[currentIndex].classList.add('active');
-    }, 6000); // Crossfade every 6 seconds
+    }, 5000); // Crossfade every 5 seconds
   }
   
   initNatureSlider();
