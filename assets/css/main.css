@@ -306,11 +306,18 @@ body.is-loading { overflow: hidden !important; }
 .nav-logo-text { 
   display: flex; align-items: baseline; gap: 0.2em;
   font-family: 'Inter', sans-serif;
-  font-size: 22px; color: var(--primary); 
+  font-size: 22px; color: #fff; 
   text-transform: uppercase;
   line-height: 1;
   position: relative;
   z-index: 1;
+  transition: color 300ms ease;
+}
+
+/* Force dark color on scroll or menu open */
+.nav.is-scrolled .nav-logo-text,
+body.menu-open .nav-logo-text {
+  color: var(--primary);
 }
 
 /* The Digital Highlight */
@@ -349,8 +356,13 @@ body.is-loading { overflow: hidden !important; }
 }
 .nav-logo-icon { 
   width: 44px; height: 44px;
-  color: var(--primary); 
-  transition: transform 750ms cubic-bezier(0.65, 0, 0.35, 1), color 500ms ease;
+  color: #fff; 
+  transition: transform 750ms cubic-bezier(0.65, 0, 0.35, 1), color 300ms ease;
+}
+
+.nav.is-scrolled .nav-logo-icon,
+body.menu-open .nav-logo-icon {
+  color: var(--primary);
 }
 
 .nav-logo:hover .nav-logo-icon { 
@@ -390,9 +402,14 @@ body.is-loading { overflow: hidden !important; }
   display: flex; align-items: center; justify-content: center;
   width: 48px; height: 48px; background: none; border: none;
   padding: 0; cursor: pointer;
-  color: var(--primary);
+  color: #fff;
   border-radius: 50%;
-  transition: color 280ms ease;
+  transition: color 300ms ease;
+}
+
+.nav.is-scrolled .nav-toggle,
+body.menu-open .nav-toggle {
+  color: var(--primary);
 }
 
 .nav-toggle::before {
