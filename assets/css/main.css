@@ -815,21 +815,31 @@ body.menu-open .nav-toggle {
 }
 
 .like-btn:hover {
-  background: rgba(255, 0, 0, 0.05);
-  border-color: rgba(255, 0, 0, 0.5);
-  color: #FF0000;
+  background: rgba(254, 143, 181, 0.05);
+  border-color: rgba(254, 143, 181, 0.5);
+  color: #FE8FB5;
   transform: translateY(-2px);
 }
 
 .like-btn.liked {
-  background: rgba(255, 0, 0, 0.15);
-  border-color: rgba(255, 0, 0, 0.4);
-  color: #FF0000; /* Red heart */
+  background: rgba(254, 143, 181, 0.15);
+  border-color: rgba(254, 143, 181, 0.4);
+  color: #FE8FB5; /* Pink heart */
 }
 
 .like-btn.liked svg {
   fill: currentColor;
   transform: scale(1.1);
+}
+
+.like-btn.pop {
+  animation: btnPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes btnPop {
+  0% { transform: translateY(-2px) scale(1); }
+  50% { transform: translateY(-2px) scale(1.2); }
+  100% { transform: translateY(-2px) scale(1); }
 }
 
 /* Roll Button (Neutral Glass) */
@@ -944,40 +954,42 @@ body.menu-open .nav-toggle {
   transform: scale(0.98) translateY(-1px);
 }
 
-/* Floral Border Decorations (Individual Hover & Sizes) */
+/* Floral Border Decorations (Pinned/Crown Effect) */
 .floral-deco {
   position: absolute;
   pointer-events: auto; 
-  z-index: 1; 
-  opacity: 0.1; /* Lowered opacity */
-  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); 
+  z-index: 100; /* On top of EVERYTHING */
+  opacity: 0.95; 
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.6s ease;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); /* Stronger shadow for depth */
+  cursor: default; /* Normal cursor as requested */
 }
 
 .floral-deco:hover {
   opacity: 1 !important; 
-  z-index: 10;
+  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+  z-index: 101;
 }
 
 .floral-deco.f1 {
   -webkit-mask: url('../img/svgs/flor1.svg') no-repeat center / contain;
   mask: url('../img/svgs/flor1.svg') no-repeat center / contain;
   background-color: #FF4D85; 
-  width: 130px; height: 130px; /* Varied size */
+  width: 130px; height: 130px; 
   top: -20px; left: -20px; 
   transform: rotate(-15deg);
 }
-.floral-deco.f1:hover { transform: rotate(15deg) scale(1.2); }
+.floral-deco.f1:hover { transform: rotate(0deg) scale(1.3) translateY(-10px); } /* Bounce Up */
 
 .floral-deco.f2 {
   -webkit-mask: url('../img/svgs/flor2.svg') no-repeat center / contain;
   mask: url('../img/svgs/flor2.svg') no-repeat center / contain;
   background-color: #8A2BE2; 
-  width: 70px; height: 70px; /* Small */
+  width: 70px; height: 70px; 
   top: -15px; right: 20px;
   transform: rotate(25deg);
 }
-.floral-deco.f2:hover { transform: rotate(-20deg) scale(1.3); }
+.floral-deco.f2:hover { transform: rotate(385deg) scale(1.2); } /* Full Spin */
 
 .floral-deco.f3 {
   -webkit-mask: url('../img/svgs/flor3.svg') no-repeat center / contain;
@@ -987,27 +999,27 @@ body.menu-open .nav-toggle {
   top: 40%; right: -25px;
   transform: rotate(85deg);
 }
-.floral-deco.f3:hover { transform: rotate(45deg) scale(1.2) translateY(-10px); }
+.floral-deco.f3:hover { transform: rotate(45deg) scale(1.2) translateX(-20px); } /* Slide Left */
 
 .floral-deco.f4 {
   -webkit-mask: url('../img/svgs/flor4.svg') no-repeat center / contain;
   mask: url('../img/svgs/flor4.svg') no-repeat center / contain;
   background-color: #DC143C; 
-  width: 150px; height: 150px; /* Huge */
-  bottom: -20px; right: -10px;
+  width: 110px; height: 110px; 
+  bottom: -35px; right: -30px; 
   transform: rotate(135deg);
 }
-.floral-deco.f4:hover { transform: rotate(160deg) scale(1.15); }
+.floral-deco.f4:hover { transform: rotate(160deg) scale(0.9) translateY(-15px); } /* Shrink & Hop */
 
 .floral-deco.f5 {
   -webkit-mask: url('../img/svgs/flor5.svg') no-repeat center / contain;
   mask: url('../img/svgs/flor5.svg') no-repeat center / contain;
   background-color: #00BFFF; 
-  width: 90px; height: 90px;
-  bottom: -15px; left: 15px;
+  width: 75px; height: 75px; 
+  bottom: -25px; left: -35px; 
   transform: rotate(-100deg);
 }
-.floral-deco.f5:hover { transform: rotate(-60deg) scale(1.25); }
+.floral-deco.f5:hover { transform: rotate(-15deg) scale(1.4); } /* Tilt & Grow */
 
 .floral-deco.f6 {
   -webkit-mask: url('../img/svgs/flor6.svg') no-repeat center / contain;
@@ -1017,7 +1029,7 @@ body.menu-open .nav-toggle {
   top: 30%; left: -25px;
   transform: rotate(-45deg);
 }
-.floral-deco.f6:hover { transform: rotate(-80deg) scale(1.2); }
+.floral-deco.f6:hover { transform: rotate(45deg) scale(1.5); } /* Massive Pop Out */
 
 /* Global Heart Animation */
 .global-heart-anim {
@@ -1026,9 +1038,9 @@ body.menu-open .nav-toggle {
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   z-index: 99999;
-  color: #FF0000;
-  width: 160px;
-  height: 160px;
+  color: #FE8FB5; /* Pink heart */
+  width: 240px; /* Larger */
+  height: 240px; /* Larger */
   pointer-events: none;
   animation: heartPop 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
@@ -1036,16 +1048,16 @@ body.menu-open .nav-toggle {
 .global-heart-anim svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 15px 30px rgba(255, 0, 0, 0.5));
+  filter: drop-shadow(0 20px 40px rgba(254, 143, 181, 0.6));
 }
 
 @keyframes heartPop {
   0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-  15% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-  30% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; }
-  45% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
-  70% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+  15% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+  30% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  45% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+  70% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
 }
 
 /* Media Hover Logic (Fast 0.3s Fade) */

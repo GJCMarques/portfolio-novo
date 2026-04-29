@@ -338,7 +338,7 @@
     canvas.height = window.innerHeight;
 
     var particles = [];
-    var colors = ['#FF9FFC', '#FF6B00', '#00BFFF', '#FFD700', '#FF0000'];
+    var colors = ['#FE8FB5', '#FFC0CB', '#FFB6C1', '#FF69B4', '#FF1493'];
 
     for (var i = 0; i < 120; i++) {
       particles.push({
@@ -385,6 +385,11 @@
     
     btn.addEventListener('click', function(e) {
       e.preventDefault();
+      
+      // Visual feedback on the button itself
+      btn.classList.remove('pop');
+      void btn.offsetWidth; // Trigger reflow
+      btn.classList.add('pop');
       
       // Ensure it stays 'liked'
       if (!btn.classList.contains('liked')) {
