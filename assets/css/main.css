@@ -811,7 +811,7 @@ body.menu-open .nav-toggle {
 .like-btn svg {
   width: 22px;
   height: 22px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .like-btn:hover {
@@ -832,14 +832,15 @@ body.menu-open .nav-toggle {
   transform: scale(1.1);
 }
 
-.like-btn.pop {
-  animation: btnPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* Icon Pop Animation (Decoupled from Button Position) */
+.like-btn.pop svg {
+  animation: iconPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes btnPop {
-  0% { transform: translateY(-2px) scale(1); }
-  50% { transform: translateY(-2px) scale(1.2); }
-  100% { transform: translateY(-2px) scale(1); }
+@keyframes iconPop {
+  0% { transform: scale(1.1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1.1); }
 }
 
 /* Roll Button (Neutral Glass) */
