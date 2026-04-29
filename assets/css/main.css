@@ -669,176 +669,310 @@ body.menu-open .nav-toggle {
   animation: heroFadeUp 1.2s var(--ease-out) 3.1s forwards;
 }
 
-/* Glassmorphism Side Card (Right Side) */
-.hero-side-card {
+/* ============================================================
+   HERO BENTO SYSTEM (The Elite Upgrade)
+   ============================================================ */
+/* ============================================================
+   HERO PROFILE CARD (Clean Lux Glassmorphism)
+   ============================================================ */
+.hero-profile-card {
   position: absolute;
   bottom: var(--px);
   right: var(--px);
-  width: 380px;
-  padding: 1.75rem;
+  width: 400px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  padding: 2rem;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(30px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: all 0.8s var(--ease-out);
+}
+
+.hero-profile-card.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.profile-card-media {
+  width: 100%;
+  aspect-ratio: 1.1 / 1;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255,255,255,0.02);
+  z-index: 1;
+}
+
+/* Static Pink Border with Moving White Shine */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.profile-card-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px; /* Border thickness */
+  border-radius: inherit;
+  
+  /* Layer 1: Moving White Shine | Layer 2: Static Pink Base */
+  background: 
+    conic-gradient(from var(--angle), transparent 75%, #fff 90%, transparent 100%),
+    rgba(254, 143, 181, 0.5);
+  
+  /* Mask to show ONLY the border */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  
+  box-shadow: 0 0 15px rgba(254, 143, 181, 0.1);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.profile-card-media:hover::before {
+  opacity: 1;
+  animation: rotateAngle 2.5s linear infinite;
+}
+
+@keyframes rotateAngle {
+  to { --angle: 360deg; }
+}
+
+
+
+
+
+.profile-card-info {
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.profile-card-name {
+  font-family: var(--font-display);
+  font-size: 1.95rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.profile-card-bio {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+.profile-card-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* "Worthy" Flow Button (Refined Liquid + Shine) */
+.flow-btn {
+  position: relative;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 18px 40px; /* Larger */
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.6s var(--ease-out);
+  cursor: pointer;
+  width: 100%; /* Make it prominent */
+}
+
+/* The Liquid Fill */
+.flow-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #fff;
+  transform: translateX(-105%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The Light Sweep */
+.flow-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: left 0.8s var(--ease-out);
+  z-index: 1;
+}
+
+.flow-btn:hover {
+  color: #000;
+  border-color: #fff;
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.flow-btn:hover::before {
+  transform: translateX(0);
+}
+
+.flow-btn:hover::after {
+  left: 150%;
+  transition-delay: 0.1s;
+}
+
+.flow-btn:active {
+  transform: scale(0.97) translateY(-2px);
+}
+
+.flow-btn-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.flow-btn:hover .flow-btn-icon {
+  transform: translateX(5px) rotate(45deg);
+}
+
+/* Media Hover Logic */
+.profile-card-media .main-img,
+.profile-card-media .hover-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: opacity 0.6s ease, transform 0.8s var(--ease-out);
+}
+
+.profile-card-media .hover-img {
+  opacity: 0;
+}
+
+.profile-card-media:hover .main-img { opacity: 0; }
+.profile-card-media:hover .hover-img { opacity: 1; }
+
+
+
+
+
+/* ============================================================
+   LUX BUTTONS (Liquid Glass & Magnetic)
+   ============================================================ */
+.lux-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  opacity: 0;
-  animation: heroFadeIn 1.5s ease 3.8s forwards;
-  z-index: 20;
-}
-
-.side-card-actions.horizontal {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-.side-card-actions.horizontal .flow-btn {
-  flex: 1;
-  padding: 12px 16px; /* Slightly tighter for horizontal */
-}
-
-/* Primary Button (Orange) */
-.flow-btn.primary .flow-btn-circle {
-  background: var(--tertiary);
-}
-
-/* Secondary Button (Glass/White) */
-.flow-btn.secondary .flow-btn-circle {
-  background: #fff;
-}
-
-.flow-btn.secondary:hover .flow-btn-text,
-.flow-btn.secondary:hover .flow-btn-icon {
-  color: var(--primary);
-}
-
-.side-card-media {
-  width: 100%;
-  height: 240px; /* Vertical height */
-  border-radius: 16px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.05);
-  position: relative;
-}
-
-.side-card-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: opacity 0.5s ease, transform 0.8s var(--ease-out);
-}
-
-.side-card-img.hover-img {
-  opacity: 0;
-  transform: scale(1.1);
-}
-
-.side-card-media:hover .main-img {
-  opacity: 0;
-}
-
-.side-card-media:hover .hover-img {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.side-card-text {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-}
-
-/* FLOW BUTTON (Strict implementation) */
-.flow-btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  width: 100%;
-  padding: 12px 32px;
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 100px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   text-decoration: none;
   overflow: hidden;
+  transition: 
+    background 0.4s ease,
+    border-color 0.4s ease,
+    transform 0.2s ease-out,
+    box-shadow 0.4s ease;
   cursor: pointer;
-  transition: all 600ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.flow-btn:hover {
-  border-color: transparent;
-  border-radius: 12px;
-  color: #fff;
-}
-
-.flow-btn-circle {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 16px; height: 16px;
-  background: var(--tertiary); /* Orange */
-  border-radius: 50%;
-  opacity: 0;
   z-index: 1;
-  transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.flow-btn:hover .flow-btn-circle {
-  width: 320px; height: 320px;
-  opacity: 1;
-}
-
-.flow-btn-text {
-  position: relative;
-  z-index: 5;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-  transform: translateX(-12px);
-  transition: all 800ms ease-out;
-}
-
-.flow-btn:hover .flow-btn-text {
-  transform: translateX(12px);
-}
-
-.flow-btn-icon {
+/* The Liquid Shine Effect */
+.lux-btn::before {
+  content: '';
   position: absolute;
-  z-index: 9;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.15), 
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: -1;
+}
+
+.lux-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.lux-btn:hover::before {
+  left: 100%;
+}
+
+.lux-btn.primary {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.lux-btn.primary:hover {
+  background: var(--tertiary); /* Orange accent on hover */
+  border-color: transparent;
   color: #fff;
-  transition: all 800ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.flow-btn-icon.left-arr {
-  left: -25%;
-  opacity: 0;
+.lux-btn-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.flow-btn-icon.right-arr {
-  right: 16px;
-  opacity: 1;
+.lux-btn:hover .lux-btn-icon {
+  transform: translateX(4px) rotate(-15deg);
 }
 
-.flow-btn:hover .flow-btn-icon.left-arr {
-  left: 16px;
-  opacity: 1;
+.lux-btn:active {
+  transform: scale(0.96) !important;
 }
 
-.flow-btn:hover .flow-btn-icon.right-arr {
-  right: -25%;
-  opacity: 0;
-}
-
-.flow-btn:active {
-  transform: scale(0.95);
-}
 
 .hero-desc-minimal {
   font-family: var(--font-sans);
