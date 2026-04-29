@@ -721,13 +721,13 @@ body.menu-open .nav-toggle {
   content: "";
   position: absolute;
   inset: 0;
-  padding: 2px; /* Border thickness */
+  padding: 3px; /* Slightly thicker border */
   border-radius: inherit;
   
-  /* Layer 1: Moving White Shine | Layer 2: Static Pink Base */
+  /* Layer 1: Moving White Shine (Softened) | Layer 2: Static Pink Base (More Opaque) */
   background: 
-    conic-gradient(from var(--angle), transparent 75%, #fff 90%, transparent 100%),
-    rgba(254, 143, 181, 0.5);
+    conic-gradient(from var(--angle), transparent 70%, rgba(255,255,255,0.4) 90%, transparent 100%),
+    rgba(254, 143, 181, 0.85);
   
   /* Mask to show ONLY the border */
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -735,7 +735,7 @@ body.menu-open .nav-toggle {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   
-  box-shadow: 0 0 15px rgba(254, 143, 181, 0.1);
+  box-shadow: 0 0 20px rgba(254, 143, 181, 0.2);
   opacity: 0;
   transition: opacity 0.5s var(--ease-out);
   pointer-events: none;
@@ -1071,14 +1071,14 @@ body.menu-open .nav-toggle {
   z-index: 2; 
   object-fit: contain;
   object-position: center bottom;
-  transform: scale(0.9) translateY(20px);
+  transform: scale(1) translateY(20px);
 }
 
 .profile-card-media:hover .hover-bg-img { opacity: 0.8; transform: scale(1); }
 .profile-card-media:hover .main-img { opacity: 0; transition-delay: 0s; }
 .profile-card-media:hover .hover-img { 
   opacity: 1; 
-  transform: scale(0.75) translateY(15px); 
+  transform: scale(1.1) translateY(10px); 
   transition-delay: 0s; 
 }
 
