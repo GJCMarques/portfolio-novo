@@ -756,15 +756,14 @@ body.menu-open .nav-toggle {
 
 
 .profile-card-info {
-
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.8rem;
 }
 
 .profile-card-name {
   font-family: var(--font-display);
-  font-size: 1.95rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #fff;
   letter-spacing: -0.03em;
@@ -774,117 +773,315 @@ body.menu-open .nav-toggle {
 
 .profile-card-bio {
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
   margin: 0;
   font-weight: 300;
   letter-spacing: 0.01em;
 }
 
-.profile-card-actions {
+.profile-card-actions.row-layout {
   display: flex;
+  flex-direction: row;
   gap: 12px;
+  align-items: stretch;
+  width: 100%;
+  margin-top: 4px;
+  position: relative;
+  z-index: 10; /* Ensures buttons are above the flowers */
 }
 
-/* "Worthy" Flow Button (Refined Liquid + Shine) */
-.flow-btn {
-  position: relative;
-  z-index: 0;
-  display: inline-flex;
+/* Like Button */
+.like-btn {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  overflow: hidden;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  padding: 18px 40px; /* Larger */
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 600;
   color: #fff;
-  text-decoration: none;
-  transition: all 0.6s var(--ease-out);
   cursor: pointer;
-  width: 100%; /* Make it prominent */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* The Liquid Fill */
-.flow-btn::before {
+.like-btn svg {
+  width: 22px;
+  height: 22px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.like-btn:hover {
+  background: rgba(255, 0, 0, 0.05);
+  border-color: rgba(255, 0, 0, 0.5);
+  color: #FF0000;
+  transform: translateY(-2px);
+}
+
+.like-btn.liked {
+  background: rgba(255, 0, 0, 0.15);
+  border-color: rgba(255, 0, 0, 0.4);
+  color: #FF0000; /* Red heart */
+}
+
+.like-btn.liked svg {
+  fill: currentColor;
+  transform: scale(1.1);
+}
+
+/* Roll Button (Neutral Glass) */
+.roll-btn {
+  flex-grow: 1;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05); /* Neutral */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* Space for the icon */
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s var(--ease-out);
+  cursor: pointer;
+}
+
+.roll-btn::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background: #fff;
-  transform: translateX(-105%);
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #FF6B00; /* Orange Hover */
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out);
+  z-index: 0;
 }
 
-/* The Light Sweep */
-.flow-btn::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  transform: skewX(-25deg);
-  transition: left 0.8s var(--ease-out);
+.roll-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
+  border-color: #FF6B00;
+}
+
+.roll-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.roll-btn-inner {
+  position: relative;
   z-index: 1;
+  display: block;
+  overflow: hidden;
+  height: 20px;
 }
 
-.flow-btn:hover {
-  color: #000;
-  border-color: #fff;
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+.roll-text {
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  line-height: 20px;
 }
 
-.flow-btn:hover::before {
-  transform: translateX(0);
+.roll-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff; 
 }
 
-.flow-btn:hover::after {
-  left: 150%;
-  transition-delay: 0.1s;
+.roll-arrow-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.flow-btn:active {
-  transform: scale(0.97) translateY(-2px);
-}
-
-.flow-btn-icon {
+.arrow-icon {
+  position: absolute;
+  flex-shrink: 0;
   width: 20px;
   height: 20px;
-  transition: transform 0.6s var(--ease-out);
+  transform: rotate(45deg); /* Correctly pointing right */
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-.flow-btn:hover .flow-btn-icon {
-  transform: translateX(5px) rotate(45deg);
+.arrow-icon:nth-child(2) {
+  transform: translateX(-150%) rotate(45deg);
 }
 
-/* Media Hover Logic */
+.roll-btn:hover .arrow-icon:nth-child(1) {
+  transform: translateX(150%) rotate(45deg);
+}
+
+.roll-btn:hover .arrow-icon:nth-child(2) {
+  transform: translateX(0) rotate(45deg);
+}
+
+.roll-btn:hover .roll-text {
+  transform: translateY(-100%);
+}
+
+.roll-btn:active {
+  transform: scale(0.98) translateY(-1px);
+}
+
+/* Floral Border Decorations (Individual Hover & Sizes) */
+.floral-deco {
+  position: absolute;
+  pointer-events: auto; 
+  z-index: 1; 
+  opacity: 0.1; /* Lowered opacity */
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); 
+}
+
+.floral-deco:hover {
+  opacity: 1 !important; 
+  z-index: 10;
+}
+
+.floral-deco.f1 {
+  -webkit-mask: url('../img/svgs/flor1.svg') no-repeat center / contain;
+  mask: url('../img/svgs/flor1.svg') no-repeat center / contain;
+  background-color: #FF4D85; 
+  width: 130px; height: 130px; /* Varied size */
+  top: -20px; left: -20px; 
+  transform: rotate(-15deg);
+}
+.floral-deco.f1:hover { transform: rotate(15deg) scale(1.2); }
+
+.floral-deco.f2 {
+  -webkit-mask: url('../img/svgs/flor2.svg') no-repeat center / contain;
+  mask: url('../img/svgs/flor2.svg') no-repeat center / contain;
+  background-color: #8A2BE2; 
+  width: 70px; height: 70px; /* Small */
+  top: -15px; right: 20px;
+  transform: rotate(25deg);
+}
+.floral-deco.f2:hover { transform: rotate(-20deg) scale(1.3); }
+
+.floral-deco.f3 {
+  -webkit-mask: url('../img/svgs/flor3.svg') no-repeat center / contain;
+  mask: url('../img/svgs/flor3.svg') no-repeat center / contain;
+  background-color: #FF7F50; 
+  width: 100px; height: 100px;
+  top: 40%; right: -25px;
+  transform: rotate(85deg);
+}
+.floral-deco.f3:hover { transform: rotate(45deg) scale(1.2) translateY(-10px); }
+
+.floral-deco.f4 {
+  -webkit-mask: url('../img/svgs/flor4.svg') no-repeat center / contain;
+  mask: url('../img/svgs/flor4.svg') no-repeat center / contain;
+  background-color: #DC143C; 
+  width: 150px; height: 150px; /* Huge */
+  bottom: -20px; right: -10px;
+  transform: rotate(135deg);
+}
+.floral-deco.f4:hover { transform: rotate(160deg) scale(1.15); }
+
+.floral-deco.f5 {
+  -webkit-mask: url('../img/svgs/flor5.svg') no-repeat center / contain;
+  mask: url('../img/svgs/flor5.svg') no-repeat center / contain;
+  background-color: #00BFFF; 
+  width: 90px; height: 90px;
+  bottom: -15px; left: 15px;
+  transform: rotate(-100deg);
+}
+.floral-deco.f5:hover { transform: rotate(-60deg) scale(1.25); }
+
+.floral-deco.f6 {
+  -webkit-mask: url('../img/svgs/flor6.svg') no-repeat center / contain;
+  mask: url('../img/svgs/flor6.svg') no-repeat center / contain;
+  background-color: #FFD700; 
+  width: 80px; height: 80px;
+  top: 30%; left: -25px;
+  transform: rotate(-45deg);
+}
+.floral-deco.f6:hover { transform: rotate(-80deg) scale(1.2); }
+
+/* Global Heart Animation */
+.global-heart-anim {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 99999;
+  color: #FF0000;
+  width: 160px;
+  height: 160px;
+  pointer-events: none;
+  animation: heartPop 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.global-heart-anim svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 15px 30px rgba(255, 0, 0, 0.5));
+}
+
+@keyframes heartPop {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  15% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  30% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; }
+  45% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+  70% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+/* Media Hover Logic (Fast 0.3s Fade) */
+.profile-card-media .hover-bg-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.3s ease-in-out, transform 0.5s var(--ease-out);
+}
+
 .profile-card-media .main-img,
 .profile-card-media .hover-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  transition: opacity 0.6s ease, transform 0.8s var(--ease-out);
+  transition: opacity 0.3s ease-in-out, transform 0.5s var(--ease-out);
 }
 
-.profile-card-media .hover-img {
-  opacity: 0;
+.profile-card-media .hover-img { 
+  opacity: 0; 
+  z-index: 2; 
+  object-fit: contain;
+  object-position: center bottom;
+  transform: scale(0.9) translateY(20px);
 }
 
-.profile-card-media:hover .main-img { opacity: 0; }
-.profile-card-media:hover .hover-img { opacity: 1; }
+.profile-card-media:hover .hover-bg-img { opacity: 0.8; transform: scale(1); }
+.profile-card-media:hover .main-img { opacity: 0; transition-delay: 0s; }
+.profile-card-media:hover .hover-img { 
+  opacity: 1; 
+  transform: scale(0.75) translateY(15px); 
+  transition-delay: 0s; 
+}
+
 
 
 

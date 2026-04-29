@@ -321,5 +321,94 @@
   initNatureSlider();
 
 
+  /* ── LIKE BUTTON ANIMATION ───────────────────────────── */
+  function createFireworks(x, y) {
+    var canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '99998'; // Just below the heart
+    document.body.appendChild(canvas);
+
+    var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var particles = [];
+    var colors = ['#FF9FFC', '#FF6B00', '#00BFFF', '#FFD700', '#FF0000'];
+
+    for (var i = 0; i < 120; i++) {
+      particles.push({
+        x: x,
+        y: y,
+        vx: (Math.random() - 0.5) * 25,
+        vy: (Math.random() - 0.5) * 25,
+        life: 1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: Math.random() * 4 + 2
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var alive = false;
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        if (p.life > 0) {
+          alive = true;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.3; // gravity
+          p.life -= 0.012; // fade speed
+          ctx.globalAlpha = Math.max(0, p.life);
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      if (alive) {
+        requestAnimationFrame(animate);
+      } else {
+        canvas.parentNode && canvas.parentNode.removeChild(canvas);
+      }
+    }
+    animate();
+  }
+
+  function initLikeBtn() {
+    var btn = document.getElementById('like-toggle');
+    if (!btn) return;
+    
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Ensure it stays 'liked'
+      if (!btn.classList.contains('liked')) {
+        btn.classList.add('liked');
+      }
+      
+      var heart = document.createElement('div');
+      heart.className = 'global-heart-anim';
+      heart.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>';
+      
+      document.body.appendChild(heart);
+      
+      // Fire fireworks from center of screen
+      createFireworks(window.innerWidth / 2, window.innerHeight / 2);
+      
+      setTimeout(function() {
+        if (heart.parentNode) {
+          heart.parentNode.removeChild(heart);
+        }
+      }, 1800);
+    });
+  }
+  initLikeBtn();
+
 }());
+
 
