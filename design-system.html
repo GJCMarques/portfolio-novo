@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design System | Heritage Elite V5</title>
+    <title>Design System | Heritage Pure Luxe V7</title>
     <link rel="stylesheet" href="assets/css/main.css">
     <style>
-        body { padding: 0; margin: 0; background-color: var(--color-linen); }
-        
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: var(--color-linen);
+        }
+
         .ds-header {
             padding: 100px 80px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .ds-content {
@@ -38,7 +43,10 @@
             color: var(--color-espresso);
         }
 
-        .ds-nav-item.active { opacity: 1; font-weight: 700; }
+        .ds-nav-item.active {
+            opacity: 1;
+            font-weight: 700;
+        }
 
         .ds-section {
             margin-bottom: 150px;
@@ -51,7 +59,6 @@
             text-transform: uppercase;
         }
 
-        /* PANTONE V5 */
         .pantone-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -61,7 +68,7 @@
         .pantone-card {
             background: #fff;
             padding: 15px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
         }
 
         .swatch {
@@ -84,14 +91,13 @@
             margin-top: 5px;
         }
 
-        /* BUTTON SPECIMENS */
         .button-showcase {
             display: flex;
             align-items: center;
             gap: 60px;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             padding: 100px;
-            border: 1px solid rgba(0,0,0,0.03);
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
         .button-meta {
@@ -102,18 +108,12 @@
             margin-bottom: 15px;
             opacity: 0.4;
         }
-
-        /* TYPO SPECIMENS */
-        .typo-row {
-            margin-bottom: 80px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding-bottom: 40px;
-        }
     </style>
 </head>
+
 <body>
     <header class="ds-header">
-        <h1 class="main-title" style="margin:0;">Heritage <br><span>Design System V5</span></h1>
+        <h1 class="main-title" style="margin:0;">Pure Luxe <br><span>Design System V7</span></h1>
     </header>
 
     <div class="ds-content">
@@ -124,7 +124,6 @@
         </aside>
 
         <main>
-            <!-- COLORS -->
             <section id="colors" class="ds-section">
                 <h2 class="section-title">Color Palette</h2>
                 <div class="pantone-container">
@@ -144,45 +143,74 @@
                         <div class="pantone-hex">#1A1716</div>
                     </div>
                     <div class="pantone-card">
-                        <div class="swatch" style="background-color: var(--color-forest);"></div>
-                        <div class="pantone-label">Royal Forest</div>
-                        <div class="pantone-hex">#283728</div>
+                        <div class="swatch" style="background-color: var(--color-sand);"></div>
+                        <div class="pantone-label">Pale Sand</div>
+                        <div class="pantone-hex">#E8E2D6</div>
                     </div>
                 </div>
             </section>
 
-            <!-- TYPOGRAPHY -->
             <section id="typography" class="ds-section">
-                <h2 class="section-title">Typography</h2>
-                <div class="typo-row">
-                    <div class="button-meta">Heading / The Seasons Light</div>
-                    <h1 style="font-family: var(--font-heading); font-size: 8rem; line-height: 0.9;">The Art of <br> Heritage</h1>
+                <h2 class="section-title">Typography Specimens</h2>
+
+                <div class="typo-row" style="margin-bottom: 100px;">
+                    <h3
+                        style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; color: var(--color-bordeaux);">
+                        01. Primary Heading — THE SEASONS LIGHT</h3>
+                    <h1
+                        style="font-family: var(--font-heading); font-size: 8rem; line-height: 0.9; color: var(--color-espresso);">
+                        The Seasons</h1>
+                    <p style="font-family: var(--font-body); opacity: 0.4; margin-top: 10px;">The Seasons Light @ 8rem
+                    </p>
                 </div>
-                <div class="typo-row">
-                    <div class="button-meta">Accent / Beautifully Delicious</div>
-                    <h2 style="font-family: var(--font-accent); font-size: 5rem; color: var(--color-bordeaux);">Deliciously Crafted</h2>
+
+                <div class="typo-row" style="margin-bottom: 100px;">
+                    <h3
+                        style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; color: var(--color-bordeaux);">
+                        02. Secondary Accent — BEAUTIFULLY DELICIOUS</h3>
+                    <h2 style="font-family: var(--font-accent); font-size: 5rem; color: var(--color-espresso);">
+                        BEAUTIFULLY DELICIOUS</h2>
+                    <p style="font-family: var(--font-body); opacity: 0.4; margin-top: 10px;">Beautifully Delicious @
+                        5rem</p>
                 </div>
+
                 <div class="typo-row">
-                    <div class="button-meta">Body / Source Sans Pro Light</div>
-                    <p style="font-family: var(--font-body); font-size: 1.8rem; max-width: 800px;">A sofisticação não é sobre o barulho, mas sobre a clareza. O luxo silencioso vive na precisão de cada pixel e na harmonia das formas.</p>
+                    <h3
+                        style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; color: var(--color-bordeaux);">
+                        03. Main Body — SOURCE SANS PRO LIGHT</h3>
+                    <p
+                        style="font-family: var(--font-body); font-size: 2rem; line-height: 1.4; color: var(--color-espresso); max-width: 900px;">
+                        A verdadeira sofisticação reside na simplicidade deliberada. O design minimalista não é a
+                        ausência de elementos, mas a presença absoluta do essencial.
+                    </p>
+                    <p style="font-family: var(--font-body); opacity: 0.4; margin-top: 10px;">Source Sans Pro Light @
+                        2rem</p>
                 </div>
             </section>
 
-            <!-- BUTTONS -->
             <section id="buttons" class="ds-section">
-                <h2 class="section-title">Buttons V5</h2>
+                <h2 class="section-title">Signature Buttons</h2>
                 <div class="button-showcase">
                     <div>
-                        <div class="button-meta">CTA / The Pill Expansion</div>
-                        <a href="#" class="btn btn-cta">Explorar</a>
+                        <div class="button-meta">CTA / Split Text</div>
+                        <a href="#" class="btn btn-cta">
+                            <span class="btn-text-wrapper">
+                                <span class="btn-text" data-text="Explorar">Explorar</span>
+                            </span>
+                        </a>
                     </div>
                     <div>
-                        <div class="button-meta">Ghost / The Architectural Sharp</div>
-                        <a href="#" class="btn btn-ghost">Contactar</a>
+                        <div class="button-meta">Ghost / Sand Fill</div>
+                        <a href="#" class="btn btn-ghost">
+                            <span class="btn-text-wrapper">
+                                <span class="btn-text" data-text="Contactar">Contactar</span>
+                            </span>
+                        </a>
                     </div>
                 </div>
             </section>
         </main>
     </div>
 </body>
+
 </html>
