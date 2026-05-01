@@ -242,11 +242,12 @@
             <img src="assets/img/home/hero/eueamor.webp" alt="Guilherme Marques" class="main-img">
             <img src="assets/img/home/hero/juntos.gif" alt="Guilherme & Amor" class="hover-img">
           </div>
-          
+
           <div class="profile-card-info">
             <h3 class="profile-card-name">Guilherme Marques</h3>
             <p class="profile-card-bio">
-              Um sonhador movido pela curiosidade e pelo impacto das pequenas ações. Procuro a inovação onde a lógica da economia e da informática se fundem com o propósito e o caos criativo.
+              Um sonhador movido pela curiosidade e pelo impacto das pequenas ações. Procuro a inovação onde a lógica da
+              economia e da informática se fundem com o propósito e o caos criativo.
             </p>
           </div>
 
@@ -258,21 +259,25 @@
             <!-- Like Button -->
             <button class="like-btn" id="like-toggle" aria-label="Gostar">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                </path>
               </svg>
             </button>
-            
+
             <!-- Text Roll Primary Action -->
             <a href="#about" class="roll-btn">
               <span class="roll-btn-inner">
                 <span class="roll-text" data-text="Sobre Mim">Sobre Mim</span>
               </span>
               <div class="roll-arrow-wrapper">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
                   <path d="M7 17L17 7" />
                   <path d="M7 7h10v10" />
                 </svg>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
                   <path d="M7 17L17 7" />
                   <path d="M7 7h10v10" />
                 </svg>
@@ -306,10 +311,182 @@
       </div>
     </section>
 
-    <!-- Temporary spacer for scroll testing -->
-    <section class="spacer-temp">
-      <p>SCROLL</p>
+    <!-- ================================================
+         00.5: ABOUT BENTO BRIDGE (The Architect)
+    ================================================ -->
+    <section class="section-about-bento" id="about-preview">
+      <div class="container-layout">
+        <span class="bento-label" data-reveal>01 / O Arquiteto</span>
+        
+        <div class="about-bento-grid">
+          
+          <!-- Card 1: Main Identity (Tall & Wide) -->
+          <div class="bento-card card-main" data-reveal>
+            <div class="card-bg-img">
+              <img src="assets/img/home/hero/eueamor.webp" alt="Guilherme Marques">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-content">
+              <h2 class="card-title-huge">Guilherme <br><span class="text-italic">Marques</span></h2>
+              <p class="card-tag">Economia & Software Architecture</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Philosophy (Small) -->
+          <div class="bento-card card-philosophy" data-reveal data-delay="100">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Lógica vs Caos</h3>
+            <p class="card-text">Onde a frieza dos números encontra a alma da criação digital.</p>
+          </div>
+
+          <!-- Card 3: Experience (Small) -->
+          <div class="bento-card card-stats" data-reveal data-delay="200">
+            <div class="stats-number">5+</div>
+            <p class="card-text">Anos a transformar visões complexas em soluções resilientes.</p>
+          </div>
+
+          <!-- Card 4: Detailed CTA (Wide) -->
+          <div class="bento-card card-cta" data-reveal data-delay="300">
+            <div class="cta-inner">
+              <div class="cta-text">
+                <h3 class="card-title">Queres conhecer a fundo?</h3>
+                <p class="card-text text-muted">Explora o meu manifesto, a minha formação e o que me move.</p>
+              </div>
+              <a href="sobre-mim.html" class="bento-btn">
+                <span>Ver Trajetória</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </section>
+
+    <!-- 01: MANIFESTO / PHILOSOPHY -->
+    <section id="about" class="section-manifesto container-layout" data-header-theme="dark">
+      <div class="manifesto-inner">
+        <span class="section-label">01 / Filosofia</span>
+        <h2 class="section-title">A intersecção entre o <br><span class="text-italic">rigor da lógica</span> e o
+          <br>caos da criação.</h2>
+
+        <div class="manifesto-content row-layout">
+          <p class="manifesto-lead">
+            Acredito que a verdadeira inovação não nasce apenas de algoritmos frios, mas da harmonia entre a eficiência
+            económica e a sensibilidade humana.
+          </p>
+          <div class="manifesto-body">
+            <p>Através da informática, construo as ferramentas. Através da economia, entendo o propósito. Através do
+              caos criativo, encontro a alma do projeto.</p>
+            <p>O meu objetivo é transformar complexidade em simplicidade, criando experiências digitais que não só
+              funcionam, mas que respiram e evoluem.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02: ARTEFACTS / PROJECTS -->
+    <section id="projects" class="section-projects" data-header-theme="light">
+      <div class="projects-sticky">
+        <div class="projects-header container-layout">
+          <span class="section-label">02 / Projectos</span>
+          <h2 class="section-title">Trabalhos Selecionados</h2>
+        </div>
+        <div class="projects-horizontal-track">
+          <div class="project-card">
+            <span class="project-num">01</span>
+            <h3 class="project-name">Digital Monolith</h3>
+            <p class="project-desc">Web Design & Desenvolvimento 3D</p>
+          </div>
+          <div class="project-card">
+            <span class="project-num">02</span>
+            <h3 class="project-name">Economic Flows</h3>
+            <p class="project-desc">Visualização de Dados & Dashboard</p>
+          </div>
+          <div class="project-card">
+            <span class="project-num">03</span>
+            <h3 class="project-name">Nature Tech</h3>
+            <p class="project-desc">Identidade Visual & Branding</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03: TECHNICAL FLORA / STACK -->
+    <section id="skills" class="section-stack container-layout" data-header-theme="dark">
+      <div class="stack-inner">
+        <span class="section-label">03 / Stack Técnica</span>
+        <h2 class="section-title">Ferramentas que <br>moldam o amanhã.</h2>
+        <div class="stack-lists grid-layout">
+          <div class="stack-col">
+            <h4>Front-end</h4>
+            <ul>
+              <li>React / Next.js</li>
+              <li>JavaScript (ES6+)</li>
+              <li>Tailwind / Framer Motion</li>
+              <li>WebGL / Three.js</li>
+            </ul>
+          </div>
+          <div class="stack-col">
+            <h4>Inovação</h4>
+            <ul>
+              <li>Inteligência Artificial</li>
+              <li>Data Analysis</li>
+              <li>Product Strategy</li>
+              <li>UX Architecture</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04: COLLABORATIVE SYNERGY / SERVICES -->
+    <section id="services" class="section-services container-layout" data-header-theme="light">
+      <div class="services-inner">
+        <span class="section-label">04 / Serviços</span>
+        <h2 class="section-title">Estratégia, Design <br>e Engenharia.</h2>
+        <div class="services-grid grid-layout">
+          <div class="service-item">
+            <h3>Consultoria Digital</h3>
+            <p>Análise económica e técnica para viabilizar projetos ambiciosos.</p>
+          </div>
+          <div class="service-item">
+            <h3>Desenvolvimento Web</h3>
+            <p>Interfaces de alta performance com foco em estética e UX.</p>
+          </div>
+          <div class="service-item">
+            <h3>Identidade Visual</h3>
+            <p>Criação de marcas que contam histórias e geram impacto.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05: THE ROOT / CONTACT -->
+    <footer id="contact" class="section-contact container-layout" data-header-theme="dark">
+      <div class="contact-inner">
+        <h2 class="contact-huge-title">Vamos criar <br>algo <span class="text-outline">extraordinário</span>?</h2>
+
+        <div class="contact-methods">
+          <a href="mailto:dehermenofficial@gmail.com" class="contact-link">dehermenofficial@gmail.com</a>
+        </div>
+
+        <div class="contact-footer-bottom">
+          <div class="footer-left">© 2024 Guilherme Marques</div>
+          <div class="footer-right">
+            <a href="https://linkedin.com/in/gjcmarques" target="_blank">LinkedIn</a>
+            <a href="https://github.com/GJCMarques" target="_blank">GitHub</a>
+            <a href="https://instagram.com/gjcmarques" target="_blank">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </main>
 
   <script src="assets/js/main.js"></script>

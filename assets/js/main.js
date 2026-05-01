@@ -7,17 +7,17 @@
 
   document.documentElement.classList.remove('no-js');
 
-  var isTouch    = window.matchMedia('(pointer: coarse)').matches;
-  var isReduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isTouch = window.matchMedia('(pointer: coarse)').matches;
+  var isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ── PRELOADER LOGIC (ELITE MONOLITH) ───────────────── */
   function initLoader() {
     var loader = document.getElementById('loader');
     var percentEl = document.getElementById('loader-percent');
     if (!loader || !percentEl) return;
-    
+
     document.body.classList.add('is-loading');
-    
+
     var duration = 3500; // Exactly 3.5 seconds
     var start = null;
 
@@ -25,10 +25,10 @@
       if (!start) start = timestamp;
       var progress = timestamp - start;
       var percentage = Math.min((progress / duration) * 100, 100);
-      
+
       // Update DOM with zero-padded number
       percentEl.innerText = Math.round(percentage).toString().padStart(3, '0');
-      
+
       if (progress < duration) {
         requestAnimationFrame(step);
       } else {
@@ -39,12 +39,12 @@
         // Activate Hero animations
         var heroCanvas = document.getElementById('hero-canvas');
         if (heroCanvas) heroCanvas.classList.add('active');
-        
+
         var heroProfile = document.querySelector('.hero-profile-card');
         if (heroProfile) heroProfile.classList.add('active');
       }
     }
-    
+
     requestAnimationFrame(step);
   }
 
@@ -61,10 +61,10 @@
   }
 
   /* ── NAV MENU ────────────────────────────────────────── */
-  var navToggle  = document.getElementById('nav-toggle');
-  var navMenu    = document.getElementById('nav-menu');
+  var navToggle = document.getElementById('nav-toggle');
+  var navMenu = document.getElementById('nav-menu');
   var navOverlay = document.getElementById('nav-overlay');
-  var curvePath  = navMenu ? navMenu.querySelector('.nav-menu-curve-path') : null;
+  var curvePath = navMenu ? navMenu.querySelector('.nav-menu-curve-path') : null;
 
   /* Wider curve — control point at -180 for dramatic bow */
   if (curvePath) curvePath.setAttribute('d', 'M100 0 L200 0 L200 1000 L100 1000 Q-180 500 100 0');
@@ -75,14 +75,14 @@
       var text = el.textContent.trim();
       el.innerHTML = text.split('').map(function (ch, i) {
         return '<span class="nav-menu-letter" style="--i:' + i + '">' +
-               (ch === ' ' ? '&nbsp;' : ch) + '</span>';
+          (ch === ' ' ? '&nbsp;' : ch) + '</span>';
       }).join('');
     });
   }
 
   /* Curve morph via rAF */
   var curveRaf = null;
-  var curveX   = -180;
+  var curveX = -180;
 
   function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -91,9 +91,9 @@
   function animateCurve(target) {
     if (curveRaf) cancelAnimationFrame(curveRaf);
     var start = performance.now();
-    var from  = curveX;
+    var from = curveX;
     (function step(now) {
-      var t  = Math.min((now - start) / 800, 1);
+      var t = Math.min((now - start) / 800, 1);
       curveX = from + (target - from) * easeInOutCubic(t);
       if (curvePath) {
         curvePath.setAttribute('d',
@@ -148,9 +148,9 @@
     if (!target || !indicator || !menuNavElem) return;
     var targetRect = target.getBoundingClientRect();
     var navRect = menuNavElem.getBoundingClientRect();
-    
+
     var index = Array.from(menuLinks).indexOf(target);
-    if(index === -1) index = 0;
+    if (index === -1) index = 0;
 
     var rotations = [0, 0, 0, 0, 0];
     var borderRadii = ['0%', '50%', '0%', '0%', '0%'];
@@ -164,7 +164,7 @@
     ];
 
     var offsetTop = targetRect.top - navRect.top + (targetRect.height / 2) - 7;
-    
+
     indicator.style.setProperty('--indicator-y', offsetTop + 'px');
     indicator.style.setProperty('--indicator-rot', rotations[index] + 'deg');
     indicator.style.setProperty('--indicator-br', borderRadii[index]);
@@ -175,10 +175,10 @@
 
   if (menuNavElem && indicator && activeLink) {
     updateIndicator(activeLink, false);
-    
+
     if (navToggle) {
-      navToggle.addEventListener('click', function() {
-        setTimeout(function() { updateIndicator(activeLink, true); }, 50);
+      navToggle.addEventListener('click', function () {
+        setTimeout(function () { updateIndicator(activeLink, true); }, 50);
       });
     }
 
@@ -190,14 +190,14 @@
       previewItems[0].classList.add('is-active');
     }
 
-    menuNavElem.addEventListener('mousemove', function(e) {
+    menuNavElem.addEventListener('mousemove', function (e) {
       clearTimeout(leaveTimeout);
       var mouseY = e.clientY;
       var mouseX = e.clientX;
-      
+
       var firstRect = menuLinks[0].getBoundingClientRect();
       var lastRect = menuLinks[menuLinks.length - 1].getBoundingClientRect();
-      
+
       if (mouseY < firstRect.top - 30 || mouseY > lastRect.bottom + 30) {
         updateIndicator(activeLink, true);
         previewItems.forEach((item, i) => {
@@ -210,11 +210,11 @@
       var minDistance = Infinity;
       var closestIndex = -1;
 
-      menuLinks.forEach(function(link, i) {
+      menuLinks.forEach(function (link, i) {
         var rect = link.getBoundingClientRect();
         var centerY = rect.top + rect.height / 2;
         var distance = Math.abs(mouseY - centerY);
-        
+
         if (distance < minDistance) {
           minDistance = distance;
           closestLink = link;
@@ -235,8 +235,8 @@
       }
     });
 
-    menuNavElem.addEventListener('mouseleave', function() {
-      leaveTimeout = setTimeout(function() {
+    menuNavElem.addEventListener('mouseleave', function () {
+      leaveTimeout = setTimeout(function () {
         updateIndicator(activeLink, true);
         previewItems.forEach((item, i) => {
           item.classList.toggle('is-active', i === 0);
@@ -250,7 +250,7 @@
     var revealObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        var el    = entry.target;
+        var el = entry.target;
         var delay = parseFloat(el.dataset.delay || 0);
         if (delay) el.style.transitionDelay = delay + 'ms';
         el.classList.add('is-visible');
@@ -278,7 +278,7 @@
       if (!target) return;
       e.preventDefault();
       var offset = navEl ? navEl.offsetHeight : 0;
-      var top    = target.getBoundingClientRect().top + window.scrollY - offset;
+      var top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: top, behavior: 'smooth' });
     });
   });
@@ -312,7 +312,7 @@
     var images = document.querySelectorAll('.nature-img');
     if (images.length === 0) return;
     var currentIndex = 0;
-    setInterval(function() {
+    setInterval(function () {
       images[currentIndex].classList.remove('active');
       currentIndex = (currentIndex + 1) % images.length;
       images[currentIndex].classList.add('active');
@@ -382,30 +382,30 @@
   function initLikeBtn() {
     var btn = document.getElementById('like-toggle');
     if (!btn) return;
-    
-    btn.addEventListener('click', function(e) {
+
+    btn.addEventListener('click', function (e) {
       e.preventDefault();
-      
+
       // Visual feedback on the button itself
       btn.classList.remove('pop');
       void btn.offsetWidth; // Trigger reflow
       btn.classList.add('pop');
-      
+
       // Ensure it stays 'liked'
       if (!btn.classList.contains('liked')) {
         btn.classList.add('liked');
       }
-      
+
       var heart = document.createElement('div');
       heart.className = 'global-heart-anim';
       heart.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>';
-      
+
       document.body.appendChild(heart);
-      
+
       // Fire fireworks from center of screen
       createFireworks(window.innerWidth / 2, window.innerHeight / 2);
-      
-      setTimeout(function() {
+
+      setTimeout(function () {
         if (heart.parentNode) {
           heart.parentNode.removeChild(heart);
         }
@@ -413,6 +413,51 @@
     });
   }
   initLikeBtn();
+
+  /* ── EXPERTISE FLOATING MEDIA (Brutalist Lux) ────────── */
+  function initExpertise() {
+    var section = document.getElementById('expertise');
+    var rows = document.querySelectorAll('.expertise-row');
+    var media = document.getElementById('expertise-media');
+    var mediaImg = document.getElementById('expertise-img');
+
+    if (!section || !media || !mediaImg || window.matchMedia('(pointer: coarse)').matches) return;
+
+    var targetX = 0;
+    var targetY = 0;
+    var currentX = 0;
+    var currentY = 0;
+
+    function lerp(start, end, amt) {
+      return (1 - amt) * start + amt * end;
+    }
+
+    function moveMedia() {
+      currentX = lerp(currentX, targetX, 0.1);
+      currentY = lerp(currentY, targetY, 0.1);
+      media.style.transform = 'translate(' + currentX + 'px, ' + currentY + 'px) translate(-50%, -50%)';
+      requestAnimationFrame(moveMedia);
+    }
+    moveMedia();
+
+    window.addEventListener('mousemove', function (e) {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    });
+
+    rows.forEach(function (row) {
+      row.addEventListener('mouseenter', function () {
+        var imgPath = row.getAttribute('data-image');
+        mediaImg.src = imgPath;
+        media.classList.add('active');
+      });
+
+      row.addEventListener('mouseleave', function () {
+        media.classList.remove('active');
+      });
+    });
+  }
+  initExpertise();
 
 }());
 

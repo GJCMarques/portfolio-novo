@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FAVICON & LOGO -->
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+    <link rel="apple-touch-icon" href="assets/img/logo.svg">
+    <meta name="msapplication-TileImage" content="assets/img/logo.svg">
+    <title>G. Marques — Arquitetura & Design</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                        editorial: ['Apple Garamond', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Kill scroll restoration immediately
+        if (history.scrollRestoration) history.scrollRestoration = 'manual';
+        window.scrollTo(0, 0);
+    </script>
+</head>
+
+<body class="bg-[#FAFAFA]" style="overflow:hidden;">
+
+    <!-- SITE LOADER -->
+    <div id="site-loader">
+        <!-- Background Beams -->
+        <svg class="loader-beams" viewBox="0 0 696 316" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <!-- Static beam grid -->
+            <path class="beam-grid" d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875M-352 -221C-352 -221 -284 184 180 311C644 438 712 843 712 843M-324 -253C-324 -253 -256 152 208 279C672 406 740 811 740 811M-296 -285C-296 -285 -228 120 236 247C700 374 768 779 768 779M-268 -317C-268 -317 -200 88 264 215C728 342 796 747 796 747M-240 -349C-240 -349 -172 56 292 183C756 310 824 715 824 715M-212 -381C-212 -381 -144 24 320 151C784 278 852 683 852 683M-184 -413C-184 -413 -116 -8 348 119C812 246 880 651 880 651M-156 -445C-156 -445 -88 -40 376 87C840 214 908 619 908 619M-128 -477C-128 -477 -60 -72 404 55C868 182 936 587 936 587M-100 -509C-100 -509 -32 -104 432 23C896 150 964 555 964 555M-72 -541C-72 -541 -4 -136 460 -9C924 118 992 523 992 523M-44 -573C-44 -573 24 -168 488 -41C952 86 1020 491 1020 491"/>
+            <!-- Animated beams -->
+            <path class="beam beam-1" d="M-373 -197C-373 -197 -305 208 159 335C623 462 691 867 691 867"/>
+            <path class="beam beam-2" d="M-338 -237C-338 -237 -270 168 194 295C658 422 726 827 726 827"/>
+            <path class="beam beam-3" d="M-296 -285C-296 -285 -228 120 236 247C700 374 768 779 768 779"/>
+            <path class="beam beam-4" d="M-261 -325C-261 -325 -193 80 271 207C735 334 803 739 803 739"/>
+            <path class="beam beam-5" d="M-219 -373C-219 -373 -151 32 313 159C777 286 845 691 845 691"/>
+            <path class="beam beam-6" d="M-177 -421C-177 -421 -109 -16 355 111C819 238 887 643 887 643"/>
+            <path class="beam beam-7" d="M-135 -469C-135 -469 -67 -64 397 63C861 190 929 595 929 595"/>
+            <path class="beam beam-8" d="M-86 -525C-86 -525 -18 -120 446 7C910 134 978 539 978 539"/>
+            <path class="beam beam-9" d="M-100 -509C-100 -509 -32 -104 432 23C896 150 964 555 964 555"/>
+            <path class="beam beam-10" d="M-44 -573C-44 -573 24 -168 488 -41C952 86 1020 491 1020 491"/>
+        </svg>
+
+        <!-- Center Content -->
+        <div class="loader-center">
+            <!-- GM Monogram — stroke drawing animation -->
+            <svg class="loader-logo" width="180" height="180" viewBox="14 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Architectural grid (subtle reveal) -->
+                <path class="logo-draw logo-grid-line" d="M100 100H412V412H100V100Z" stroke="#111" stroke-width="1" stroke-opacity="0.06"/>
+                <path class="logo-draw logo-grid-line" d="M100 256H412" stroke="#111" stroke-width="1" stroke-opacity="0.06"/>
+                <path class="logo-draw logo-grid-line" d="M256 100V412" stroke="#111" stroke-width="1" stroke-opacity="0.06"/>
+                <!-- Letter G -->
+                <path class="logo-draw logo-letter-g" d="M220 180H140V332H240V256H190" stroke="#111" stroke-width="24" stroke-linecap="square" stroke-linejoin="miter"/>
+                <!-- Letter M -->
+                <path class="logo-draw logo-letter-m" d="M280 332V180L340 256L400 180V332" stroke="#111" stroke-width="24" stroke-linecap="square" stroke-linejoin="miter"/>
+                <!-- Diagonal slash -->
+                <path class="logo-draw logo-slash" d="M250 360L266 150" stroke="#111" stroke-width="4" stroke-opacity="0.3"/>
+            </svg>
+            <span class="loader-label">PORTFÓLIO</span>
+        </div>
+    </div>
+
+    <!-- PREMIUM FLUID CURSOR -->
+    <div id="cursor-fluid"></div>
+
+    <!-- SVG Glass Filter (global, referenced by navbar and buttons) -->
+    <svg style="position:absolute;width:0;height:0;pointer-events:none;">
+        <defs>
+            <filter id="liquid-glass" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+                <feTurbulence type="fractalNoise" baseFrequency="0.04 0.04" numOctaves="1" seed="1" result="turbulence"/>
+                <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise"/>
+                <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="50" xChannelSelector="R" yChannelSelector="B" result="displaced"/>
+                <feGaussianBlur in="displaced" stdDeviation="3" result="finalBlur"/>
+                <feComposite in="finalBlur" in2="finalBlur" operator="over"/>
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- HEADER — Tubelight Navbar -->
+    <header id="main-header">
+        <nav class="nav-pill">
+            <!-- Logo -->
+            <a href="#hero" class="nav-logo magnetic" aria-label="Voltar ao início">
+                <svg width="32" height="32" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 100H412V412H100V100Z" stroke="currentColor" stroke-width="1" stroke-opacity="0.1"/>
+                    <path d="M100 256H412" stroke="currentColor" stroke-width="1" stroke-opacity="0.1"/>
+                    <path d="M256 100V412" stroke="currentColor" stroke-width="1" stroke-opacity="0.1"/>
+                    <path d="M220 180H140V332H240V256H190" stroke="currentColor" stroke-width="24" stroke-linecap="square" stroke-linejoin="miter"/>
+                    <path d="M280 332V180L340 256L400 180V332" stroke="currentColor" stroke-width="24" stroke-linecap="square" stroke-linejoin="miter"/>
+                    <path d="M250 360L266 150" stroke="currentColor" stroke-width="4" stroke-opacity="0.3"/>
+                </svg>
+            </a>
+
+            <!-- Divider -->
+            <div class="nav-divider"></div>
+
+            <!-- Navigation Links -->
+            <div class="nav-links-tube">
+                <a href="#about" class="nav-link magnetic" data-section="about">Sobre</a>
+                <a href="#work" class="nav-link magnetic" data-section="work">Portfólio</a>
+                <a href="#stack" class="nav-link magnetic" data-section="stack">Stack</a>
+                <a href="#journey" class="nav-link magnetic" data-section="journey">Percurso</a>
+                <a href="#testimonials" class="nav-link magnetic" data-section="testimonials">Testemunhos</a>
+                <a href="#contact" class="nav-link magnetic" data-section="contact">Contactos</a>
+                <!-- Tubelight Indicator (animated glow bar) -->
+                <div class="tubelight-indicator"></div>
+            </div>
+
+            <!-- Divider -->
+            <div class="nav-divider"></div>
+
+            <!-- Language Toggle (Pill Slider) -->
+            <button class="lang-toggle magnetic" aria-label="Mudar idioma" data-lang="pt">
+                <span class="lang-slider"></span>
+                <span class="lang-option lang-pt" data-value="pt">PT</span>
+                <span class="lang-option lang-en" data-value="en">EN</span>
+            </button>
+
+            <!-- Mobile: "Portfólio" label + Hamburger (hidden on desktop) -->
+            <span class="nav-mobile-label">Portfólio</span>
+            <button class="nav-menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Fullscreen Menu Overlay -->
+        <div class="mobile-menu-overlay" aria-hidden="true">
+            <!-- Close button -->
+            <button class="mobile-menu-close" aria-label="Fechar menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M18 6L6 18"/><path d="M6 6l12 12"/>
+                </svg>
+            </button>
+            <nav class="mobile-menu-inner">
+                <a href="#about" class="mobile-menu-link" data-section="about">
+                    <span class="mobile-menu-num">01</span>
+                    <span class="mobile-menu-text">Sobre</span>
+                </a>
+                <a href="#work" class="mobile-menu-link" data-section="work">
+                    <span class="mobile-menu-num">02</span>
+                    <span class="mobile-menu-text">Portfólio</span>
+                </a>
+                <a href="#stack" class="mobile-menu-link" data-section="stack">
+                    <span class="mobile-menu-num">03</span>
+                    <span class="mobile-menu-text">Stack</span>
+                </a>
+                <a href="#journey" class="mobile-menu-link" data-section="journey">
+                    <span class="mobile-menu-num">04</span>
+                    <span class="mobile-menu-text">Percurso</span>
+                </a>
+                <a href="#testimonials" class="mobile-menu-link" data-section="testimonials">
+                    <span class="mobile-menu-num">05</span>
+                    <span class="mobile-menu-text">Testemunhos</span>
+                </a>
+                <a href="#contact" class="mobile-menu-link" data-section="contact">
+                    <span class="mobile-menu-num">06</span>
+                    <span class="mobile-menu-text">Contactos</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center section-fade overflow-hidden">
+            <!-- WebGL Animated Gradient Background -->
+            <canvas id="hero-gradient"></canvas>
+            <div id="hero-noise"></div>
+
+            <!-- Hero Content — centered -->
+            <div class="hero-content relative z-10 text-center max-w-4xl mx-auto px-6">
+                <span class="hero-tag text-[#111]/30">Programador Full-Stack & Designer UI</span>
+                <h1 class="hero-title text-[#111]">Guilherme<br><span class="text-editorial italic">Marques.</span></h1>
+                <p class="text-base md:text-[1.15rem] text-[#111]/45 max-w-2xl mx-auto mb-10 md:mb-14 leading-[1.85]" style="font-family: 'Inter', sans-serif;">
+                    Transformo ideias em interfaces com código limpo, design intencional e experiências digitais que fazem sentido.
+                </p>
+                <div class="flex gap-5 items-center justify-center flex-wrap">
+                    <!-- Flow Button — dark fill, arrow animation -->
+                    <a href="#work" class="flow-btn group">
+                        <svg class="flow-arr flow-arr-out" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        <span class="flow-text">Ver Portfólio</span>
+                        <span class="flow-circle"></span>
+                        <svg class="flow-arr flow-arr-in" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
+                    <!-- Liquid Glass Button -->
+                    <a href="#contact" class="glass-btn">
+                        <span class="glass-btn-refract"></span>
+                        <span class="glass-btn-inner"></span>
+                        <span class="glass-btn-text">Contactar</span>
+                        <span class="glass-btn-shine"></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bottom fade to next section -->
+            <div class="absolute bottom-0 left-0 right-0 h-48 z-10" style="background: linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.85) 35%, rgba(255,255,255,0.4) 65%, transparent 100%);"></div>
+        </section>
+
+        <!-- ABOUT (zoom parallax → about content, single continuous section) -->
+        <section id="about" class="relative h-[400vh] md:h-[400vh] bg-white" style="padding: 0;">
+            <div id="about-sticky" class="sticky top-0 h-screen overflow-hidden bg-white">
+
+                <!-- ZOOM PARALLAX IMAGES -->
+                <div id="zoom-layer" class="absolute inset-0">
+
+                    <!-- Image 0: Central — THIS becomes the full background after zoom -->
+                    <div class="zoom-img absolute top-0 flex h-full w-full items-center justify-center" data-scale="4">
+                        <div class="relative h-[25vh] w-[25vw]">
+                            <img src="assets/images/hero.png" class="h-full w-full object-cover" alt="">
+                        </div>
+                    </div>
+
+                    <!-- Image 1: top-right -->
+                    <div class="zoom-img zoom-outer absolute top-0 flex h-full w-full items-center justify-center" data-scale="5">
+                        <div class="relative h-[30vh] w-[35vw]" style="top: -30vh; left: 5vw;">
+                            <img src="assets/images/j6.png" class="h-full w-full object-cover" alt="">
+                        </div>
+                    </div>
+
+                    <!-- Image 2: mid-left -->
+                    <div class="zoom-img zoom-outer absolute top-0 flex h-full w-full items-center justify-center" data-scale="6">
+                        <div class="relative h-[45vh] w-[20vw]" style="top: -10vh; left: -25vw;">
+                            <img src="assets/images/j5.png" class="h-full w-full object-cover" alt="">
+                        </div>
+                    </div>
+
+                    <!-- Image 3: right -->
+                    <div class="zoom-img zoom-outer absolute top-0 flex h-full w-full items-center justify-center" data-scale="5">
+                        <div class="relative h-[25vh] w-[25vw]" style="left: 27.5vw;">
+                            <img src="assets/images/j3.png" class="h-full w-full object-cover" alt="">
+                        </div>
+                    </div>
+
+                    <!-- Image 4: bottom-right -->
+                    <div class="zoom-img zoom-outer absolute top-0 flex h-full w-full items-center justify-center" data-scale="6">
+                        <div class="relative h-[25vh] w-[20vw]" style="top: 27.5vh; left: 5vw;">
+                            <img src="assets/images/j1.png" class="h-full w-full object-cover" alt="">
+                        </div>
+                    </div>
+
+                    <!-- Image 5: bottom-left -->
+                    <div class="zoom-img zoom-outer absolute top-0 flex h-full w-full items-center justify-center" data-scale="8">
+                        <div class="relative h-[25vh] w-[30vw]" style="top: 27.5vh; left: -22.5vw;">
+                            <img src="assets/images/j7.png" class="h-full w-full object-cover" alt="">
+                        </div>
+                    </div>
+
+                    <!-- Image 6: far right-bottom -->
+                    <div class="zoom-img zoom-outer absolute top-0 flex h-full w-full items-center justify-center" data-scale="9">
+                        <div class="relative h-[15vh] w-[15vw]" style="top: 22.5vh; left: 25vw;">
+                            <img src="assets/images/j9.png" class="h-full w-full object-cover" alt="">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ABOUT OVERLAY (fades in over the zoomed background image) -->
+                <div id="about-overlay" class="absolute inset-0 opacity-0 pointer-events-none">
+                    <!-- Dark scrim for readability -->
+                    <div id="about-scrim" class="absolute inset-0 bg-black/40"></div>
+                    <!-- Content -->
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="container grid grid-cols-1 md:grid-cols-12 gap-20 items-center">
+                            <div id="about-text" class="md:col-span-6">
+                                <span class="text-[10px] uppercase tracking-[0.5em] text-white/40 mb-8 block font-outfit">Sobre Mim</span>
+                                <h2 class="text-4xl md:text-5xl lg:text-6xl mb-8 md:mb-12 leading-[0.9] tracking-tighter text-white">Rigor técnico aplicado à <span class="text-editorial italic">visão artística.</span></h2>
+                                <div class="space-y-6 text-white/70 text-base md:text-xl font-light leading-relaxed" style="text-align: justify;">
+                                    <p>O meu trabalho baseia-se na convicção de que o bom design é invisível, mas a sua influência é absoluta. Com mais de 5 anos de experiência, colaboro com marcas globais para transformar desafios complexos em realidades elegantes.</p>
+                                    <p>Especialista em construir produtos que não apenas funcionam, mas definem novos padrões de mercado.</p>
+                                </div>
+                            </div>
+                            <div id="about-photo" class="md:col-span-5 md:col-start-8">
+                                <div class="relative">
+                                    <!-- Decorative frame border -->
+                                    <div class="absolute -inset-3 border border-white/20"></div>
+                                    <!-- Offset accent corner lines -->
+                                    <div class="absolute -top-6 -left-6 w-12 h-12 border-t border-l border-white/30"></div>
+                                    <div class="absolute -bottom-6 -right-6 w-12 h-12 border-b border-r border-white/30"></div>
+                                    <!-- Photo -->
+                                    <div class="aspect-[3/4] overflow-hidden">
+                                        <img src="assets/images/professional_editorial_bg.png" class="w-full h-full object-cover" alt="Guilherme Marques">
+                                    </div>
+                                    <!-- Caption bar -->
+                                    <div class="mt-4 flex justify-between items-center">
+                                        <span class="text-[9px] uppercase tracking-[0.4em] text-white/30 font-outfit">G. Marques — Retrato</span>
+                                        <span class="text-[9px] uppercase tracking-[0.4em] text-white/30 font-outfit">PRT / 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- WORK // HERO PARALLAX GRID -->
+        <section id="work"
+            class="relative h-[280vh] antialiased bg-white overflow-hidden [perspective:1000px] [transform-style:preserve-3d]"
+            style="padding: 0;"
+            data-work-section>
+
+            <!-- SECTION HEADER -->
+            <div class="max-w-7xl relative mx-auto py-14 md:py-40 px-4 w-full left-0 top-0 z-20 pointer-events-none">
+                <h2 class="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] text-black pointer-events-auto">
+                    Portfólio de <br /> <span class="text-editorial italic">Trabalhos</span>
+                </h2>
+                <p class="max-w-2xl text-base md:text-xl mt-6 md:mt-8 text-black/70 font-light leading-relaxed pointer-events-auto">
+                    Uma curadoria de soluções digitais de alta performance, onde a engenharia de ponta
+                    se cruza com o design editorial e a inteligência artificial.
+                </p>
+            </div>
+
+            <!-- PARALLAX GRID CONTAINER -->
+            <div id="parallax-grid">
+
+                <!-- ROW 1 (moves right on scroll) -->
+                <div class="parallax-row flex flex-row-reverse gap-20 mb-20" data-direction="1">
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="alojamento-gi">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/p_gi.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0" alt="Alojamento GI">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Alojamento GI</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">E-commerce & Reservas</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="eletro-2000-v2">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/p_eletro.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0"
+                                alt="Eletro 2000 v2">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Eletro 2000 v2</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Gestão Retalho com IA</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="cristal-capital">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/p_cristal.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0"
+                                alt="Cristal Capital">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Cristal Capital</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Plataforma Financeira</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="volunta">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/volunta.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0" alt="Volunta">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Volunta</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Participação Cívica</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="cristal-terminal">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/p_terminal.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0"
+                                alt="Cristal Terminal">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Cristal Terminal</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Terminal Financeiro</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 2 (moves left on scroll) -->
+                <div class="parallax-row flex gap-20 mb-20" data-direction="-1">
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="estudas-comigo">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/j1.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0"
+                                alt="Estudas Comigo">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Estudas Comigo</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Centro Académico</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="gt-movel">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/j4.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0" alt="GT Móvel">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">GT Móvel</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Retalho & SEO</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="hugo-brito">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/hugobrito.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0" alt="Hugo Brito">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Hugo Brito</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Moda de Luxo</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="tec-n-cool">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/j2.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0" alt="Tec N' Cool">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Tec N' Cool</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Plataforma ISCAP / CEI</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="expolive">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/j8.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0" alt="ExpoLive">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">ExpoLive</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Gestão de Eventos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 3 (moves right on scroll) -->
+                <div class="parallax-row flex flex-row-reverse gap-20" data-direction="1">
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="portable-world">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/j5.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0"
+                                alt="Portable World">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Portable World</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Identidade Corporativa</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="wise-wallet">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/p_gi.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0" alt="Wise Wallet">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Wise Wallet</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Painel Financeiro</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="colegio-gaia">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/j9.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0"
+                                alt="Colégio de Gaia">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Colégio de Gaia</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Ensino Técnico</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="eletro-2000">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/p_eletro.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0" alt="Eletro 2000">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">Eletro 2000</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Plataforma Retalho com IA</p>
+                        </div>
+                    </div>
+                    <div
+                        class="project-card group h-96 w-[30rem] relative flex-shrink-0 hover:-translate-y-5 transition-transform duration-500"
+                        data-project="sasup-it">
+                        <div class="block group-hover:shadow-2xl h-full w-full overflow-hidden relative">
+                            <img src="assets/images/j7.png"
+                                class="object-cover object-left-top absolute h-full w-full inset-0" alt="SASUP">
+                        </div>
+                        <div
+                            class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-80 bg-black pointer-events-none transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-8 text-white z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                            <h3 class="text-2xl font-bold">SASUP IT</h3>
+                            <p class="text-xs uppercase tracking-widest opacity-60 mt-1">Suporte Técnico U.Porto</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECH STACK -->
+        <section id="stack" class="section-fade bg-white pt-16 md:pt-28 pb-16 md:pb-24 relative overflow-hidden">
+            <!-- Particles -->
+            <canvas id="particles-canvas" class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+            <div class="container relative z-[1]">
+                <div class="flex justify-between items-end mb-16 md:mb-32">
+                    <h2 class="text-5xl sm:text-6xl md:text-8xl tracking-tighter">Tecnologias <br><span class="text-editorial italic">& Stack</span></h2>
+                    <span class="text-xs uppercase tracking-[0.6em] opacity-30 mb-6 hidden sm:block">Ferramentas que Domino</span>
+                </div>
+
+                <div class="stack-grid">
+                    <!-- Row 1: 2 cols -->
+                    <div class="stack-row grid grid-cols-2 divide-x divide-[rgba(0,0,0,0.08)]">
+                        <div class="stack-cell" data-name="HTML5">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" draggable="false">
+                            <span>HTML5</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="" draggable="false"><span>HTML5</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="CSS3">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" draggable="false">
+                            <span>CSS3</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="" draggable="false"><span>CSS3</span></div>
+                        </div>
+                    </div>
+                    <!-- Row 2: 4 cols -->
+                    <div class="stack-row grid grid-cols-4 divide-x divide-[rgba(0,0,0,0.08)]">
+                        <div class="stack-cell" data-name="JavaScript">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" draggable="false">
+                            <span>JavaScript</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="" draggable="false"><span>JavaScript</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="TypeScript">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript" draggable="false">
+                            <span>TypeScript</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="" draggable="false"><span>TypeScript</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="Python">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" draggable="false">
+                            <span>Python</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="" draggable="false"><span>Python</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="PHP">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP" draggable="false">
+                            <span>PHP</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="" draggable="false"><span>PHP</span></div>
+                        </div>
+                    </div>
+                    <!-- Row 3: 3 cols -->
+                    <div class="stack-row grid grid-cols-3 divide-x divide-[rgba(0,0,0,0.08)]">
+                        <div class="stack-cell" data-name="React">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" draggable="false">
+                            <span>React</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="" draggable="false"><span>React</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="Next.js">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js" draggable="false">
+                            <span>Next.js</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="" draggable="false"><span>Next.js</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="Node.js">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js" draggable="false">
+                            <span>Node.js</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="" draggable="false"><span>Node.js</span></div>
+                        </div>
+                    </div>
+                    <!-- Row 4: 4 cols -->
+                    <div class="stack-row grid grid-cols-4 divide-x divide-[rgba(0,0,0,0.08)]">
+                        <div class="stack-cell" data-name="Tailwind CSS">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" draggable="false">
+                            <span>Tailwind</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="" draggable="false"><span>Tailwind</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="MySQL">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL" draggable="false">
+                            <span>MySQL</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="" draggable="false"><span>MySQL</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="Git">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" draggable="false">
+                            <span>Git</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="" draggable="false"><span>Git</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="Docker">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" draggable="false">
+                            <span>Docker</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="" draggable="false"><span>Docker</span></div>
+                        </div>
+                    </div>
+                    <!-- Row 5: 2 cols -->
+                    <div class="stack-row grid grid-cols-2 divide-x divide-[rgba(0,0,0,0.08)]">
+                        <div class="stack-cell" data-name="Figma">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma" draggable="false">
+                            <span>Figma</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="" draggable="false"><span>Figma</span></div>
+                        </div>
+                        <div class="stack-cell" data-name="Linux">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux" draggable="false">
+                            <span>Linux</span>
+                            <div class="stack-overlay"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="" draggable="false"><span>Linux</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JOURNEY -->
+        <section id="journey" class="section-fade bg-white pb-24 md:pb-40">
+            <div class="container">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-16 md:mb-32 gap-4">
+                    <h2 class="text-5xl sm:text-6xl md:text-8xl tracking-tighter">Percurso <br><span class="text-editorial italic">&
+                            Experiência</span></h2>
+                    <span class="text-xs uppercase tracking-[0.6em] opacity-30 sm:mb-6 hidden sm:block">Engenharia & Design</span>
+                </div>
+
+                <div class="relative max-w-7xl mx-auto timeline-wrapper">
+                    <!-- Vertical Line Path -->
+                    <div
+                        class="absolute left-8 md:left-[50%] top-0 bottom-0 w-[1px] bg-neutral-200 -translate-x-1/2 hidden md:block">
+                        <div id="timeline-progress"
+                            class="absolute top-0 left-0 w-full bg-black origin-top scale-y-0 h-full"></div>
+                    </div>
+
+                    <!-- 1. Google Data Analytics -->
+                    <div class="relative flex flex-col md:flex-row gap-12 mb-40 journey-item">
+                        <div class="md:w-1/2 md:text-right md:pr-16 flex flex-col justify-center md:items-end">
+                            <div class="flex items-center gap-4 md:justify-end mb-4">
+                                <span class="text-sm font-bold opacity-40">Dez 2025</span>
+                                <div class="w-3 h-3 rounded-full bg-black md:hidden"></div>
+                            </div>
+                            <h3 class="text-2xl sm:text-4xl md:text-5xl leading-tight">Data Analytics Professional</h3>
+                            <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-4">Google Specialization Certificate</p>
+                        </div>
+                        <div
+                            class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-black z-10 items-center justify-center timeline-dot">
+                            <div class="w-1.5 h-1.5 rounded-full bg-black dot-inner"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16">
+                            <div class="project-img-wrapper shadow-xl mb-8">
+                                <img src="assets/img/googleLogo.png" alt="Google Data">
+                            </div>
+                            <p class="text-lg text-[#555] font-light leading-relaxed">Certificação focada no ciclo completo de dados, da extração e limpeza com SQL e Python à criação de insights. Formação com competências em validação e alfabetização de dados, assegurando análises precisas e apresentações executivas que convertem dados brutos em valor real de negócio.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 2. CEI - ISCAP -->
+                    <div class="relative flex flex-col md:flex-row-reverse gap-12 mb-40 journey-item">
+                        <div class="md:w-1/2 md:text-left md:pl-16 flex flex-col justify-center md:items-start">
+                            <div class="flex items-center gap-4 md:justify-start mb-4">
+                                <div class="w-3 h-3 rounded-full bg-black md:hidden"></div>
+                                <span class="text-sm font-bold opacity-40">Out — Dez 2025</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-4xl md:text-5xl leading-tight">Gestão de Dados & Web Development</h3>
+                            <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-4">Centro CEI — ISCAP</p>
+                        </div>
+                        <div
+                            class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-black z-10 items-center justify-center timeline-dot">
+                            <div class="w-1.5 h-1.5 rounded-full bg-black dot-inner"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pr-16 md:text-right">
+                            <div class="project-img-wrapper shadow-xl mb-8">
+                                <img src="assets/img/ceiLogo.jpg" alt="Web Dev CEI">
+                            </div>
+                            <p class="text-lg text-[#555] font-light leading-relaxed">Responsável pela reestruturação técnica do projeto Tec N Cool, recuperação e padronização de dados legados para integração num novo ecossistema digital e desenvolvimento do novo website do projeto com foco em usabilidade (QoL) e arquitetura de dados para uma futura escala.</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. IA Microcredencial -->
+                    <div class="relative flex flex-col md:flex-row gap-12 mb-40 journey-item">
+                        <div class="md:w-1/2 md:text-right md:pr-16 flex flex-col justify-center md:items-end">
+                            <div class="flex items-center gap-4 md:justify-end mb-4">
+                                <span class="text-sm font-bold opacity-40">Set — Nov 2025</span>
+                                <div class="w-3 h-3 rounded-full bg-black md:hidden"></div>
+                            </div>
+                            <h3 class="text-2xl sm:text-4xl md:text-5xl leading-tight">Inteligência Artificial nas Organizações</h3>
+                            <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-4">Digit'ALL APNOR</p>
+                        </div>
+                        <div
+                            class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-black z-10 items-center justify-center timeline-dot">
+                            <div class="w-1.5 h-1.5 rounded-full bg-black dot-inner"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16">
+                            <div class="project-img-wrapper shadow-xl mb-8">
+                                <img src="assets/img/apnorLogo.png" alt="AI Micro">
+                            </div>
+                            <p class="text-lg text-[#555] font-light leading-relaxed">Microcredencial focada na aplicação estratégica e ética de modelos de Inteligência Artificial em contextos corporativos. Abrange desde os fundamentos teóricos até a prática com ferramentas de IA para otimização de processos e inovação tecnológica.</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. ISCAP Degree -->
+                    <div class="relative flex flex-col md:flex-row-reverse gap-12 mb-40 journey-item">
+                        <div class="md:w-1/2 md:text-left md:pl-16 flex flex-col justify-center md:items-start">
+                            <div class="flex items-center gap-4 md:justify-start mb-4">
+                                <div class="w-3 h-3 rounded-full bg-black md:hidden"></div>
+                                <span class="text-sm font-bold opacity-40">2025 — Presente</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-4xl md:text-5xl leading-tight">Criatividade & Inovação</h3>
+                            <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-4">ISCAP — Politécnico do
+                                Porto</p>
+                        </div>
+                        <div
+                            class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-black z-10 items-center justify-center timeline-dot">
+                            <div class="w-1.5 h-1.5 rounded-full bg-black dot-inner"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pr-16 md:text-right">
+                            <div class="project-img-wrapper shadow-xl mb-8">
+                                <img src="assets/img/iscapLogo.JPG" alt="Innovation ISCAP">
+                            </div>
+                            <p class="text-lg text-[#555] font-light leading-relaxed">Licenciatura em Criatividade e
+                                Inovação Empresarial, explorando novos modelos de negócio e gestão criativa de
+                                ecossistemas digitais.</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. Gaia Youth Ambassador -->
+                    <div class="relative flex flex-col md:flex-row gap-12 mb-40 journey-item">
+                        <div class="md:w-1/2 md:text-right md:pr-16 flex flex-col justify-center md:items-end">
+                            <div class="flex items-center gap-4 md:justify-end mb-4">
+                                <span class="text-sm font-bold opacity-40">Jan — Dez 2025</span>
+                                <div class="w-3 h-3 rounded-full bg-black md:hidden"></div>
+                            </div>
+                            <h3 class="text-2xl sm:text-4xl md:text-5xl leading-tight">Embaixador Gaia Capital</h3>
+                            <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-4">Vila Nova de Gaia — IPDJ
+                            </p>
+                        </div>
+                        <div
+                            class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-black z-10 items-center justify-center timeline-dot">
+                            <div class="w-1.5 h-1.5 rounded-full bg-black dot-inner"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16">
+                            <div class="project-img-wrapper shadow-xl mb-8">
+                                <img src="assets/img/juventudegaiLogo.jpg" alt="Gaia Youth">
+                            </div>
+                            <p class="text-lg text-[#555] font-light leading-relaxed">Reconhecido como um dos 38
+                                embaixadores para a designação de Vila Nova de Gaia como Gaia Capital Nacional da
+                                Juventude 2025. Representei a juventude de Gaia em várias iniciativas de voluntariado e
+                                comunitárias, incluindo o Banco Alimentar Contra a Fome, projetos de reciclagem e
+                                caridade, Gaia Jovem+, entre outros.</p>
+                        </div>
+                    </div>
+
+                    <!-- 6. EuroScola -->
+                    <div class="relative flex flex-col md:flex-row-reverse gap-12 mb-40 journey-item">
+                        <div class="md:w-1/2 md:text-left md:pl-16 flex flex-col justify-center md:items-start">
+                            <div class="flex items-center gap-4 md:justify-start mb-4">
+                                <div class="w-3 h-3 rounded-full bg-black md:hidden"></div>
+                                <span class="text-sm font-bold opacity-40">Fev 2025</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-4xl md:text-5xl leading-tight">Embaixador EuroScola</h3>
+                            <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-4">Parlamento Europeu —
+                                Estrasburgo</p>
+                        </div>
+                        <div
+                            class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-black z-10 items-center justify-center timeline-dot">
+                            <div class="w-1.5 h-1.5 rounded-full bg-black dot-inner"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pr-16 md:text-right">
+                            <div class="project-img-wrapper shadow-xl mb-8">
+                                <img src="assets/img/euroscolaLogo.jpg" alt="EuroScola">
+                            </div>
+                            <p class="text-lg text-[#555] font-light leading-relaxed">Selecionado como um dos 20
+                                Embaixadores Juniores para representar o Colégio de Gaia e Portugal na sessão Euroscola
+                                no Parlamento Europeu. Participei em sessões plenárias, simulações de debates temáticos
+                                e outras atividades parlamentares, incluindo interações com Deputados e discussões sobre
+                                políticas europeias.</p>
+                        </div>
+                    </div>
+
+                    <!-- 7. SASUP -->
+                    <div class="relative flex flex-col md:flex-row gap-12 mb-40 journey-item">
+                        <div class="md:w-1/2 md:text-right md:pr-16 flex flex-col justify-center md:items-end">
+                            <div class="flex items-center gap-4 md:justify-end mb-4">
+                                <span class="text-sm font-bold opacity-40">Jul — Mar 2025</span>
+                                <div class="w-3 h-3 rounded-full bg-black md:hidden"></div>
+                            </div>
+                            <h3 class="text-2xl sm:text-4xl md:text-5xl leading-tight">Suporte TI & Dev</h3>
+                            <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-4">Serviços Académicos —
+                                U.Porto</p>
+                        </div>
+                        <div
+                            class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-black z-10 items-center justify-center timeline-dot">
+                            <div class="w-1.5 h-1.5 rounded-full bg-black dot-inner"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16">
+                            <div class="project-img-wrapper shadow-xl mb-8">
+                                <img src="assets/img/sasupLogo.png" alt="SASUP IT">
+                            </div>
+                            <p class="text-lg text-[#555] font-light leading-relaxed">Durante o meu estágio nos SASUP,
+                                desenvolvi aplicações em C# para gestão de equipamentos de rede e prestei suporte
+                                técnico avançado. Participei na configuração de VLANs, dispositivos VOIP, switches e na
+                                administração de serviços Active Directory e KMS sob orientação direta da equipa de
+                                engenharia.</p>
+                        </div>
+                    </div>
+
+                    <!-- 8. ExpoLive -->
+                    <div class="relative flex flex-col md:flex-row-reverse gap-12 mb-40 journey-item">
+                        <div class="md:w-1/2 md:text-left md:pl-16 flex flex-col justify-center md:items-start">
+                            <div class="flex items-center gap-4 md:justify-start mb-4">
+                                <div class="w-3 h-3 rounded-full bg-black md:hidden"></div>
+                                <span class="text-sm font-bold opacity-40">2023 — 2025</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-4xl md:text-5xl leading-tight">Produtor Executivo</h3>
+                            <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-4">ExpoLive Multimédia</p>
+                        </div>
+                        <div
+                            class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-black z-10 items-center justify-center timeline-dot">
+                            <div class="w-1.5 h-1.5 rounded-full bg-black dot-inner"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pr-16 md:text-right">
+                            <div class="project-img-wrapper shadow-xl mb-8">
+                                <img src="assets/img/expoliveLogo.jpg" alt="ExpoLive">
+                            </div>
+                            <p class="text-lg text-[#555] font-light leading-relaxed">Co-fundador responsável pelo
+                                design, planeamento e execução técnica da ExpoLive. Coordenou a montagem do estúdio,
+                                operações de backstage e a estratégia de comunicação digital, garantindo a integração de
+                                conteúdos e a escalabilidade do projeto entre edições.</p>
+                        </div>
+                    </div>
+
+                    <!-- 9. Colégio de Gaia -->
+                    <div class="relative flex flex-col md:flex-row gap-12 journey-item">
+                        <div class="md:w-1/2 md:text-right md:pr-16 flex flex-col justify-center md:items-end">
+                            <div class="flex items-center gap-4 md:justify-end mb-4">
+                                <span class="text-sm font-bold opacity-40">2022 — 2025</span>
+                                <div class="w-3 h-3 rounded-full bg-black md:hidden"></div>
+                            </div>
+                            <h3 class="text-2xl sm:text-4xl md:text-5xl leading-tight">Técnico Informática</h3>
+                            <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mt-4">Colégio de Gaia — Média de
+                                17</p>
+                        </div>
+                        <div
+                            class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-black z-10 items-center justify-center timeline-dot">
+                            <div class="w-1.5 h-1.5 rounded-full bg-black dot-inner"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16">
+                            <div class="project-img-wrapper shadow-xl mb-8">
+                                <img src="assets/img/colgaiaLogo.png" alt="Colégio de Gaia Info">
+                            </div>
+                            <p class="text-lg text-[#555] font-light leading-relaxed">Formação técnica em Informática e
+                                Tecnologias Multimédia, com foco em desenvolvimento de aplicações, websites, gestão de
+                                bases de dados e manutenção de sistemas informáticos. Experiência prática na criação de
+                                soluções digitais e produção de conteúdos interativos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS / RECOMENDAÇÕES -->
+        <section id="testimonials" class="section-fade relative overflow-hidden pt-20 md:pt-40 pb-16 md:pb-24 bg-white">
+            <!-- Aurora Background -->
+            <div class="aurora-bg">
+                <div class="aurora-bg-inner"></div>
+            </div>
+            <!-- Top gradient transition (from white journey section) -->
+            <div class="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none"></div>
+            <!-- Bottom gradient transition (to white contact section) -->
+            <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none"></div>
+            <div class="container relative z-10">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-16 md:mb-32 gap-4">
+                    <h2 class="text-4xl sm:text-6xl md:text-8xl tracking-tighter text-slate-900">Recomendações <br><span class="text-editorial italic">& Testemunhos</span></h2>
+                    <span class="text-xs uppercase tracking-[0.6em] opacity-30 sm:mb-6 text-slate-900 hidden sm:block">O Que Dizem</span>
+                </div>
+
+                <!-- Carousel -->
+                <div class="testimonial-carousel max-w-3xl mx-auto">
+                    <div class="testimonial-track" style="display:flex; transition: transform 0.6s cubic-bezier(0.19,1,0.22,1);">
+
+                        <!-- Slide 1 -->
+                        <div class="testimonial-slide" style="min-width:100%; flex-shrink:0;">
+                            <div class="flex flex-col items-center text-center px-8">
+                                <!-- Espaço para logo da instituição -->
+                                <div class="mb-8 h-12 w-48 flex items-center justify-center">
+                                    <img src="assets/img/sasupLogo.png" alt="Logo SASUP" class="max-h-full max-w-full object-contain opacity-40">
+                                </div>
+                                <p class="text-2xl sm:text-3xl text-[#111] leading-relaxed font-light max-w-xl" style="font-family:'Apple Garamond',serif; font-style:italic;">
+                                    "Texto da recomendação aqui. Substitua este texto pela carta de recomendação da primeira instituição."
+                                </p>
+                                <div class="mt-10">
+                                    <h4 class="text-base font-semibold text-[#111]">Nome da Pessoa</h4>
+                                    <p class="text-sm text-[#555] mt-1">Cargo, Instituição</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="testimonial-slide" style="min-width:100%; flex-shrink:0;">
+                            <div class="flex flex-col items-center text-center px-8">
+                                <div class="mb-8 h-12 w-48 flex items-center justify-center">
+                                    <img src="assets/img/iscapLogo.JPG" alt="Logo ISCAP" class="max-h-full max-w-full object-contain opacity-40">
+                                </div>
+                                <p class="text-2xl sm:text-3xl text-[#111] leading-relaxed font-light max-w-xl" style="font-family:'Apple Garamond',serif; font-style:italic;">
+                                    "Texto da recomendação aqui. Substitua este texto pela carta de recomendação da segunda instituição."
+                                </p>
+                                <div class="mt-10">
+                                    <h4 class="text-base font-semibold text-[#111]">Nome da Pessoa</h4>
+                                    <p class="text-sm text-[#555] mt-1">Cargo, Instituição</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="testimonial-slide" style="min-width:100%; flex-shrink:0;">
+                            <div class="flex flex-col items-center text-center px-8">
+                                <div class="mb-8 h-12 w-48 flex items-center justify-center">
+                                    <img src="assets/img/colgaiaLogo.png" alt="Logo Colégio de Gaia" class="max-h-full max-w-full object-contain opacity-40">
+                                </div>
+                                <p class="text-2xl sm:text-3xl text-[#111] leading-relaxed font-light max-w-xl" style="font-family:'Apple Garamond',serif; font-style:italic;">
+                                    "Texto da recomendação aqui. Substitua este texto pela carta de recomendação da terceira instituição."
+                                </p>
+                                <div class="mt-10">
+                                    <h4 class="text-base font-semibold text-[#111]">Nome da Pessoa</h4>
+                                    <p class="text-sm text-[#555] mt-1">Cargo, Instituição</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Dot Navigation -->
+                    <div class="flex items-center justify-center gap-3 mt-14">
+                        <button class="testimonial-dot active" data-index="0" aria-label="Recomendação 1"></button>
+                        <button class="testimonial-dot" data-index="1" aria-label="Recomendação 2"></button>
+                        <button class="testimonial-dot" data-index="2" aria-label="Recomendação 3"></button>
+                    </div>
+
+                    <!-- Arrow Navigation -->
+                    <div class="flex items-center justify-center gap-6 mt-8 mb-4">
+                        <button class="testimonial-arrow testimonial-prev magnetic" aria-label="Anterior">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+                        </button>
+                        <span class="testimonial-counter text-xs uppercase tracking-[0.3em] opacity-30 font-medium tabular-nums">01 / 03</span>
+                        <button class="testimonial-arrow testimonial-next magnetic" aria-label="Próximo">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact"
+            class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white section-fade">
+            <!-- TRANSITION GRADIENT FROM JOURNEY (WHITE) -->
+            <div
+                class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-white to-transparent z-20 pointer-events-none">
+            </div>
+            <!-- THE INFINITE GRID LAYERS -->
+            <div class="absolute inset-0 z-0 opacity-[0.05] pointer-events-none bg-white">
+                <svg class="w-full h-full">
+                    <defs>
+                        <pattern id="grid-base" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"
+                                class="text-black" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid-base)" />
+                </svg>
+            </div>
+
+
+
+            <!-- CONTENT -->
+            <div class="container relative z-10 py-20 pointer-events-none">
+                <div class="max-w-4xl mx-auto text-center mb-24">
+                    <span class="text-[10px] uppercase tracking-[0.6em] mb-8 block opacity-40">Protocolo_Contacto /
+                        2026</span>
+                    <h2 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl mb-8 md:mb-12 hero-title">Vamos elevar a sua <br><span
+                            class="text-editorial italic">presença.</span></h2>
+                    <p class="text-base md:text-xl text-black/50 font-light max-w-2xl mx-auto leading-relaxed">
+                        Atualmente disponível para novos projetos e colaborações de alto impacto.
+                        Sinta-se à vontade para entrar em contacto através das redes oficiais.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-20 pointer-events-auto">
+                    <!-- EMAIL -->
+                    <a href="mailto:guilherme.jcmarques@gmail.com"
+                        class="group magnetic p-8 border border-black/5 bg-white/50 backdrop-blur-sm hover:bg-black hover:text-white transition-all duration-500 flex flex-col items-center text-center">
+                        <i data-lucide="mail"
+                            class="w-8 h-8 mb-6 stroke-[1px] group-hover:scale-110 transition-transform"></i>
+                        <span
+                            class="text-[10px] uppercase tracking-[0.3em] opacity-40 group-hover:opacity-60 mb-2">Correio
+                            Direto</span>
+                        <span class="text-sm font-bold tracking-widest">guilherme.jcmarques@gmail.com</span>
+                    </a>
+
+                    <!-- LINKEDIN -->
+                    <a href="https://linkedin.com/in/gjcmarques" target="_blank"
+                        class="group magnetic p-8 border border-black/5 bg-white/50 backdrop-blur-sm hover:bg-black hover:text-white transition-all duration-500 flex flex-col items-center text-center">
+                        <i data-lucide="linkedin"
+                            class="w-8 h-8 mb-6 stroke-[1px] group-hover:scale-110 transition-transform"></i>
+                        <span
+                            class="text-[10px] uppercase tracking-[0.3em] opacity-40 group-hover:opacity-60 mb-2">LinkedIn</span>
+                        <span class="text-sm font-bold tracking-widest">Guilherme Marques</span>
+                    </a>
+
+                    <!-- GITHUB -->
+                    <a href="https://github.com/GJCMarques" target="_blank"
+                        class="group magnetic p-8 border border-black/5 bg-white/50 backdrop-blur-sm hover:bg-black hover:text-white transition-all duration-500 flex flex-col items-center text-center">
+                        <i data-lucide="github"
+                            class="w-8 h-8 mb-6 stroke-[1px] group-hover:scale-110 transition-transform"></i>
+                        <span
+                            class="text-[10px] uppercase tracking-[0.3em] opacity-40 group-hover:opacity-60 mb-2">Código
+                            Fonte</span>
+                        <span class="text-sm font-bold tracking-widest">GJCMarques</span>
+                    </a>
+                </div>
+
+                <div class="flex justify-center pointer-events-auto">
+                    <a href="https://europa.eu/europass/eportfolio/api/eprofile/shared-profile/guilherme-marques/b8d8e795-eec9-46b6-a4ce-8f95a6099157?view=html"
+                        target="_blank"
+                        class="magnetic group flex items-center gap-4 px-12 py-5 bg-black text-white rounded-full hover:bg-white hover:text-black hover:border-black transition-all duration-700 shadow-2xl hover:shadow-none border border-transparent">
+                        <i data-lucide="file-text" class="w-5 h-5 stroke-[1.5px]"></i>
+                        <span class="text-[11px] uppercase tracking-[0.5em] font-bold">Curriculum Vitae</span>
+                        <i data-lucide="arrow-up-right"
+                            class="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- TRANSITION GRADIENT TO FOOTER (USING PRIMARY BG COLOR #FAFAFA) -->
+            <div
+                class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#FAFAFA] to-transparent z-20 pointer-events-none">
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PREMIUM ANIMATED FOOTER -->
+    <footer class="relative h-[800px] w-full overflow-hidden bg-[#FAFAFA]">
+        <!-- The Animated Gradient Container -->
+        <div id="footer-gradient" class="absolute inset-0 opacity-30 pointer-events-none"></div>
+
+        <!-- Decoration & Content -->
+        <div class="relative z-10 h-full flex flex-col items-center justify-between pb-12 px-6 md:px-10">
+
+            <div class="flex-1 flex flex-col items-center justify-center gap-6">
+                <!-- Center: Local JJ GIF -->
+                <div
+                    class="w-32 h-32 md:w-64 md:h-64 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700 hover:scale-110">
+                    <img src="assets/img/jj.gif" class="w-full h-full object-contain" alt="Jj Sticker">
+                </div>
+                <h3 class="text-editorial italic text-4xl md:text-6xl opacity-10 select-none tracking-[0.2em]">Fim</h3>
+            </div>
+
+            <!-- Bottom Metadata -->
+            <div
+                class="w-full flex flex-col md:flex-row justify-between items-center md:items-end font-outfit text-[10px] uppercase tracking-[0.4em] font-bold opacity-30 pb-6 gap-3 md:gap-0">
+                <div class="text-center md:text-left leading-relaxed">
+                    Versão: 1.0.84<br>
+                    Estado: Completo
+                </div>
+                <div class="text-center hidden md:block opacity-60">
+                    Portfolio G. Marques © 2026
+                </div>
+                <div class="text-center md:text-right leading-relaxed">
+                    Relógio: <span id="footer-clock">00:00</span><br>
+                    Local: PRT_EU
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PROJECT MODAL -->
+    <div id="project-modal" class="fixed inset-0 z-[50000] pointer-events-none opacity-0" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <!-- Backdrop -->
+        <div class="project-modal-backdrop absolute inset-0 bg-black/60"></div>
+        <!-- Modal Container -->
+        <div class="project-modal-container absolute inset-0 flex items-end md:items-center justify-center p-0 md:p-6 lg:p-12">
+            <div class="project-modal-content bg-white relative w-full max-w-[1100px] max-h-[95vh] md:max-h-[90vh] overflow-y-auto overflow-x-hidden rounded-t-2xl md:rounded-none">
+                <!-- Close button -->
+                <button class="project-modal-close absolute top-6 right-6 z-20 w-10 h-10 flex items-center justify-center bg-white/90 backdrop-blur border border-black/10 hover:bg-black hover:text-white transition-all duration-300" aria-label="Fechar modal">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                </button>
+
+                <!-- Hero Image -->
+                <div class="project-modal-hero w-full h-[50vh] overflow-hidden bg-[#f0f0f0]">
+                    <img id="modal-hero-img" src="" alt="" class="w-full h-full object-cover object-top">
+                </div>
+
+                <!-- Info Section -->
+                <div class="p-8 md:p-12">
+                    <!-- Header -->
+                    <div class="flex items-start justify-between mb-8">
+                        <div>
+                            <span id="modal-category" class="text-[10px] uppercase tracking-[0.5em] opacity-40 block mb-3"></span>
+                            <h2 id="modal-title" class="text-4xl md:text-5xl font-bold tracking-tight"></h2>
+                        </div>
+                        <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden items-center gap-2 px-6 py-3 bg-black text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-white hover:text-black border border-black transition-all duration-300 flex-shrink-0 mt-2">
+                            <span>Visitar</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- Description -->
+                    <p id="modal-description" class="text-lg text-[#555] font-light leading-relaxed max-w-3xl mb-10" style="text-align:justify;"></p>
+
+                    <!-- Tech Tags -->
+                    <div id="modal-tech" class="flex flex-wrap gap-2 mb-12"></div>
+
+                    <!-- Gallery -->
+                    <div id="modal-gallery" class="space-y-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
