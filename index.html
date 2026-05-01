@@ -92,95 +92,74 @@
     <div class="menu-panel"></div>
 
     <div class="menu-container">
-      <!-- ZONE 1: UTILITY -->
-      <aside class="menu-utility">
-        <div class="lang-selector">
-          <button class="lang-btn active" id="langPT">PT</button>
-          <div class="lang-divider"></div>
-          <button class="lang-btn" id="langEN">EN</button>
-        </div>
-        
-        <div class="utility-clock-wrap">
-          <div class="utility-label">Hora Local</div>
-          <div id="menuClock">00:00:00</div>
-          <div class="utility-city">Porto, PT</div>
-        </div>
-      </aside>
 
-      <!-- ZONE 2: NAVIGATION & SOCIALS -->
+      <!-- NAVEGAÇÃO: Centro do ecrã -->
       <nav class="menu-nav">
         <div class="nav-links-wrapper">
           <div class="nav-item">
             <span class="nav-num">01</span>
-            <a href="index.html" class="nav-link" data-img="assets/img/menu_preview_home.png">
-              <span data-hover="HOME">HOME</span>
+            <a href="index.html" class="nav-link">
+              <span data-hover="Home">Home</span>
             </a>
           </div>
           <div class="nav-item">
             <span class="nav-num">02</span>
-            <a href="#about" class="nav-link" data-img="assets/img/menu_preview_home.png">
-              <span data-hover="SOBRE">SOBRE</span>
+            <a href="#about" class="nav-link">
+              <span data-hover="Sobre">Sobre</span>
             </a>
           </div>
           <div class="nav-item">
             <span class="nav-num">03</span>
-            <a href="#portfolio" class="nav-link" data-img="assets/img/menu_preview_portfolio.png">
-              <span data-hover="PORTFOLIO">PORTFOLIO</span>
+            <a href="#portfolio" class="nav-link">
+              <span data-hover="Portfolio">Portfolio</span>
             </a>
           </div>
           <div class="nav-item">
             <span class="nav-num">04</span>
-            <a href="#services" class="nav-link" data-img="assets/img/menu_preview_services.png">
-              <span data-hover="SERVIÇOS">SERVIÇOS</span>
+            <a href="#services" class="nav-link">
+              <span data-hover="Serviços">Serviços</span>
             </a>
           </div>
           <div class="nav-item">
             <span class="nav-num">05</span>
-            <a href="#contact" class="nav-link" data-img="assets/img/menu_preview_portfolio.png">
-              <span data-hover="CONTACTOS">CONTACTOS</span>
+            <a href="#contact" class="nav-link">
+              <span data-hover="Contactos">Contactos</span>
             </a>
           </div>
         </div>
-
-        <div class="menu-nav-footer">
-          <div class="social-title">Redes Sociais</div>
-          <ul class="social-list">
-            <li class="social-item">
-              <a href="https://instagram.com" target="_blank">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                <span>Instagram</span>
-              </a>
-            </li>
-            <li class="social-item">
-              <a href="mailto:hello@gmarques.co">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                <span>Email</span>
-              </a>
-            </li>
-            <li class="social-item">
-              <a href="https://linkedin.com" target="_blank">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                <span>LinkedIn</span>
-              </a>
-            </li>
-            <li class="social-item">
-              <a href="https://github.com" target="_blank">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                <span>GitHub</span>
-              </a>
-            </li>
-          </ul>
-        </div>
       </nav>
 
-      <!-- ZONE 3: THE GALLERY (CLEAN) -->
-      <aside class="menu-aside">
-        <div class="gallery-frame">
-          <div class="menu-image-portal" id="menuImagePortal">
-            <img src="assets/img/menu_preview_portfolio.png" alt="Preview" id="menuPreviewImg">
-          </div>
+      <!-- FOOTER: Relógio (esq) + Sociais (dir) -->
+      <footer class="menu-footer">
+
+        <!-- Esquerda: Clock + Data + Localização -->
+        <div class="footer-left">
+          <span id="menuClock">00:00:00</span>
+          <span id="menuDate">—</span>
+          <span class="footer-location">Porto, Portugal</span>
         </div>
-      </aside>
+
+        <!-- Direita: Redes Sociais -->
+        <div class="footer-socials">
+          <a href="https://instagram.com" target="_blank" class="social-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            <span>Instagram</span>
+          </a>
+          <a href="mailto:hello@gmarques.co" class="social-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Email</span>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="social-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://github.com" target="_blank" class="social-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            <span>GitHub</span>
+          </a>
+        </div>
+
+      </footer>
     </div>
   </div>
 
@@ -240,10 +219,17 @@
     // ── Relógio (Porto) ──────────────────────────────────────
     function updateClock() {
       const clockEl = document.getElementById('menuClock');
-      if (clockEl) {
+      const dateEl = document.getElementById('menuDate');
+      if (clockEl || dateEl) {
         const now = new Date();
-        const opts = { timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-        clockEl.textContent = new Intl.DateTimeFormat('pt-PT', opts).format(now);
+        if (clockEl) {
+          const opts = { timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+          clockEl.textContent = new Intl.DateTimeFormat('pt-PT', opts).format(now);
+        }
+        if (dateEl) {
+          const dOpts = { timeZone: 'Europe/Lisbon', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+          dateEl.textContent = new Intl.DateTimeFormat('pt-PT', dOpts).format(now);
+        }
       }
     }
     setInterval(updateClock, 1000);
