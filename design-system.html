@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System | Heritage Elite V5</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        body { padding: 0; margin: 0; background-color: var(--color-linen); }
+        
+        .ds-header {
+            padding: 100px 80px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .ds-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 100px;
+            padding: 80px;
+        }
+
+        .ds-sidebar {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        .ds-nav-item {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            opacity: 0.4;
+            display: block;
+            text-decoration: none;
+            color: var(--color-espresso);
+        }
+
+        .ds-nav-item.active { opacity: 1; font-weight: 700; }
+
+        .ds-section {
+            margin-bottom: 150px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        /* PANTONE V5 */
+        .pantone-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .pantone-card {
+            background: #fff;
+            padding: 15px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+        }
+
+        .swatch {
+            height: 220px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .pantone-label {
+            font-family: var(--font-body);
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .pantone-hex {
+            font-family: var(--font-body);
+            opacity: 0.5;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        /* BUTTON SPECIMENS */
+        .button-showcase {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            background: rgba(255,255,255,0.3);
+            padding: 100px;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .button-meta {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            opacity: 0.4;
+        }
+
+        /* TYPO SPECIMENS */
+        .typo-row {
+            margin-bottom: 80px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header class="ds-header">
+        <h1 class="main-title" style="margin:0;">Heritage <br><span>Design System V5</span></h1>
+    </header>
+
+    <div class="ds-content">
+        <aside class="ds-sidebar">
+            <a href="#colors" class="ds-nav-item active">01. Colors</a>
+            <a href="#typography" class="ds-nav-item">02. Typography</a>
+            <a href="#buttons" class="ds-nav-item">03. Interactive</a>
+        </aside>
+
+        <main>
+            <!-- COLORS -->
+            <section id="colors" class="ds-section">
+                <h2 class="section-title">Color Palette</h2>
+                <div class="pantone-container">
+                    <div class="pantone-card">
+                        <div class="swatch" style="background-color: var(--color-linen);"></div>
+                        <div class="pantone-label">Linen White</div>
+                        <div class="pantone-hex">#F9F8F6</div>
+                    </div>
+                    <div class="pantone-card">
+                        <div class="swatch" style="background-color: var(--color-bordeaux);"></div>
+                        <div class="pantone-label">Imperial Bordeaux</div>
+                        <div class="pantone-hex">#7D2E3D</div>
+                    </div>
+                    <div class="pantone-card">
+                        <div class="swatch" style="background-color: var(--color-espresso);"></div>
+                        <div class="pantone-label">Dark Espresso</div>
+                        <div class="pantone-hex">#1A1716</div>
+                    </div>
+                    <div class="pantone-card">
+                        <div class="swatch" style="background-color: var(--color-forest);"></div>
+                        <div class="pantone-label">Royal Forest</div>
+                        <div class="pantone-hex">#283728</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TYPOGRAPHY -->
+            <section id="typography" class="ds-section">
+                <h2 class="section-title">Typography</h2>
+                <div class="typo-row">
+                    <div class="button-meta">Heading / The Seasons Light</div>
+                    <h1 style="font-family: var(--font-heading); font-size: 8rem; line-height: 0.9;">The Art of <br> Heritage</h1>
+                </div>
+                <div class="typo-row">
+                    <div class="button-meta">Accent / Beautifully Delicious</div>
+                    <h2 style="font-family: var(--font-accent); font-size: 5rem; color: var(--color-bordeaux);">Deliciously Crafted</h2>
+                </div>
+                <div class="typo-row">
+                    <div class="button-meta">Body / Source Sans Pro Light</div>
+                    <p style="font-family: var(--font-body); font-size: 1.8rem; max-width: 800px;">A sofisticação não é sobre o barulho, mas sobre a clareza. O luxo silencioso vive na precisão de cada pixel e na harmonia das formas.</p>
+                </div>
+            </section>
+
+            <!-- BUTTONS -->
+            <section id="buttons" class="ds-section">
+                <h2 class="section-title">Buttons V5</h2>
+                <div class="button-showcase">
+                    <div>
+                        <div class="button-meta">CTA / The Pill Expansion</div>
+                        <a href="#" class="btn btn-cta">Explorar</a>
+                    </div>
+                    <div>
+                        <div class="button-meta">Ghost / The Architectural Sharp</div>
+                        <a href="#" class="btn btn-ghost">Contactar</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
