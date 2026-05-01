@@ -92,7 +92,22 @@
     <div class="menu-panel"></div>
 
     <div class="menu-container">
-      <!-- LEFT: NAVIGATION & SOCIALS -->
+      <!-- ZONE 1: UTILITY -->
+      <aside class="menu-utility">
+        <div class="lang-selector">
+          <button class="lang-btn active" id="langPT">PT</button>
+          <div class="lang-divider"></div>
+          <button class="lang-btn" id="langEN">EN</button>
+        </div>
+        
+        <div class="utility-clock-wrap">
+          <div class="utility-label">Hora Local</div>
+          <div id="menuClock">00:00:00</div>
+          <div class="utility-city">Porto, PT</div>
+        </div>
+      </aside>
+
+      <!-- ZONE 2: NAVIGATION & SOCIALS -->
       <nav class="menu-nav">
         <div class="nav-links-wrapper">
           <div class="nav-item">
@@ -128,52 +143,41 @@
         </div>
 
         <div class="menu-nav-footer">
-          <div class="aside-label">Connect with the Atelier</div>
+          <div class="social-title">Redes Sociais</div>
           <ul class="social-list">
             <li class="social-item">
-              <a href="#">
+              <a href="https://instagram.com" target="_blank">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                Instagram
+                <span>Instagram</span>
               </a>
             </li>
             <li class="social-item">
               <a href="mailto:hello@gmarques.co">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                Email
+                <span>Email</span>
               </a>
             </li>
             <li class="social-item">
-              <a href="#">
+              <a href="https://linkedin.com" target="_blank">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                LinkedIn
+                <span>LinkedIn</span>
               </a>
             </li>
             <li class="social-item">
-              <a href="#">
+              <a href="https://github.com" target="_blank">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                GitHub
+                <span>GitHub</span>
               </a>
             </li>
           </ul>
         </div>
       </nav>
 
-      <!-- RIGHT: THE ATELIER FRAME -->
+      <!-- ZONE 3: THE GALLERY (CLEAN) -->
       <aside class="menu-aside">
-        <div class="showcase-frame">
-          <!-- Metadata Tags -->
-          <div class="frame-tag tag-tl">Project Preview</div>
-          <div class="frame-tag tag-tr">Atelier GM / 2026</div>
-          <div class="frame-tag tag-bl">High Fidelity Digital Art</div>
-          <div class="frame-tag tag-br">Issue No. 042</div>
-
+        <div class="gallery-frame">
           <div class="menu-image-portal" id="menuImagePortal">
-            <img src="" alt="Preview" id="menuPreviewImg">
-          </div>
-
-          <div class="aside-clock-wrapper">
-            <div id="menuClock">00:00:00</div>
-            <div id="menuDate">Sexta, 1 Maio</div>
+            <img src="assets/img/menu_preview_portfolio.png" alt="Preview" id="menuPreviewImg">
           </div>
         </div>
       </aside>
@@ -228,69 +232,73 @@
     const menuTrigger = document.getElementById('menuTrigger');
     const menuOverlay = document.getElementById('menuOverlay');
     const menuText = document.getElementById('menuText');
-    const menuTextInner = menuText.querySelector('span');
-    const menuImagePortal = document.getElementById('menuImagePortal');
+    const menuTextInner = menuText ? menuText.querySelector('span') : null;
     const menuPreviewImg = document.getElementById('menuPreviewImg');
     const navLinks = document.querySelectorAll('.nav-link');
+    const defaultImg = 'assets/img/menu_preview_portfolio.png';
 
-    // 🕰️ World Clock (Lisbon)
+    // ── Relógio (Porto) ──────────────────────────────────────
     function updateClock() {
-      const now = new Date();
-      const options = { timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      const timeString = new Intl.DateTimeFormat('pt-PT', options).format(now);
-      document.getElementById('menuClock').textContent = timeString;
-
-      const dateOptions = { timeZone: 'Europe/Lisbon', weekday: 'long', day: 'numeric', month: 'long' };
-      const dateString = new Intl.DateTimeFormat('pt-PT', dateOptions).format(now);
-      document.getElementById('menuDate').textContent = dateString;
+      const clockEl = document.getElementById('menuClock');
+      if (clockEl) {
+        const now = new Date();
+        const opts = { timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        clockEl.textContent = new Intl.DateTimeFormat('pt-PT', opts).format(now);
+      }
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // 🎞️ Image Portal Logic
+    // ── Seletor de Língua ────────────────────────────────────
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // ── Portal de Imagem ─────────────────────────────────────
     navLinks.forEach(link => {
       link.addEventListener('mouseenter', () => {
         const imgPath = link.getAttribute('data-img');
-        menuPreviewImg.src = imgPath;
-        menuImagePortal.classList.add('is-active');
+        if (menuPreviewImg && imgPath) menuPreviewImg.src = imgPath;
       });
       link.addEventListener('mouseleave', () => {
-        menuImagePortal.classList.remove('is-active');
+        if (menuPreviewImg) menuPreviewImg.src = defaultImg;
       });
     });
 
-    // 🧭 Menu Toggle
-    menuTrigger.addEventListener('click', () => {
-      menuText.classList.add('switching');
-      
-      setTimeout(() => {
-        menuTrigger.classList.toggle('is-active');
-        menuOverlay.classList.toggle('is-open');
+    // ── Toggle Direto ────────────────────────────────────────
+    if (menuTrigger && menuOverlay) {
+      menuTrigger.addEventListener('click', () => {
+        const isOpen = menuOverlay.classList.contains('is-open');
         
-        menuText.style.transition = 'none';
-        menuText.style.transform = 'translateY(-10px)';
-        menuText.style.opacity = '0';
-
-        if (menuTrigger.classList.contains('is-active')) {
-          menuTextInner.textContent = 'FECHAR';
-          menuTextInner.setAttribute('data-hover', 'FECHAR');
-          document.body.style.overflow = 'hidden';
-        } else {
-          menuTextInner.textContent = 'MENU';
-          menuTextInner.setAttribute('data-hover', 'MENU');
-          document.body.style.overflow = '';
-        }
-
-        requestAnimationFrame(() => {
+        if (isOpen) {
+          // Fechar
+          menuOverlay.classList.add('is-closing');
           setTimeout(() => {
-            menuText.style.transition = '';
-            menuText.classList.remove('switching');
-            menuText.style.transform = 'translateY(0)';
-            menuText.style.opacity = '1';
-          }, 50);
-        });
-      }, 200);
-    });
+            menuOverlay.classList.remove('is-open', 'is-closing');
+            menuTrigger.classList.remove('is-active');
+            document.body.style.overflow = '';
+            if (menuTextInner) {
+              menuTextInner.textContent = 'MENU';
+              menuTextInner.setAttribute('data-hover', 'MENU');
+            }
+          }, 850);
+        } else {
+          // Abrir
+          if (menuPreviewImg) menuPreviewImg.src = defaultImg;
+          menuOverlay.classList.remove('is-closing');
+          menuOverlay.classList.add('is-open');
+          menuTrigger.classList.add('is-active');
+          document.body.style.overflow = 'hidden';
+          if (menuTextInner) {
+            menuTextInner.textContent = 'FECHAR';
+            menuTextInner.setAttribute('data-hover', 'FECHAR');
+          }
+        }
+      });
+    }
   </script>
 </body>
 
