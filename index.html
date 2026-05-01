@@ -89,55 +89,92 @@
   </nav>
 
   <div class="menu-overlay" id="menuOverlay">
-    <!-- Shutter Panels -->
-    <div class="menu-panel"></div>
-    <div class="menu-panel"></div>
     <div class="menu-panel"></div>
 
     <div class="menu-container">
+      <!-- LEFT: NAVIGATION & SOCIALS -->
       <nav class="menu-nav">
-        <div class="nav-item">
-          <span class="nav-num">01</span>
-          <a href="index.html" style="transition-delay: 0.1s;">Home</a>
+        <div class="nav-links-wrapper">
+          <div class="nav-item">
+            <span class="nav-num">01</span>
+            <a href="index.html" class="nav-link" data-img="assets/img/menu_preview_home.png">
+              <span data-hover="HOME">HOME</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <span class="nav-num">02</span>
+            <a href="#about" class="nav-link" data-img="assets/img/menu_preview_home.png">
+              <span data-hover="SOBRE">SOBRE</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <span class="nav-num">03</span>
+            <a href="#portfolio" class="nav-link" data-img="assets/img/menu_preview_portfolio.png">
+              <span data-hover="PORTFOLIO">PORTFOLIO</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <span class="nav-num">04</span>
+            <a href="#services" class="nav-link" data-img="assets/img/menu_preview_services.png">
+              <span data-hover="SERVIÇOS">SERVIÇOS</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <span class="nav-num">05</span>
+            <a href="#contact" class="nav-link" data-img="assets/img/menu_preview_portfolio.png">
+              <span data-hover="CONTACTOS">CONTACTOS</span>
+            </a>
+          </div>
         </div>
-        <div class="nav-item">
-          <span class="nav-num">02</span>
-          <a href="#about" style="transition-delay: 0.2s;">Sobre</a>
-        </div>
-        <div class="nav-item">
-          <span class="nav-num">03</span>
-          <a href="#portfolio" style="transition-delay: 0.3s;">Portfolio</a>
-        </div>
-        <div class="nav-item">
-          <span class="nav-num">04</span>
-          <a href="#services" style="transition-delay: 0.4s;">Serviços</a>
-        </div>
-        <div class="nav-item">
-          <span class="nav-num">05</span>
-          <a href="#contact" style="transition-delay: 0.5s;">Contactos</a>
+
+        <div class="menu-nav-footer">
+          <div class="aside-label">Connect with the Atelier</div>
+          <ul class="social-list">
+            <li class="social-item">
+              <a href="#">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                Instagram
+              </a>
+            </li>
+            <li class="social-item">
+              <a href="mailto:hello@gmarques.co">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                Email
+              </a>
+            </li>
+            <li class="social-item">
+              <a href="#">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                LinkedIn
+              </a>
+            </li>
+            <li class="social-item">
+              <a href="#">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GitHub
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
 
+      <!-- RIGHT: THE ATELIER FRAME -->
       <aside class="menu-aside">
-        <div class="aside-watermark">G.M</div>
-        
-        <div class="aside-section">
-          <div class="aside-label">Atelier Status</div>
-          <div class="aside-content">Disponível para Projetos <br>Selecionados — 2026</div>
-        </div>
+        <div class="showcase-frame">
+          <!-- Metadata Tags -->
+          <div class="frame-tag tag-tl">Project Preview</div>
+          <div class="frame-tag tag-tr">Atelier GM / 2026</div>
+          <div class="frame-tag tag-bl">High Fidelity Digital Art</div>
+          <div class="frame-tag tag-br">Issue No. 042</div>
 
-        <div class="aside-section">
-          <div class="aside-label">Digital</div>
-          <ul class="social-links">
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">Behance</a></li>
-          </ul>
-        </div>
+          <div class="menu-image-portal" id="menuImagePortal">
+            <img src="" alt="Preview" id="menuPreviewImg">
+          </div>
 
-        <div class="aside-section">
-          <div class="aside-label">Location</div>
-          <div class="aside-content" style="font-size: 1rem; opacity: 0.6;">Lisboa, Portugal <br>38.7223° N, 9.1393° W</div>
+          <div class="aside-clock-wrapper">
+            <div id="menuClock">00:00:00</div>
+            <div id="menuDate">Sexta, 1 Maio</div>
+          </div>
         </div>
       </aside>
     </div>
@@ -192,17 +229,44 @@
     const menuOverlay = document.getElementById('menuOverlay');
     const menuText = document.getElementById('menuText');
     const menuTextInner = menuText.querySelector('span');
+    const menuImagePortal = document.getElementById('menuImagePortal');
+    const menuPreviewImg = document.getElementById('menuPreviewImg');
+    const navLinks = document.querySelectorAll('.nav-link');
 
+    // 🕰️ World Clock (Lisbon)
+    function updateClock() {
+      const now = new Date();
+      const options = { timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      const timeString = new Intl.DateTimeFormat('pt-PT', options).format(now);
+      document.getElementById('menuClock').textContent = timeString;
+
+      const dateOptions = { timeZone: 'Europe/Lisbon', weekday: 'long', day: 'numeric', month: 'long' };
+      const dateString = new Intl.DateTimeFormat('pt-PT', dateOptions).format(now);
+      document.getElementById('menuDate').textContent = dateString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 🎞️ Image Portal Logic
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        const imgPath = link.getAttribute('data-img');
+        menuPreviewImg.src = imgPath;
+        menuImagePortal.classList.add('is-active');
+      });
+      link.addEventListener('mouseleave', () => {
+        menuImagePortal.classList.remove('is-active');
+      });
+    });
+
+    // 🧭 Menu Toggle
     menuTrigger.addEventListener('click', () => {
-      // Step 1: Fade Out & Slide Down
       menuText.classList.add('switching');
       
       setTimeout(() => {
-        // Step 2: Toggle States and Prepare Entry
         menuTrigger.classList.toggle('is-active');
         menuOverlay.classList.toggle('is-open');
         
-        // Prepare new text to come from above
         menuText.style.transition = 'none';
         menuText.style.transform = 'translateY(-10px)';
         menuText.style.opacity = '0';
@@ -217,7 +281,6 @@
           document.body.style.overflow = '';
         }
 
-        // Step 3: Fade In & Slide to Center
         requestAnimationFrame(() => {
           setTimeout(() => {
             menuText.style.transition = '';
@@ -226,19 +289,7 @@
             menuText.style.opacity = '1';
           }, 50);
         });
-
       }, 200);
-    });
-
-    // Close menu when clicking links
-    document.querySelectorAll('.nav-link-item a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuTrigger.classList.remove('is-active');
-        menuOverlay.classList.remove('is-open');
-        menuTextInner.textContent = 'MENU';
-        menuTextInner.setAttribute('data-hover', 'MENU');
-        document.body.style.overflow = '';
-      });
     });
   </script>
 </body>

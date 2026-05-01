@@ -1,4 +1,4 @@
-/* DESIGN SYSTEM V44 - SELECTIVE CROSS ROTATION */
+/* DESIGN SYSTEM V48 - ATELIER FRAME MENU (EDITORIAL LUX) */
 
 /* FONTS LOCAL */
 @font-face {
@@ -52,7 +52,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* 🧭 HEADER */
+/* 🧭 HEADER (Locked) */
 .nav-bar {
     position: fixed;
     top: 0; left: 0; width: 100%;
@@ -81,139 +81,204 @@ body {
 .signature-name span::after { content: attr(data-hover); position: absolute; top: 100%; left: 0; width: 100%; color: var(--color-bordeaux); }
 .brand-link:hover .signature-name span { transform: translateY(-100%); }
 
-/* 🧭 MENU TRIGGER V44 */
 .menu-trigger { display: flex; align-items: center; gap: 25px; cursor: pointer; }
-
-.menu-text {
-    font-family: var(--font-accent);
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    height: 1.8rem;
-    overflow: hidden;
-    transition: transform 0.4s var(--ease-snap), opacity 0.4s var(--ease-snap), color 0.4s;
-}
-
+.menu-text { font-family: var(--font-accent); font-size: 1.5rem; letter-spacing: 2px; height: 1.8rem; overflow: hidden; transition: transform 0.4s var(--ease-snap), opacity 0.4s var(--ease-snap), color 0.4s; }
 .menu-text span { display: block; position: relative; transition: transform 0.6s var(--ease-snap); }
 .menu-text span::after { content: attr(data-hover); position: absolute; top: 100%; left: 0; color: var(--color-bordeaux); }
-
 .menu-trigger:hover .menu-text span { transform: translateY(-100%); }
 .menu-text.switching { opacity: 0; transform: translateY(10px); }
 
-/* HAMBURGER CONTAINER */
-.hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-    width: 32px;
-    height: 24px;
-    transition: transform 0.8s var(--ease-luxury);
-}
-
-/* CLOSED HOVER: Only internal tightening, NO rotation */
-.menu-trigger:not(.is-active):hover .hamburger {
-    transform: none;
-}
-
-.hamburger span {
-    display: block;
-    height: 1px;
-    width: 100%;
-    background-color: var(--color-espresso);
-    transition: all 0.7s var(--ease-snap);
-    transform: translateZ(0);
-}
-
-/* CLOSED HOVER SPANS (Tightening) */
+.hamburger { display: flex; flex-direction: column; justify-content: center; gap: 8px; width: 32px; height: 24px; transition: transform 0.8s var(--ease-luxury); }
+.hamburger span { display: block; height: 1px; width: 100%; background-color: var(--color-espresso); transition: all 0.7s var(--ease-snap); }
 .menu-trigger:not(.is-active):hover .hamburger span:nth-child(1) { transform: translateY(4px); background-color: var(--color-bordeaux); }
 .menu-trigger:not(.is-active):hover .hamburger span:nth-child(2) { transform: scaleX(0.6); background-color: var(--color-bordeaux); }
 .menu-trigger:not(.is-active):hover .hamburger span:nth-child(3) { transform: translateY(-4px); background-color: var(--color-bordeaux); }
-
-/* CLICK: The Propeller Snap (225deg) */
 .menu-trigger.is-active .hamburger { gap: 0; }
 .menu-trigger.is-active .hamburger span:nth-child(1) { transform: translateY(1px) rotate(225deg); background-color: var(--color-bordeaux); }
 .menu-trigger.is-active .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .menu-trigger.is-active .hamburger span:nth-child(3) { transform: translateY(-1px) rotate(-225deg); background-color: var(--color-bordeaux); }
+.menu-trigger.is-active:hover .hamburger { transform: rotate(90deg); }
 
-/* OPEN HOVER (Active): NOW we rotate the whole unit 90deg */
-.menu-trigger.is-active:hover .hamburger {
-    transform: rotate(90deg);
-}
-
-/* 🌌 MENU OVERLAY V40 */
+/* 🌌 MENU OVERLAY V48 - ATELIER FRAME */
 .menu-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: 1500;
     visibility: hidden;
     display: flex;
-    transition: visibility 1.2s;
+    transition: visibility 1s;
 }
 
 .menu-overlay.is-open { visibility: visible; }
 
 .menu-panel {
     position: absolute;
-    top: 0; left: 0; width: 33.33%; height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background-color: var(--color-sand);
     transform: translateY(-100%);
-    transition: transform 1.2s var(--ease-luxury);
+    transition: transform 1s var(--ease-luxury);
 }
-
-.menu-panel:nth-child(2) { left: 33.33%; background-color: var(--color-sand-dark); transition-delay: 0.1s; }
-.menu-panel:nth-child(3) { left: 66.66%; transition-delay: 0.2s; }
 
 .menu-overlay.is-open .menu-panel { transform: translateY(0); }
 
-/* CONTENT */
+/* CONTAINER SPLIT */
 .menu-container {
     position: relative;
     width: 100%; height: 100%;
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    padding: 0 100px;
-    opacity: 0;
-    transition: opacity 0.6s var(--ease-luxury);
+    grid-template-columns: 1fr 1fr;
     z-index: 2;
+    opacity: 0;
+    transition: opacity 0.6s var(--ease-luxury) 0.6s;
 }
 
-.menu-overlay.is-open .menu-container { opacity: 1; transition-delay: 0.8s; }
+.menu-overlay.is-open .menu-container { opacity: 1; }
 
-/* NAV */
-.menu-nav { display: flex; flex-direction: column; justify-content: center; gap: 15px; }
-.nav-item { display: flex; align-items: baseline; gap: 30px; overflow: hidden; }
-.nav-num { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 4px; color: var(--color-bordeaux); opacity: 0.6; }
+/* LEFT: NAVIGATION */
+.menu-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 120px 0 60px 120px;
+    position: relative;
+}
+
+/* Faint Ghost Letter */
+.menu-nav::before {
+    content: 'G';
+    position: absolute;
+    top: 50%; left: 0;
+    transform: translateY(-50%);
+    font-family: var(--font-heading);
+    font-size: 40vw;
+    line-height: 1;
+    color: var(--color-espresso);
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.nav-links-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+.nav-item { display: flex; align-items: center; gap: 40px; height: 6.5rem; }
+.nav-num { font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 5px; color: var(--color-bordeaux); opacity: 0.4; }
+
 .nav-item a {
     font-family: var(--font-heading);
-    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
     text-decoration: none;
     color: var(--color-espresso);
     text-transform: uppercase;
+    display: block;
+    overflow: hidden;
+    height: 1.2em;
     transform: translateY(110%);
     transition: transform 0.8s var(--ease-luxury), color 0.4s;
 }
 
-.menu-overlay.is-open .nav-item a { transform: translateY(0); }
-.nav-item a:hover { color: var(--color-bordeaux); padding-left: 30px; }
+.nav-item a span { display: block; position: relative; transition: transform 0.6s var(--ease-luxury); }
+.nav-item a span::after { content: attr(data-hover); position: absolute; top: 100%; left: 0; color: var(--color-bordeaux); }
 
-/* ASIDE */
+.menu-overlay.is-open .nav-item a { transform: translateY(0); }
+.nav-item a:hover span { transform: translateY(-100%); }
+
+/* Socials grouped at the bottom */
+.menu-nav-footer { margin-top: auto; border-top: 1px solid rgba(26, 23, 22, 0.05); padding-top: 30px; }
+.aside-label { font-family: var(--font-body); font-size: 9px; letter-spacing: 5px; text-transform: uppercase; opacity: 0.4; margin-bottom: 20px; }
+
+.social-list { list-style: none; display: flex; gap: 40px; }
+.social-item a {
+    text-decoration: none; color: var(--color-espresso); display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-body); font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    transition: color 0.3s, transform 0.3s;
+}
+.social-item a:hover { color: var(--color-bordeaux); transform: translateY(-3px); }
+
+/* RIGHT: THE ATELIER FRAME */
 .menu-aside {
-    border-left: 1px solid rgba(26, 23, 22, 0.05);
-    padding-left: 80px;
+    background-color: var(--color-sand-dark);
+    padding: 80px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
     position: relative;
 }
 
-.aside-watermark { position: absolute; bottom: -20px; right: -20px; font-family: var(--font-heading); font-size: 25vw; line-height: 1; opacity: 0.03; pointer-events: none; }
-.aside-section { margin-bottom: 50px; }
-.aside-label { font-family: var(--font-body); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.4; margin-bottom: 15px; }
-.aside-content { font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-espresso); line-height: 1.4; }
+.showcase-frame {
+    position: relative;
+    width: 100%; height: 100%;
+    background-color: var(--color-espresso);
+    padding: 1px; /* The thin border */
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+    transition: transform 1s var(--ease-luxury);
+}
 
-.social-links { list-style: none; }
-.social-links a { text-decoration: none; color: var(--color-espresso); font-family: var(--font-heading); font-size: 1.3rem; transition: color 0.4s; }
-.social-links a:hover { color: var(--color-bordeaux); }
+.menu-image-portal {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0;
+    transition: opacity 1s var(--ease-luxury);
+    z-index: 1;
+}
+
+.menu-image-portal img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 2s var(--ease-luxury);
+    transform: scale(1.15);
+}
+
+.menu-image-portal.is-active { opacity: 1; }
+.menu-image-portal.is-active img { transform: scale(1); }
+
+/* Editorial Metadata over Frame */
+.frame-tag {
+    position: absolute;
+    z-index: 10;
+    font-family: var(--font-body);
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: white;
+    text-transform: uppercase;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.tag-tl { top: 30px; left: 30px; }
+.tag-tr { top: 30px; right: 30px; }
+.tag-bl { bottom: 30px; left: 30px; }
+.tag-br { bottom: 30px; right: 30px; }
+
+/* The Clock Seal */
+.aside-clock-wrapper {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+    text-align: center;
+    pointer-events: none;
+}
+
+#menuClock {
+    font-family: var(--font-heading);
+    font-size: 6rem;
+    line-height: 1;
+    color: white;
+    mix-blend-mode: difference;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -2px;
+}
+
+#menuDate {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: white;
+    mix-blend-mode: difference;
+    opacity: 0.5;
+    margin-top: 15px;
+}
 
 /* 🎞️ HERO */
 .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 60px; position: relative; }
