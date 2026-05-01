@@ -1,4 +1,4 @@
-/* DESIGN SYSTEM V33 - SYNCHRONIZED ROLL NAVIGATION */
+/* DESIGN SYSTEM V37 - HYBRID INTERACTION (ROLL + BLUR) */
 
 /* FONTS LOCAL */
 @font-face {
@@ -87,6 +87,7 @@ body {
     display: block;
     overflow: hidden;
     color: var(--color-espresso);
+    transition: filter 0.4s ease, opacity 0.4s ease;
 }
 
 .signature-name {
@@ -119,13 +120,19 @@ body {
     color: var(--color-bordeaux);
 }
 
-/* HOVER TRIGGERS */
+/* HOVER FEEDBACK (Text Roll) */
 .brand-link:hover .signature-name span,
 .menu-trigger:hover .menu-text span {
     transform: translateY(-100%);
 }
 
-/* 🧭 MENU TRIGGER */
+/* CLICK TRANSITION (Atmospheric Blur) */
+.menu-text.blurring {
+    filter: blur(12px);
+    opacity: 0;
+}
+
+/* 🧭 MENU TRIGGER & HAMBURGER */
 .menu-trigger {
     display: flex;
     align-items: center;
@@ -140,6 +147,7 @@ body {
     gap: 8px;
     width: 32px;
     height: 24px;
+    transition: all 0.6s var(--ease-luxury);
 }
 
 .hamburger span {
@@ -151,12 +159,11 @@ body {
     transform: translateZ(0);
 }
 
-/* Hover: Staggered Lateral Slide */
 .menu-trigger:hover .hamburger span:nth-child(1) { transform: translateX(8px); background-color: var(--color-bordeaux); }
-.menu-trigger:hover .hamburger span:nth-child(2) { transform: translateX(0); background-color: var(--color-bordeaux); }
+.menu-trigger:hover .hamburger span:nth-child(2) { background-color: var(--color-bordeaux); }
 .menu-trigger:hover .hamburger span:nth-child(3) { transform: translateX(-8px); background-color: var(--color-bordeaux); }
 
-/* CROSS (is-active) */
+/* THE CROSS (is-active) */
 .menu-trigger.is-active .hamburger {
     gap: 0;
 }
@@ -204,15 +211,13 @@ body {
     color: var(--color-espresso);
     display: block;
     transform: translateY(110%);
-    transition: transform 1s var(--ease-luxury), color 0.5s;
+    opacity: 0;
+    transition: transform 1.2s var(--ease-luxury), opacity 1.2s var(--ease-luxury);
 }
 
 .menu-overlay.is-open .nav-link-item a {
     transform: translateY(0);
-}
-
-.nav-link-item a:hover {
-    color: var(--color-bordeaux);
+    opacity: 1;
 }
 
 /* 🎞️ BUTTONS V11 - STATIC & CLEAN */
