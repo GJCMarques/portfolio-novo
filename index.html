@@ -3,35 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MERCADO & CO. | Heritage Cinematic</title>
+    <title>MERCADO & CO. | Heritage Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="assets/img/circle-quarter-leaf-shape-stack.svg">
     <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            opacity: 0.5;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(4rem, 12vw, 9rem);
+            line-height: 0.9;
+            margin-bottom: 40px;
+            color: var(--color-espresso);
+        }
+
+        .hero-title span {
+            display: block;
+            font-family: var(--font-accent);
+            color: var(--color-bordeaux);
+            font-size: 0.5em;
+            margin-top: 10px;
+        }
+
+        .hero-description {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+            opacity: 0.7;
+        }
+
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+    </style>
 </head>
 <body>
     <nav class="nav-bar">
-        <div class="logo">MERCADO & CO.</div>
-        <div class="menu-trigger" style="font-family: var(--font-accent); letter-spacing: 2px; cursor: pointer;">MENU</div>
+        <div class="logo">
+            <img src="assets/img/circle-quarter-leaf-shape-stack.svg" alt="Logo" class="logo-img">
+        </div>
+        <div class="menu-trigger" style="font-family: var(--font-accent); letter-spacing: 2px; cursor: pointer; font-size: 1.2rem;">MENU</div>
     </nav>
 
     <section class="hero">
-        <div class="hero-content">
-            <h2 class="subtitle" style="font-family: var(--font-body); letter-spacing: 5px; opacity: 0.5; font-size: 0.8rem; margin-bottom: 20px;">EST. 2026 — HERITAGE</h2>
-            <h1 class="main-title">Modern <br><span>Heritage</span></h1>
-            <p class="description">
-                Uma fusão entre a tradição clássica e a vanguarda digital.
-            </p>
-            
-            <div class="button-group" style="display: flex; gap: 30px; justify-content: center;">
-                <div class="btn-wrapper">
-                    <a href="#work" class="btn btn-cta">
-                        <span class="text-inner">Explorar</span>
-                    </a>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="#contact" class="btn btn-ghost">
-                        <span class="text-inner">Contactar</span>
-                    </a>
-                </div>
-            </div>
+        <p class="hero-tagline">Est. 2026 — Heritage Elite</p>
+        <h1 class="hero-title">
+            The New <br><span>Heritage</span>
+        </h1>
+        <p class="hero-description">
+            Arquiteto de Experiências Digitais. Focado na intersecção entre a tradição clássica e a inovação tecnológica de elite.
+        </p>
+        
+        <div class="button-group" style="display: flex; gap: 30px;">
+            <a href="#work" class="btn btn-cta">
+                <span class="btn-text-wrapper">
+                    <span class="btn-text" data-text="Ver Projetos">Ver Projetos</span>
+                </span>
+            </a>
+            <a href="#contact" class="btn btn-ghost">
+                <span class="btn-text-wrapper">
+                    <span class="btn-text" data-text="Conversar">Conversar</span>
+                </span>
+            </a>
         </div>
     </section>
 </body>
