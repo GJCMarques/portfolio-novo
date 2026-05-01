@@ -156,23 +156,55 @@
 
   <script>
     const menuTrigger = document.getElementById('menuTrigger');
-    const menuText = menuTrigger.querySelector('.menu-text');
     const menuOverlay = document.getElementById('menuOverlay');
+    const menuText = document.getElementById('menuText');
+    const menuTextInner = menuText.querySelector('span');
 
     menuTrigger.addEventListener('click', () => {
-      menuOverlay.classList.toggle('is-open');
-      menuTrigger.classList.toggle('is-active');
-      menuText.innerText = menuOverlay.classList.contains('is-open') ? 'FECHAR' : 'MENU';
-      document.body.style.overflow = menuOverlay.classList.contains('is-open') ? 'hidden' : 'auto';
+      // Step 1: Fade Out & Slide Down
+      menuText.classList.add('switching');
+      
+      setTimeout(() => {
+        // Step 2: Toggle States and Prepare Entry
+        menuTrigger.classList.toggle('is-active');
+        menuOverlay.classList.toggle('is-open');
+        
+        // Prepare new text to come from above
+        menuText.style.transition = 'none';
+        menuText.style.transform = 'translateY(-10px)';
+        menuText.style.opacity = '0';
+
+        if (menuTrigger.classList.contains('is-active')) {
+          menuTextInner.textContent = 'FECHAR';
+          menuTextInner.setAttribute('data-hover', 'FECHAR');
+          document.body.style.overflow = 'hidden';
+        } else {
+          menuTextInner.textContent = 'MENU';
+          menuTextInner.setAttribute('data-hover', 'MENU');
+          document.body.style.overflow = '';
+        }
+
+        // Step 3: Fade In & Slide to Center
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            menuText.style.transition = '';
+            menuText.classList.remove('switching');
+            menuText.style.transform = 'translateY(0)';
+            menuText.style.opacity = '1';
+          }, 50);
+        });
+
+      }, 200);
     });
 
-    const links = document.querySelectorAll('.nav-link-item a');
-    links.forEach(link => {
+    // Close menu when clicking links
+    document.querySelectorAll('.nav-link-item a').forEach(link => {
       link.addEventListener('click', () => {
-        menuOverlay.classList.remove('is-open');
         menuTrigger.classList.remove('is-active');
-        menuText.innerText = 'MENU';
-        document.body.style.overflow = 'auto';
+        menuOverlay.classList.remove('is-open');
+        menuTextInner.textContent = 'MENU';
+        menuTextInner.setAttribute('data-hover', 'MENU');
+        document.body.style.overflow = '';
       });
     });
   </script>

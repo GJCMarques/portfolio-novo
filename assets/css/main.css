@@ -1,4 +1,4 @@
-/* DESIGN SYSTEM V37 - HYBRID INTERACTION (ROLL + BLUR) */
+/* DESIGN SYSTEM V38 - SLIDE-FADE STATE TRANSITION */
 
 /* FONTS LOCAL */
 @font-face {
@@ -81,13 +81,12 @@ body {
     transform: rotate(-90deg);
 }
 
-/* ROLLING TEXT BASE LOGIC */
+/* ROLLING TEXT BASE LOGIC (HOVER) */
 .signature-name, .menu-text {
     position: relative;
     display: block;
     overflow: hidden;
     color: var(--color-espresso);
-    transition: filter 0.4s ease, opacity 0.4s ease;
 }
 
 .signature-name {
@@ -103,6 +102,7 @@ body {
     font-size: 1.5rem;
     letter-spacing: 2px;
     height: 1.8rem;
+    transition: transform 0.4s var(--ease-luxury), opacity 0.4s var(--ease-luxury), color 0.4s;
 }
 
 .signature-name span, .menu-text span {
@@ -120,16 +120,16 @@ body {
     color: var(--color-bordeaux);
 }
 
-/* HOVER FEEDBACK (Text Roll) */
+/* HOVER FEEDBACK */
 .brand-link:hover .signature-name span,
 .menu-trigger:hover .menu-text span {
     transform: translateY(-100%);
 }
 
-/* CLICK TRANSITION (Atmospheric Blur) */
-.menu-text.blurring {
-    filter: blur(12px);
+/* CLICK STATE TRANSITION (Slide-Fade) */
+.menu-text.switching {
     opacity: 0;
+    transform: translateY(10px);
 }
 
 /* 🧭 MENU TRIGGER & HAMBURGER */
