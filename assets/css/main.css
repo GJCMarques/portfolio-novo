@@ -1,4 +1,4 @@
-/* DESIGN SYSTEM V41 - KINETIC SYNERGY NAVIGATION */
+/* DESIGN SYSTEM V44 - SELECTIVE CROSS ROTATION */
 
 /* FONTS LOCAL */
 @font-face {
@@ -36,7 +36,7 @@
     --font-body: 'SourceSansLight', sans-serif;
 
     --ease-luxury: cubic-bezier(0.8, 0, 0.2, 1);
-    --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1); /* Curva elástica de precisão */
+    --ease-snap: cubic-bezier(0.5, 0, 0, 1);
 }
 
 * {
@@ -81,7 +81,7 @@ body {
 .signature-name span::after { content: attr(data-hover); position: absolute; top: 100%; left: 0; width: 100%; color: var(--color-bordeaux); }
 .brand-link:hover .signature-name span { transform: translateY(-100%); }
 
-/* 🧭 MENU TRIGGER SYNERGY V41 */
+/* 🧭 MENU TRIGGER V44 */
 .menu-trigger { display: flex; align-items: center; gap: 25px; cursor: pointer; }
 
 .menu-text {
@@ -96,10 +96,10 @@ body {
 .menu-text span { display: block; position: relative; transition: transform 0.6s var(--ease-snap); }
 .menu-text span::after { content: attr(data-hover); position: absolute; top: 100%; left: 0; color: var(--color-bordeaux); }
 
-/* HOVER: Tension Preparation */
 .menu-trigger:hover .menu-text span { transform: translateY(-100%); }
 .menu-text.switching { opacity: 0; transform: translateY(10px); }
 
+/* HAMBURGER CONTAINER */
 .hamburger {
     display: flex;
     flex-direction: column;
@@ -107,6 +107,12 @@ body {
     gap: 8px;
     width: 32px;
     height: 24px;
+    transition: transform 0.8s var(--ease-luxury);
+}
+
+/* CLOSED HOVER: Only internal tightening, NO rotation */
+.menu-trigger:not(.is-active):hover .hamburger {
+    transform: none;
 }
 
 .hamburger span {
@@ -114,20 +120,25 @@ body {
     height: 1px;
     width: 100%;
     background-color: var(--color-espresso);
-    transition: all 0.5s var(--ease-snap);
+    transition: all 0.7s var(--ease-snap);
     transform: translateZ(0);
 }
 
-/* HOVER: Preparation for Cross */
-.menu-trigger:hover .hamburger span:nth-child(1) { transform: translateY(4px); background-color: var(--color-bordeaux); }
-.menu-trigger:hover .hamburger span:nth-child(2) { transform: scaleX(0.6); background-color: var(--color-bordeaux); }
-.menu-trigger:hover .hamburger span:nth-child(3) { transform: translateY(-4px); background-color: var(--color-bordeaux); }
+/* CLOSED HOVER SPANS (Tightening) */
+.menu-trigger:not(.is-active):hover .hamburger span:nth-child(1) { transform: translateY(4px); background-color: var(--color-bordeaux); }
+.menu-trigger:not(.is-active):hover .hamburger span:nth-child(2) { transform: scaleX(0.6); background-color: var(--color-bordeaux); }
+.menu-trigger:not(.is-active):hover .hamburger span:nth-child(3) { transform: translateY(-4px); background-color: var(--color-bordeaux); }
 
-/* CLICK: The Final Snap */
+/* CLICK: The Propeller Snap (225deg) */
 .menu-trigger.is-active .hamburger { gap: 0; }
-.menu-trigger.is-active .hamburger span:nth-child(1) { transform: translateY(1px) rotate(45deg); background-color: var(--color-bordeaux); }
+.menu-trigger.is-active .hamburger span:nth-child(1) { transform: translateY(1px) rotate(225deg); background-color: var(--color-bordeaux); }
 .menu-trigger.is-active .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.menu-trigger.is-active .hamburger span:nth-child(3) { transform: translateY(-1px) rotate(-45deg); background-color: var(--color-bordeaux); }
+.menu-trigger.is-active .hamburger span:nth-child(3) { transform: translateY(-1px) rotate(-225deg); background-color: var(--color-bordeaux); }
+
+/* OPEN HOVER (Active): NOW we rotate the whole unit 90deg */
+.menu-trigger.is-active:hover .hamburger {
+    transform: rotate(90deg);
+}
 
 /* 🌌 MENU OVERLAY V40 */
 .menu-overlay {
