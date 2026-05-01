@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MERCADO & CO. | Heritage Portfolio</title>
+  <title>MERCADO & CO. | Guilherme .M — Heritage</title>
   <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
   <link rel="stylesheet" href="assets/css/main.css">
   <style>
@@ -27,7 +27,7 @@
       transform: translate(-50%, -50%);
       width: 80vh;
       height: 80vh;
-      opacity: 0.03;
+      opacity: 0.02;
       z-index: -1;
       pointer-events: none;
     }
@@ -65,36 +65,53 @@
       line-height: 1.6;
       opacity: 0.7;
     }
-
-    .nav-bar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 40px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .logo-img {
-      height: 40px;
-      width: auto;
-    }
   </style>
 </head>
 
 <body>
   <nav class="nav-bar">
-    <div class="logo">
-      <img src="assets/img/logo-monumental.svg" alt="Logo" class="logo-img">
+    <a href="index.html" class="brand-link">
+      <img src="assets/img/logo.svg" alt="Logo" class="logo-img">
+      <span class="signature-name">
+        <span data-hover="Guilherme .M">Guilherme .M</span>
+      </span>
+    </a>
+    <div class="menu-trigger" id="menuTrigger">
+      <span class="menu-text">
+        <span data-hover="MENU">MENU</span>
+      </span>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-    <div class="menu-trigger"
-      style="font-family: var(--font-accent); letter-spacing: 2px; cursor: pointer; font-size: 1.2rem;">MENU</div>
   </nav>
 
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="menu-content">
+      <ul class="nav-links">
+        <li class="nav-link-item"><a href="#work" style="transition-delay: 0.1s;">Trabalho</a></li>
+        <li class="nav-link-item"><a href="#about" style="transition-delay: 0.2s;">Herança</a></li>
+        <li class="nav-link-item"><a href="#services" style="transition-delay: 0.3s;">Serviços</a></li>
+        <li class="nav-link-item"><a href="#contact" style="transition-delay: 0.4s;">Contacto</a></li>
+      </ul>
+
+      <div class="menu-footer">
+        <div class="menu-footer-label">Contacto</div>
+        <a href="mailto:hello@mercado.co" class="menu-footer-link">hello@mercado.co</a>
+        <a href="tel:+351912345678" class="menu-footer-link">+351 912 345 678</a>
+
+        <div class="menu-footer-label" style="margin-top: 40px;">Social</div>
+        <a href="#" class="menu-footer-link">Instagram</a>
+        <a href="#" class="menu-footer-link">LinkedIn</a>
+        <a href="#" class="menu-footer-link">Behance</a>
+      </div>
+    </div>
+  </div>
+
   <section class="hero">
-    <img src="assets/img/logo-monumental.svg" class="hero-bg-logo" alt="">
+    <img src="assets/img/logo.svg" class="hero-bg-logo" alt="">
     <p class="hero-tagline">Est. 2026 — Heritage Elite</p>
     <h1 class="hero-title">
       The New <br><span>Heritage</span>
@@ -117,6 +134,48 @@
       </a>
     </div>
   </section>
+
+  <!-- DUMMY SECTION / SELECTED WORK -->
+  <section id="work"
+    style="height: 100vh; background-color: var(--color-sand); padding: 120px 80px; display: flex; flex-direction: column; justify-content: center;">
+    <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+      <p
+        style="font-family: var(--font-body); text-transform: uppercase; letter-spacing: 5px; font-size: 0.8rem; margin-bottom: 40px; opacity: 0.5;">
+        01. Selected Projects</p>
+      <h2
+        style="font-family: var(--font-heading); font-size: clamp(3rem, 6vw, 5rem); color: var(--color-espresso); line-height: 1.1;">
+        Curating Digital <br>Excellence.
+      </h2>
+      <div style="height: 1px; width: 100%; background: var(--color-espresso); margin: 60px 0; opacity: 0.1;"></div>
+      <p style="font-family: var(--font-body); font-size: 1.5rem; max-width: 700px; line-height: 1.4; opacity: 0.7;">
+        Esta secção servirá de palco para os teus projetos de elite. O layout será desenhado para elevar a narrativa
+        visual de cada caso de estudo.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const menuTrigger = document.getElementById('menuTrigger');
+    const menuText = menuTrigger.querySelector('.menu-text');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    menuTrigger.addEventListener('click', () => {
+      menuOverlay.classList.toggle('is-open');
+      menuTrigger.classList.toggle('is-active');
+      menuText.innerText = menuOverlay.classList.contains('is-open') ? 'FECHAR' : 'MENU';
+      document.body.style.overflow = menuOverlay.classList.contains('is-open') ? 'hidden' : 'auto';
+    });
+
+    const links = document.querySelectorAll('.nav-link-item a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        menuOverlay.classList.remove('is-open');
+        menuTrigger.classList.remove('is-active');
+        menuText.innerText = 'MENU';
+        document.body.style.overflow = 'auto';
+      });
+    });
+  </script>
 </body>
 
 </html>
