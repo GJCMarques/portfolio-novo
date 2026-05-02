@@ -18,13 +18,8 @@
       background: #f5f0e8 !important;
       overflow: hidden !important;
       pointer-events: all !important;
-      transition: transform 1.4s cubic-bezier(0.76, 0, 0.24, 1) !important;
-      transform: translateY(0) !important;
-      display: block !important;
-    }
-
-    .preloader.exit {
-      transform: translateY(-100%) !important;
+      transition: opacity 1s ease;
+      display: block;
     }
 
     .preloader__imgs {
@@ -105,7 +100,11 @@
       position: absolute;
       inset: 0;
       z-index: 2;
-      background: linear-gradient(to top, rgba(245, 240, 232, .96) 0%, rgba(245, 240, 232, .5) 30%, rgba(245, 240, 232, .1) 55%, rgba(245, 240, 232, .35) 100%);
+      background: linear-gradient(to top,
+        rgba(245, 240, 232, 0.72) 0%,
+        rgba(245, 240, 232, 0.28) 25%,
+        rgba(245, 240, 232, 0.0)  48%,
+        rgba(245, 240, 232, 0.18) 100%);
       opacity: 0;
       transition: opacity 1s ease;
     }
@@ -203,39 +202,7 @@
       transform: translateY(0);
     }
 
-    .preloader__scanline {
-      position: absolute;
-      left: 0;
-      top: -2px;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(to right, transparent, #7D2E3D 50%, transparent);
-      z-index: 20;
-      opacity: 0;
-      transition: opacity .3s ease;
-    }
 
-    .preloader__scanline.active {
-      opacity: 1;
-      animation: pl-scanline 1.6s cubic-bezier(0.4, 0, 0.6, 1) 0.2s forwards;
-    }
-
-    @keyframes pl-scanline {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-
-      90% {
-        transform: translateY(100vh);
-        opacity: 1;
-      }
-
-      100% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-    }
 
     @media(max-width:768px) {
       .preloader__imgs {
@@ -319,8 +286,7 @@
 
     </div>
 
-    <!-- Horizontal scanning line -->
-    <div class="preloader__scanline"></div>
+
 
   </div>
   <div class="noise-overlay"></div>
@@ -543,7 +509,7 @@
 
           setTimeout(() => {
             menuOverlay.classList.remove('is-closing');
-          }, 1400); // Tempo total: stagger (0.32s) + duração máxima (1s) + margem
+          }, 1400); 
         } else {
           // ABRIR
           if (menuPreviewImg) menuPreviewImg.src = defaultImg;
@@ -555,39 +521,33 @@
       });
     }
 
-    // ═══════════════════════════════════════════════════════
+    // ═════════════════════════════════════════════════════
     // CINEMATIC PRELOADER ORCHESTRATION
-    // Sequence timing:
-    //  0.0s  — Scanline sweeps down (visual "boot")
-    //  0.2s  — SVG stroke begins drawing
-    //  1.6s  — SVG fill appears (with spring bounce)
-    //  2.0s  — Photo grid reveals (staggered)
-    //  3.2s  — Name + meta rise up
-    //  5.2s  — EXIT: whole preloader slides up
-    // ═══════════════════════════════════════════════════════
+    //  0.0s  — SVG stroke draws
+    //  1.5s  — SVG fill springs in
+    //  2.1s  — Photo grid reveals staggered
+    //  3.3s  — Name + meta rise up
+    //  5.2s  — EXIT: text drops → photos collapse → linen curtain wipes → done
+    // ═════════════════════════════════════════════════════
     (function () {
       const preloader = document.getElementById('preloader');
       if (!preloader) return;
 
       const logoStroke = document.getElementById('plLogoStroke');
-      const logoFill = document.getElementById('plLogoFill');
-      const plImgs = document.getElementById('plImgs');
-      const scanline = preloader.querySelector('.preloader__scanline');
-      const plName = preloader.querySelector('.preloader__name');
-      const plMeta = preloader.querySelector('.preloader__meta');
-
-      // ── Phase 0: Scanline sweep (immediate) ─────────────
-      if (scanline) scanline.classList.add('active');
+      const logoFill   = document.getElementById('plLogoFill');
+      const plImgs     = document.getElementById('plImgs');
+      const plName     = preloader.querySelector('.preloader__name');
+      const plMeta     = preloader.querySelector('.preloader__meta');
 
       // ── Phase 1: Draw SVG stroke ─────────────────────────
       setTimeout(() => {
         if (logoStroke) logoStroke.classList.add('draw');
-      }, 50);
+      }, 80);
 
       // ── Phase 2: Fill logo (spring in) ───────────────────
       setTimeout(() => {
         if (logoFill) logoFill.classList.add('reveal');
-      }, 1600);
+      }, 1500);
 
       // ── Phase 3: Reveal photos ────────────────────────────
       setTimeout(() => {
@@ -602,14 +562,70 @@
 
       // ── Phase 5: EXIT ─────────────────────────────────────
       setTimeout(() => {
-        preloader.classList.add('exit');
-        document.body.classList.add('is-loaded');
-      }, 5300);
+        const ease = 'cubic-bezier(0.76, 0, 0.24, 1)';
 
-      // ── Cleanup ───────────────────────────────────────────
-      setTimeout(() => {
-        preloader.style.display = 'none';
-      }, 6900);
+        // 5a. Logo fades out
+        const logoWrap = preloader.querySelector('.preloader__logo-wrap');
+        if (logoWrap) {
+          logoWrap.style.transition = `opacity 0.5s ease, transform 0.7s ${ease}`;
+          logoWrap.style.opacity    = '0';
+          logoWrap.style.transform  = 'scale(0.88)';
+        }
+
+        // 5b. Text fades + drops
+        if (plName) {
+          plName.style.transition = `opacity 0.45s ease, transform 0.6s ${ease}`;
+          plName.style.opacity    = '0';
+          plName.style.transform  = 'translateY(30px)';
+        }
+        if (plMeta) {
+          plMeta.style.transition = `opacity 0.35s ease 0.05s, transform 0.5s ${ease} 0.05s`;
+          plMeta.style.opacity    = '0';
+          plMeta.style.transform  = 'translateY(20px)';
+        }
+
+        // 5c. Photos collapse — column by column (left → right → center)
+        //     img order in DOM: [0]=left, [1]=center-top, [2]=right, [3]=center-bot
+        const imgs   = plImgs ? Array.from(plImgs.querySelectorAll('.preloader__img')) : [];
+        const waves  = [[0], [2], [1, 3]]; // left col, right col, center col
+        waves.forEach((group, wi) => {
+          group.forEach(idx => {
+            if (!imgs[idx]) return;
+            setTimeout(() => {
+              imgs[idx].style.transition = `clip-path 0.75s ${ease}`;
+              imgs[idx].style.clipPath   = 'inset(0 0 100% 0)';
+            }, wi * 100);
+          });
+        });
+
+        // 5d. Linen curtain sweeps in from left, covering everything
+        const curtain = document.createElement('div');
+        Object.assign(curtain.style, {
+          position:   'fixed', inset: '0', zIndex: '10000',
+          background: '#f5f0e8',
+          transform:  'translateX(-100%)',
+          transition: `transform 0.9s ${ease}`,
+        });
+        document.body.appendChild(curtain);
+
+        setTimeout(() => {
+          curtain.style.transform = 'translateX(0)';
+        }, 350);
+
+        // 5e. Once curtain is fully in, remove preloader + slide curtain out
+        setTimeout(() => {
+          preloader.style.display = 'none';
+          document.body.classList.add('is-loaded');
+          curtain.style.transition = `transform 0.85s ${ease}`;
+          curtain.style.transform  = 'translateX(100%)';
+        }, 1350);
+
+        // 5f. Remove curtain from DOM
+        setTimeout(() => {
+          curtain.remove();
+        }, 2300);
+
+      }, 5200);
     })();
   </script>
 </body>
