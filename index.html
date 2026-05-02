@@ -77,9 +77,12 @@
       </span>
     </a>
     <div class="menu-trigger" id="menuTrigger">
-      <span class="menu-text" id="menuText">
-        <span data-hover="MENU">MENU</span>
-      </span>
+      <div class="menu-text">
+        <div class="text-wrapper" id="menuTextInner">
+          <span class="text-item" data-hover="MENU">MENU</span>
+          <span class="text-item" data-hover="FECHAR">FECHAR</span>
+        </div>
+      </div>
       <div class="hamburger">
         <span></span>
         <span></span>
@@ -262,28 +265,21 @@
         const isOpen = menuOverlay.classList.contains('is-open');
         
         if (isOpen) {
-          // Fechar
+          // FECHAR
           menuOverlay.classList.add('is-closing');
+          menuTrigger.classList.remove('is-active');
+          document.body.style.overflow = '';
+          
           setTimeout(() => {
             menuOverlay.classList.remove('is-open', 'is-closing');
-            menuTrigger.classList.remove('is-active');
-            document.body.style.overflow = '';
-            if (menuTextInner) {
-              menuTextInner.textContent = 'MENU';
-              menuTextInner.setAttribute('data-hover', 'MENU');
-            }
-          }, 850);
+          }, 900);
         } else {
-          // Abrir
+          // ABRIR
           if (menuPreviewImg) menuPreviewImg.src = defaultImg;
           menuOverlay.classList.remove('is-closing');
           menuOverlay.classList.add('is-open');
           menuTrigger.classList.add('is-active');
           document.body.style.overflow = 'hidden';
-          if (menuTextInner) {
-            menuTextInner.textContent = 'FECHAR';
-            menuTextInner.setAttribute('data-hover', 'FECHAR');
-          }
         }
       });
     }

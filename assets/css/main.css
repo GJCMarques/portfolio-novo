@@ -35,11 +35,21 @@
 
 /* ─── RESET ──────────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
+
+html, body {
     background-color: var(--color-linen);
     color: var(--color-espresso);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
+    /* Esconder scrollbar mantendo funcionalidade */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+/* Esconder scrollbar para Chrome, Safari e Opera */
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+    display: none;
 }
 
 /* ─── HEADER ─────────────────────────────────────────────────── */
@@ -68,15 +78,55 @@ body {
 
 /* ─── MENU TRIGGER ───────────────────────────────────────────── */
 .menu-trigger { display: flex; align-items: center; gap: 25px; cursor: pointer; }
+
 .menu-text {
-    font-family: var(--font-accent); font-size: 1.5rem; letter-spacing: 2px;
-    height: 1.8rem; overflow: hidden;
-    transition: opacity 0.4s var(--ease-snap);
+    font-family: var(--font-accent); 
+    font-size: 1.5rem; 
+    letter-spacing: 2px;
+    height: 1.8rem; 
+    overflow: hidden;
+    position: relative;
+    width: 140px; /* Aumentado para não cortar "FECHAR" */
+    display: flex;
+    justify-content: flex-end;
 }
-.menu-text span { display: block; position: relative; transition: transform 0.6s var(--ease-snap); }
-.menu-text span::after { content: attr(data-hover); position: absolute; top: 100%; left: 0; color: var(--color-bordeaux); }
-.menu-trigger:hover .menu-text span { transform: translateY(-100%); }
-.menu-text.switching { opacity: 0; }
+
+.text-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-areas: "stack";
+}
+
+.text-item {
+    grid-area: stack;
+    display: block;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    position: relative;
+    transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), 
+                opacity 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* Estado inicial: MENU visível, FECHAR abaixo */
+.text-item[data-hover="MENU"] { transform: translateY(0); opacity: 1; }
+.text-item[data-hover="FECHAR"] { transform: translateY(100%); opacity: 0; }
+
+/* Efeito de Hover individual (Bordeaux) */
+.text-item::after {
+    content: attr(data-hover);
+    position: absolute;
+    top: 100%; left: 0;
+    width: 100%;
+    color: var(--color-bordeaux);
+}
+.menu-trigger:not(.is-active):hover .text-item[data-hover="MENU"] { transform: translateY(-100%); }
+.menu-trigger.is-active:hover .text-item[data-hover="FECHAR"] { transform: translateY(-100%); }
+
+/* TROCA QUANDO ATIVO */
+.menu-trigger.is-active .text-item[data-hover="MENU"] { transform: translateY(-100%); opacity: 0; }
+.menu-trigger.is-active .text-item[data-hover="FECHAR"] { transform: translateY(0); opacity: 1; }
 
 /* ─── HAMBURGER ──────────────────────────────────────────────── */
 .hamburger {
@@ -105,24 +155,37 @@ body {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: 1500; visibility: hidden;
-    transition: visibility 0.9s;
+    transition: visibility 1.2s; /* Duração total da cortina */
 }
 .menu-overlay.is-open { visibility: visible; }
 
 .menu-panel {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* Imagem de fundo com overlay para contraste */
+    /* Imagem de fundo com overlay */
     background-image: linear-gradient(rgba(249, 248, 246, 0.4), rgba(249, 248, 246, 0.4)), url('../img/menu/fundomenu.webp');
     background-size: cover;
     background-position: center;
-    transform: translateY(-100%) scale(1.1);
-    transition: transform 0.9s var(--ease-luxury);
+    /* LUXURY CLIP-PATH REVEAL */
+    clip-path: inset(0 0 100% 0);
+    transform: scale(1.05);
+    transition: clip-path 1.1s cubic-bezier(0.76, 0, 0.24, 1), 
+                transform 1.1s cubic-bezier(0.76, 0, 0.24, 1);
 }
-.menu-overlay.is-open .menu-panel { transform: translateY(0) scale(1); }
-.menu-overlay.is-closing .menu-panel { transform: translateY(-100%) scale(1.1); transition: transform 0.8s var(--ease-luxury); }
 
-/* ─── MENU CONTAINER: Flex Column ───────────────────────────── */
+.menu-overlay.is-open .menu-panel { 
+    clip-path: inset(0 0 0 0); 
+    transform: scale(1); 
+}
+
+.menu-overlay.is-closing .menu-panel { 
+    clip-path: inset(0 0 100% 0); /* Wipe de volta para cima, limpo */
+    transform: scale(1.05);
+    transition: clip-path 0.9s cubic-bezier(0.76, 0, 0.24, 1), 
+                transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ─── MENU CONTAINER: Conteúdo ───────────────────────────── */
 .menu-container {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -130,18 +193,20 @@ body {
     flex-direction: column;
     z-index: 2;
     opacity: 0;
-    transition: opacity 0.5s var(--ease-luxury) 0.5s;
+    transition: opacity 0.8s var(--ease-luxury) 0.3s;
 }
 .menu-overlay.is-open .menu-container { opacity: 1; }
-.menu-overlay.is-closing .menu-container { opacity: 0; transition: opacity 0.2s var(--ease-luxury) 0s; }
+.menu-overlay.is-closing .menu-container { 
+    opacity: 0; 
+    transition: opacity 0.4s var(--ease-luxury); 
+}
 
-/* ─── NAVEGAÇÃO: Centro do ecrã ─────────────────────────────── */
+/* ─── NAVEGAÇÃO: Lux Stagger ─────────────────────────────── */
 .menu-nav {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Desce ligeiramente para compensar a navbar no topo */
     padding-top: 80px;
 }
 
@@ -165,8 +230,7 @@ body {
     font-size: 0.6rem;
     letter-spacing: 4px;
     color: var(--color-bordeaux);
-    opacity: 0.4;
-    /* alinha o número ao topo do link */
+    opacity: 1;
     align-self: flex-start;
     margin-top: 0.5rem;
     width: 22px;
@@ -176,15 +240,17 @@ body {
 .nav-item a {
     font-family: var(--font-heading);
     font-size: clamp(3.5rem, 7vw, 8rem);
-    line-height: 1;
+    line-height: 1.1;
     text-decoration: none;
     color: var(--color-espresso);
     text-transform: uppercase;
     display: block;
     overflow: hidden;
-    height: 1.05em;
-    transform: translateY(110%);
-    transition: transform 0.8s var(--ease-luxury);
+    /* Posição inicial para o Stagger Lux */
+    transform: translateY(110%) skewY(5deg);
+    opacity: 0;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), 
+                opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .nav-item a span {
@@ -201,15 +267,26 @@ body {
     color: var(--color-bordeaux);
     font-style: italic;
 }
-
-/* Entrada em cascata */
-.menu-overlay.is-open .nav-item:nth-child(1) a { transform: translateY(0); transition-delay: 0.10s; }
-.menu-overlay.is-open .nav-item:nth-child(2) a { transform: translateY(0); transition-delay: 0.17s; }
-.menu-overlay.is-open .nav-item:nth-child(3) a { transform: translateY(0); transition-delay: 0.24s; }
-.menu-overlay.is-open .nav-item:nth-child(4) a { transform: translateY(0); transition-delay: 0.31s; }
-.menu-overlay.is-open .nav-item:nth-child(5) a { transform: translateY(0); transition-delay: 0.38s; }
-
 .nav-item a:hover span { transform: translateY(-100%); }
+
+.menu-overlay.is-open .nav-item a { 
+    transform: translateY(0) skewY(0deg); 
+    opacity: 1;
+}
+
+/* Delays escalonados mais lentos e luxuosos */
+.menu-overlay.is-open .nav-item:nth-child(1) a { transition-delay: 0.4s; }
+.menu-overlay.is-open .nav-item:nth-child(2) a { transition-delay: 0.5s; }
+.menu-overlay.is-open .nav-item:nth-child(3) a { transition-delay: 0.6s; }
+.menu-overlay.is-open .nav-item:nth-child(4) a { transition-delay: 0.7s; }
+.menu-overlay.is-open .nav-item:nth-child(5) a { transition-delay: 0.8s; }
+
+/* Na saída */
+.menu-overlay.is-closing .nav-item a {
+    transform: translateY(-100%) skewY(-5deg);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
 
 /* ─── FOOTER: Rodapé horizontal ─────────────────────────────── */
 .menu-footer {
@@ -255,7 +332,8 @@ body {
     font-size: 12px; /* Aumentado */
     letter-spacing: 3px;
     text-transform: uppercase;
-    opacity: 0.6;
+    color: var(--color-espresso);
+    opacity: 1;
 }
 
 /* Centro: Seletor de Língua */
@@ -273,7 +351,7 @@ body {
     border: none;
     color: var(--color-espresso);
     cursor: pointer;
-    opacity: 0.3;
+    opacity: 1;
     transition: all 0.3s var(--ease-snap);
     padding: 5px;
     font-family: inherit;
