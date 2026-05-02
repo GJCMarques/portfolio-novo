@@ -77,7 +77,12 @@ body::-webkit-scrollbar {
 .brand-link:hover .signature-name span { transform: translateY(-100%); }
 
 /* ─── MENU TRIGGER ───────────────────────────────────────────── */
-.menu-trigger { display: flex; align-items: center; gap: 25px; cursor: pointer; }
+.menu-trigger { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; /* Mais colado para aspeto de "botão único" */
+    cursor: pointer; 
+}
 
 .menu-text {
     font-family: var(--font-accent); 
@@ -86,9 +91,9 @@ body::-webkit-scrollbar {
     height: 1.8rem; 
     overflow: hidden;
     position: relative;
-    width: 140px; /* Aumentado para não cortar "FECHAR" */
+    width: auto; /* Deixa crescer organicamente */
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start; /* Alinhado à esquerda */
 }
 
 .text-wrapper {
