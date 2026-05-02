@@ -416,10 +416,18 @@ body::-webkit-scrollbar {
     transform: translateY(-100%);
 }
 
-/* ENTRADA: Links aparecem com Stagger */
+/* ENTRADA: Links aparecem — define todos os valores de origem para a saída */
 .menu-overlay.is-open .nav-link {
-    transform: translateY(0) skewY(0deg);
+    transform: translateY(0) skewY(0deg) scale(1);
     opacity: 1;
+    letter-spacing: 0px;        /* Valor de origem para animar na saída */
+    filter: blur(0px);          /* Valor de origem para animar na saída */
+    /* Transition definida AQUI para ser herdada na saída */
+    transition: 
+        transform 1.2s var(--ease-luxury), 
+        opacity 0.9s var(--ease-luxury),
+        letter-spacing 1s var(--ease-luxury),
+        filter 0.9s var(--ease-luxury);
 }
 
 .menu-overlay.is-open .nav-item:nth-child(1) .nav-link { transition-delay: 0.3s; }
@@ -428,24 +436,25 @@ body::-webkit-scrollbar {
 .menu-overlay.is-open .nav-item:nth-child(4) .nav-link { transition-delay: 0.6s; }
 .menu-overlay.is-open .nav-item:nth-child(5) .nav-link { transition-delay: 0.7s; }
 
-/* SAÍDA: Desconstrução Arquitetónica (Cinematográfica e Complexa) */
+/* SAÍDA: Desconstrução Tipográfica — os valores animam DESDE os do is-open */
 .menu-overlay.is-closing .nav-link {
-    transform: translateY(100px) skewY(15deg) scale(1.2);
+    transform: translateY(80px) skewY(12deg) scale(0.9);
     opacity: 0;
-    letter-spacing: 40px; /* A palavra desintegra-se */
-    filter: blur(15px);   /* Motion blur de elite */
-    transition: transform 1.2s var(--ease-luxury), 
-                opacity 0.8s var(--ease-luxury),
-                letter-spacing 1.2s var(--ease-luxury),
-                filter 1s var(--ease-luxury);
+    letter-spacing: 30px; /* Palavra explode horizontalmente */
+    filter: blur(12px);   /* Dissolve em desfoque */
+    transition: 
+        transform 1s cubic-bezier(0.76, 0, 0.24, 1), 
+        opacity 0.7s cubic-bezier(0.76, 0, 0.24, 1),
+        letter-spacing 1s cubic-bezier(0.76, 0, 0.24, 1),
+        filter 0.8s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* STAGGER DE SAÍDA (Invertido e Lento para Drama) */
-.menu-overlay.is-closing .nav-item:nth-child(5) .nav-link { transition-delay: 0.0s; }
-.menu-overlay.is-closing .nav-item:nth-child(4) .nav-link { transition-delay: 0.1s; }
-.menu-overlay.is-closing .nav-item:nth-child(3) .nav-link { transition-delay: 0.2s; }
-.menu-overlay.is-closing .nav-item:nth-child(2) .nav-link { transition-delay: 0.3s; }
-.menu-overlay.is-closing .nav-item:nth-child(1) .nav-link { transition-delay: 0.4s; }
+/* STAGGER DE SAÍDA (Bottom → Top, para "cascata" dramática) */
+.menu-overlay.is-closing .nav-item:nth-child(5) .nav-link { transition-delay: 0.00s; }
+.menu-overlay.is-closing .nav-item:nth-child(4) .nav-link { transition-delay: 0.08s; }
+.menu-overlay.is-closing .nav-item:nth-child(3) .nav-link { transition-delay: 0.16s; }
+.menu-overlay.is-closing .nav-item:nth-child(2) .nav-link { transition-delay: 0.24s; }
+.menu-overlay.is-closing .nav-item:nth-child(1) .nav-link { transition-delay: 0.32s; }
 
 /* ─── FOOTER: Rodapé Coreografado ───────────────────────────── */
 .menu-footer {

@@ -264,14 +264,15 @@
         const isOpen = menuOverlay.classList.contains('is-open');
         
         if (isOpen) {
-          // FECHAR
+          // FECHAR — remove is-open imediatamente para as animações de saída funcionarem
+          menuOverlay.classList.remove('is-open');
           menuOverlay.classList.add('is-closing');
           menuTrigger.classList.remove('is-active');
           document.body.style.overflow = '';
           
           setTimeout(() => {
-            menuOverlay.classList.remove('is-open', 'is-closing');
-          }, 900);
+            menuOverlay.classList.remove('is-closing');
+          }, 1400); // Tempo total: stagger (0.32s) + duração máxima (1s) + margem
         } else {
           // ABRIR
           if (menuPreviewImg) menuPreviewImg.src = defaultImg;
