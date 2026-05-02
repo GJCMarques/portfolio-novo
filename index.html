@@ -13,6 +13,38 @@
 </head>
 
 <body>
+  <div class="preloader" id="preloader">
+
+    <!-- Photo grid — 4 editorial images -->
+    <div class="preloader__imgs">
+      <div class="preloader__img preloader__img--1">
+        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop" alt="">
+      </div>
+      <div class="preloader__img preloader__img--2">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop" alt="">
+      </div>
+      <div class="preloader__img preloader__img--3">
+        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop" alt="">
+      </div>
+      <div class="preloader__img preloader__img--4">
+        <img src="https://images.unsplash.com/photo-1539109132382-381bb3f1cff6?q=80&w=800&auto=format&fit=crop" alt="">
+      </div>
+    </div>
+
+    <!-- Overlay so text is always readable -->
+    <div class="preloader__overlay"></div>
+
+    <!-- Name — the ONLY text -->
+    <div class="preloader__textblock">
+      <div class="preloader__name-clip">
+        <span class="preloader__name">Guilherme Marques</span>
+      </div>
+      <div class="preloader__meta-clip">
+        <span class="preloader__meta">Portfolio &mdash; 2026</span>
+      </div>
+    </div>
+
+  </div>
   <div class="noise-overlay"></div>
   <nav class="nav-bar">
     <a href="index.html" class="brand-link">
@@ -243,6 +275,21 @@
           document.body.style.overflow = 'hidden';
         }
       });
+    }
+
+    // ── Editorial Photo Preloader ─────────────────────────────
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+      // Let photos breathe for 3s, then trigger the exit sequence
+      setTimeout(() => {
+        preloader.classList.add('exit');
+        document.body.classList.add('is-loaded');
+      }, 3000);
+
+      // Remove from DOM after exit completes (~1.4s total)
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 4600);
     }
   </script>
 </body>
