@@ -8,63 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
   <link rel="stylesheet" href="assets/css/main.css">
   <style>
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 10%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-bg-logo {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80vh;
-      height: 80vh;
-      opacity: 0.02;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    .hero-tagline {
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      margin-bottom: 30px;
-      opacity: 0.5;
-    }
-
-    .hero-title {
-      font-family: var(--font-heading);
-      font-size: clamp(4rem, 12vw, 9rem);
-      line-height: 0.9;
-      margin-bottom: 40px;
-      color: var(--color-espresso);
-    }
-
-    .hero-title span {
-      display: block;
-      font-family: var(--font-accent);
-      color: var(--color-bordeaux);
-      font-size: 0.5em;
-      margin-top: 10px;
-    }
-
-    .hero-description {
-      font-family: var(--font-body);
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto 60px;
-      line-height: 1.6;
-      opacity: 0.7;
-    }
+    /* Styles moved to main.css */
   </style>
 </head>
 
@@ -178,26 +122,44 @@
     </div>
   </div>
 
-  <section class="hero">
-    <img src="assets/img/logo.svg" class="hero-bg-logo" alt="">
-    <p class="hero-tagline">Est. 2026 — Heritage Elite</p>
-    <h1 class="hero-title">
-      The New <br><span>Heritage</span>
-    </h1>
-    <p class="hero-description">
-      Arquiteto de Experiências Digitais. Focado na intersecção entre a tradição clássica e a inovação tecnológica de
-      elite.
+  <section class="editorial-hero">
+    <div class="editorial-hero__media">
+      <img src="assets/img/hero/editorial-hero.png" alt="Heritage Elite Editorial">
+    </div>
+
+    <div class="editorial-hero__content">
+      <h1 class="editorial-hero__title">
+        <span><span class="line-inner">The New</span></span>
+        <span><span class="line-inner">Heritage</span></span>
+        <span class="accent-text">Est. 2026</span>
+      </h1>
+    </div>
+
+    <p class="editorial-hero__subtitle">
+      Arquiteto de Experiências Digitais. <br>
+      Focado na intersecção entre a tradição clássica e a inovação tecnológica de elite.
     </p>
 
-    <div class="button-group" style="display: flex; gap: 30px;">
+    <div class="editorial-hero__meta">
+      <span>
+        <strong>Location</strong>
+        Porto, PT
+      </span>
+      <span>
+        <strong>Vibe</strong>
+        Editorial / Old Money
+      </span>
+    </div>
+
+    <div class="editorial-hero__actions">
       <a href="#work" class="btn btn-cta">
         <span class="btn-text-wrapper">
-          <span class="btn-text" data-text="Ver Projetos">Ver Projetos</span>
+          <span class="btn-text" data-text="Explorar Projetos">Explorar Projetos</span>
         </span>
       </a>
       <a href="#contact" class="btn btn-ghost">
         <span class="btn-text-wrapper">
-          <span class="btn-text" data-text="Conversar">Conversar</span>
+          <span class="btn-text" data-text="Curadoria">Curadoria</span>
         </span>
       </a>
     </div>
