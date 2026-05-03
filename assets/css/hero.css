@@ -92,6 +92,8 @@ body.is-site-active .hero-stage__content {
 .h-line {
     display: block;
     overflow: hidden;
+    padding: 0.25em 0.15em; /* Margem maior para descendentes como o 'Q' */
+    margin: -0.25em -0.15em; 
 }
 
 .h-line-inner {
