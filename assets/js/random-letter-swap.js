@@ -1,8 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const words = ["Web Developer", "Full-Stack Engineer", "Criador Multimédia"];
+    const words = [
+        "Web Developer",
+        "Full-Stack Engineer",
+        "Criador Multimédia",
+        "Frontend Developer",
+        "Backend Developer",
+        "Web Apps Creator",
+        "UI/UX Designer",
+        "Junior Dev",
+        "Web Designer",
+        "FinTech",
+        "Marketing"
+    ];
     let currentIndex = 0;
     const container = document.getElementById("scrambling-text");
-    
+
     if (!container) return;
 
     // Helper to split text into spans
