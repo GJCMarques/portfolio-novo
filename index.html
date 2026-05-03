@@ -175,44 +175,38 @@
     </div>
   </div>
 
-  <section class="hero-editorial" id="hero">
+  <section class="hero-stage" id="hero">
 
-    <!-- ── Left: Title ─────────────────────────────────────────── -->
-    <div class="hero-editorial__left">
-
-      <div class="hero-editorial__eyebrow">
-        <span class="hero-editorial__eyebrow-dash"></span>
-        <span class="hero-editorial__eyebrow-text">Porto, PT &mdash; 2026</span>
-      </div>
-
-      <h1 class="hero-editorial__title">
+    <!-- ── Center Title + Role ──────────────────────────────── -->
+    <div class="hero-stage__content">
+      <h1 class="hero-stage__title">
         <span class="h-line"><span class="h-line-inner">Guilherme</span></span>
-        <span class="h-line"><span class="h-line-inner">Marques<em class="h-accent">&middot; Portfolio</em></span></span>
+        <span class="h-line"><span class="h-line-inner">Marques</span></span>
       </h1>
-
-      <p class="hero-editorial__tagline">
-        Arquitecto de Experi&ecirc;ncias Digitais &mdash; unindo heran&ccedil;a cl&aacute;ssica &agrave; precis&atilde;o tecnol&oacute;gica de elite.
-      </p>
-
+      <div class="hero-stage__roles">
+        <span class="hero-stage__role-prefix">Especialista em&nbsp;</span>
+        <span class="hero-stage__role-container" id="roleContainer">
+          <span class="hero-stage__role-word" id="roleWord">Web Design</span>
+          <span class="hero-stage__role-ruler" id="roleRuler"></span>
+        </span>
+      </div>
     </div>
 
-    <!-- ── Right: Swiper Creative Carousel ─────────────────────── -->
-    <div class="hero-editorial__right">
-      <div class="swiper hero-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="assets/img/loader/a.jpg" alt=""></div>
-          <div class="swiper-slide"><img src="assets/img/loader/b.jpg" alt=""></div>
-          <div class="swiper-slide"><img src="assets/img/loader/c.jpg" alt=""></div>
-          <div class="swiper-slide"><img src="assets/img/loader/d.jpg" alt=""></div>
-          <div class="swiper-slide"><img src="assets/img/loader/a.jpg" alt=""></div>
-          <div class="swiper-slide"><img src="assets/img/loader/b.jpg" alt=""></div>
-        </div>
-        <div class="swiper-pagination"></div>
+    <!-- ── Draggable fan image strip ────────────────────────── -->
+    <div class="swiper hero-strip" id="heroStrip">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="assets/img/loader/a.jpg" alt="" draggable="false"></div>
+        <div class="swiper-slide"><img src="assets/img/loader/b.jpg" alt="" draggable="false"></div>
+        <div class="swiper-slide"><img src="assets/img/loader/c.jpg" alt="" draggable="false"></div>
+        <div class="swiper-slide"><img src="assets/img/loader/d.jpg" alt="" draggable="false"></div>
+        <div class="swiper-slide"><img src="assets/img/loader/a.jpg" alt="" draggable="false"></div>
+        <div class="swiper-slide"><img src="assets/img/loader/b.jpg" alt="" draggable="false"></div>
+        <div class="swiper-slide"><img src="assets/img/loader/c.jpg" alt="" draggable="false"></div>
+        <div class="swiper-slide"><img src="assets/img/loader/d.jpg" alt="" draggable="false"></div>
       </div>
     </div>
 
   </section>
-
 
   <!-- DUMMY SECTION / SELECTED WORK -->
   <section id="work"
@@ -227,8 +221,7 @@
       </h2>
       <div style="height: 1px; width: 100%; background: var(--color-espresso); margin: 60px 0; opacity: 0.1;"></div>
       <p style="font-family: var(--font-body); font-size: 1.5rem; max-width: 700px; line-height: 1.4; opacity: 0.7;">
-        Esta secção servirá de palco para os teus projetos de elite. O layout será desenhado para elevar a narrativa
-        visual de cada caso de estudo.
+        Esta secção servirá de palco para os teus projetos de elite.
       </p>
     </div>
   </section>
@@ -237,33 +230,95 @@
   <script src="assets/js/menu.js"></script>
   <script src="assets/js/preloader.js"></script>
   <script>
-    // ── Hero Swiper: Creative 3D Flip ────────────────────────
-    new Swiper('.hero-swiper', {
-      effect: 'coverflow',
-      grabCursor: true,
+    // ── Fan carousel: heights update by distance from center ──────
+    function tagSlidePositions(swiper) {
+      swiper.slides.forEach(function (slide, i) {
+        var dist = Math.min(Math.abs(i - swiper.activeIndex), 2);
+        slide.setAttribute('data-pos', dist);
+      });
+    }
+
+    var heroSwiper = new Swiper('.hero-strip', {
+      slidesPerView: 5,
       centeredSlides: true,
-      slidesPerView: 'auto',
       loop: true,
-      speed: 900,
-      autoplay: {
-        delay: 2600,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      coverflowEffect: {
-        rotate: 42,
-        stretch: 0,
-        depth: 280,
-        modifier: 1.5,
-        slideShadows: true,
-      },
-      pagination: {
-        el: '.hero-swiper .swiper-pagination',
-        clickable: true,
-        dynamicBullets: false,
+      speed: 550,
+      grabCursor: true,
+      on: {
+        // On init and snap: tag by index distance
+        init: function (s) { tagSlidePositions(s); },
+        slideChange: function (s) { tagSlidePositions(s); },
+
+        // Real-time drag: tag by pixel distance from center
+        sliderMove: function (s) {
+          var center = s.el.getBoundingClientRect();
+          var centerX = center.left + center.width / 2;
+          s.slides.forEach(function (slide) {
+            var r = slide.getBoundingClientRect();
+            var sx = r.left + r.width / 2;
+            var dist = Math.abs(sx - centerX);
+            var slideW = s.width / 5;
+            slide.setAttribute('data-pos', Math.min(Math.round(dist / slideW), 2));
+          });
+        },
+
+        // Kill transition during drag for instant feel
+        touchStart: function (s) {
+          s.slides.forEach(function (sl) { sl.style.transition = 'none'; });
+        },
+        // Restore transition after release
+        touchEnd: function (s) {
+          s.slides.forEach(function (sl) { sl.style.transition = ''; });
+          tagSlidePositions(s);
+        },
       },
     });
+
+    // ── Animated Role Word Cycle (blur morph) ────────────────────
+    (function () {
+      var roles = [
+        'Web Design', 'Front-end Dev', 'UI/UX Design',
+        'IT & Tech', 'Software Dev', 'App Development',
+        'Digital Strategy', 'Business Tech', 'Finance Tech'
+      ];
+      var idx = 0;
+      var wordEl = document.getElementById('roleWord');
+      var containerEl = document.getElementById('roleContainer');
+      var rulerEl = document.getElementById('roleRuler');
+
+      function syncRuler() {
+        var cs = getComputedStyle(wordEl);
+        rulerEl.style.font = cs.font;
+        rulerEl.style.fontStyle = cs.fontStyle;
+        rulerEl.style.letterSpacing = cs.letterSpacing;
+      }
+
+      function setWidth(text) {
+        syncRuler();
+        rulerEl.textContent = text;
+        containerEl.style.width = rulerEl.offsetWidth + 'px';
+      }
+
+      setWidth(roles[0]);
+
+      function cycle() {
+        wordEl.style.animation = 'none';
+        wordEl.offsetHeight;
+        wordEl.style.animation = 'role-out 0.3s ease forwards';
+        setTimeout(function () {
+          idx = (idx + 1) % roles.length;
+          wordEl.textContent = roles[idx];
+          setWidth(roles[idx]);
+          wordEl.style.animation = 'none';
+          wordEl.offsetHeight;
+          wordEl.style.animation = 'role-in 0.4s ease forwards';
+        }, 320);
+      }
+
+      setInterval(cycle, 3000);
+    })();
   </script>
 </body>
 
 </html>
+
