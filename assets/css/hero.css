@@ -4,17 +4,31 @@
 
 .hero-stage {
     position: relative;
-    height: 100vh;
     width: 100%;
-    background-color: #000;
+    height: 100vh;
     overflow: hidden;
+    background-color: #000;
+    transition: filter 1.5s var(--ease-luxury), transform 1.5s var(--ease-luxury);
+}
+
+/* Nuclear Blur Fix: Scale + Direct Filter */
+body.is-awaiting-audio .hero-stage {
+    filter: blur(25px);
+    transform: scale(1.00);
+}
+
+body.is-site-active .hero-stage {
+    filter: blur(0);
+    transform: scale(1);
 }
 
 /* ── Static Background ───────────────────────────────────────── */
 .hero-stage__bg {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
 }
 
@@ -32,14 +46,18 @@
 .hero-stage__bg::after {
     content: '';
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.25);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
     z-index: 2;
 }
 
 @keyframes image-fade {
-    to { opacity: 1; }
+    to {
+        opacity: 1;
+    }
 }
 
 /* ── Vogue Editorial Title — Pure White ─────────────────────── */
@@ -71,7 +89,10 @@ body.is-site-active .hero-stage__content {
     font-weight: 300;
 }
 
-.h-line { display: block; overflow: hidden; }
+.h-line {
+    display: block;
+    overflow: hidden;
+}
 
 .h-line-inner {
     display: inline-block;
@@ -84,7 +105,10 @@ body.is-site-active .h-line-inner {
 }
 
 @keyframes h-reveal {
-    to { opacity: 1; transform: translateY(0); }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-stage__staggered-subtitle {
@@ -97,7 +121,9 @@ body.is-site-active .hero-stage__staggered-subtitle {
 }
 
 @keyframes fade-in {
-    to { opacity: 0.85; }
+    to {
+        opacity: 0.85;
+    }
 }
 
 /* Header Overrides for Hero (White) */
@@ -134,10 +160,19 @@ body.is-menu-open .nav-bar .hamburger span {
 
 /* Responsive */
 @media (max-width: 1024px) {
-    .hero-stage__title { font-size: 16vw; }
+    .hero-stage__title {
+        font-size: 16vw;
+    }
 }
 
 @media (max-width: 768px) {
-    .hero-stage__title { font-size: 18vw; line-height: 0.82; }
-    .hero-stage__subtitle { letter-spacing: 0.3em; margin-top: 30px; }
+    .hero-stage__title {
+        font-size: 18vw;
+        line-height: 0.82;
+    }
+
+    .hero-stage__subtitle {
+        letter-spacing: 0.3em;
+        margin-top: 30px;
+    }
 }
