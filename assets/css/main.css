@@ -143,6 +143,173 @@ body::-webkit-scrollbar {
     color: white;
 }
 
+/* ─── HERO STAGE V5 — CINEMATIC ENTRANCE ────────────────── */
+.hero-stage {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-linen);
+}
+
+.hero-stage__bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1;
+}
+
+.hero-stage__bg img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform: scale(1.15);
+    animation: hero-zoom-out 20s var(--ease-luxury) forwards;
+}
+
+@keyframes hero-zoom-out {
+    to { transform: scale(1); }
+}
+
+.hero-stage__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-stage__title {
+    font-family: var(--font-heading);
+    font-size: clamp(4rem, 12vw, 12rem);
+    line-height: 0.85;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.h-line {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 0.1em;
+}
+
+.h-line-inner {
+    display: block;
+    transform: translateY(105%);
+    animation: reveal-text 1.6s var(--ease-luxury) forwards;
+}
+
+.h-line:nth-child(2) .h-line-inner {
+    animation-delay: 0.2s;
+}
+
+@keyframes reveal-text {
+    to { transform: translateY(0); }
+}
+
+/* ─── PASSE-PARTOUT FRAME ────────────────────────────── */
+.hero-stage__frame {
+    position: absolute;
+    top: clamp(15px, 3vw, 30px);
+    left: clamp(15px, 3vw, 30px);
+    right: clamp(15px, 3vw, 30px);
+    bottom: clamp(15px, 3vw, 30px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0;
+    animation: fade-up-hero 2s var(--ease-luxury) 0.5s forwards;
+}
+
+/* ─── STAGGERED SUBTITLE ────────────────────────────── */
+.hero-stage__staggered-subtitle {
+    margin-top: clamp(40px, 8vw, 80px);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1400px;
+    position: relative;
+    z-index: 5;
+    padding: 0 5vw;
+}
+
+.stagger-line {
+    font-family: var(--font-accent);
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fade-up-hero 1.2s var(--ease-luxury) forwards;
+}
+
+.stagger-line.line-1 {
+    text-align: left;
+    margin-right: auto;
+    padding-left: 5%;
+    animation-delay: 1s;
+}
+
+.stagger-line.line-2 {
+    text-align: center;
+    margin: 0 auto;
+    animation-delay: 1.2s;
+    font-style: italic; /* Dá aquele ar chic editorial */
+}
+
+.stagger-line.line-3 {
+    text-align: right;
+    margin-left: auto;
+    padding-right: 5%;
+    animation-delay: 1.4s;
+}
+
+.simple-carousel {
+    height: 1.1em;
+    overflow: hidden;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.simple-carousel__inner {
+    display: flex;
+    flex-direction: column;
+    animation: simple-slide 9s infinite cubic-bezier(0.8, 0, 0.2, 1);
+}
+
+.simple-carousel__item {
+    height: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+@keyframes simple-slide {
+    0%, 25% { transform: translateY(0); }
+    33%, 58% { transform: translateY(-25%); }
+    66%, 91% { transform: translateY(-50%); }
+    100% { transform: translateY(-75%); }
+}
+
+@keyframes fade-up-hero {
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ─── UTILS: Textura e Efeitos ───────────────────────────────── */
 .noise-overlay {
     position: fixed;
