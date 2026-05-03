@@ -2,6 +2,10 @@
    AUDIO CONTROLLER & IMMERSIVE OVERLAY (Brutalist-Lux)
    ═══════════════════════════════════════════════════════════════ */
 
+body:not(.is-site-active) {
+    overflow: hidden;
+}
+
 /* ─── FULLSCREEN AUDIO OVERLAY ────────────────────────── */
 .audio-overlay {
     position: fixed;

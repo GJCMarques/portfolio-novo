@@ -62,6 +62,11 @@ body {
     /* IE/Edge */
 }
 
+/* Ultimate Scroll Lock during Loading/Audio phases */
+body:not(.is-site-active) {
+    overflow: hidden !important;
+}
+
 /* Esconder scrollbar para Chrome, Safari e Opera */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
