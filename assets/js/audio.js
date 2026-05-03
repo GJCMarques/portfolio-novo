@@ -5,24 +5,38 @@ document.addEventListener("DOMContentLoaded", () => {
     let isPlaying = false;
     const maxVolume = 0.4;
 
-    // 1. Build the Global Audio Controller
+    // 1. Build the Global Audio Controller (Minimalist Soundwave)
     const controllerHTML = `
-    <button class="global-audio-ctrl" id="globalAudioCtrl">
-        <span class="audio-text">SOUND: </span><span class="audio-state" id="audioState">OFF</span>
+    <button class="global-audio-ctrl" id="globalAudioCtrl" aria-label="Toggle Audio">
+        <div class="sound-bars">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
     </button>`;
     document.body.insertAdjacentHTML('beforeend', controllerHTML);
 
     const audioCtrl = document.getElementById('globalAudioCtrl');
-    const audioState = document.getElementById('audioState');
 
-    // 2. Build the Fullscreen Audio Overlay Prompt
+    // 2. Build the Fullscreen Audio Overlay Prompt (Vogue Editorial Style)
     const overlayHTML = `
     <div id="audioOverlay" class="audio-overlay">
         <div class="audio-prompt-content">
-            <p>Para uma experiência imersiva, ative o som ambiente.</p>
+            <h2 class="audio-prompt-title">A Experiência<br>Heritage</h2>
+            <p class="audio-prompt-desc">Para uma imersão cinematográfica, recomendamos o uso de som.</p>
+            
             <div class="audio-prompt-btns">
-                <button id="btnSoundOn" class="btn-audio">ATIVAR SOM</button>
-                <button id="btnSoundOff" class="btn-audio ghost">SILENCIOSO</button>
+                <button id="btnSoundOn" class="btn-roll btn-cta">
+                    <span class="roll-wrapper">
+                        <span class="roll-text" data-text="ATIVAR SOM">ATIVAR SOM</span>
+                    </span>
+                </button>
+                <button id="btnSoundOff" class="btn-roll btn-subtle">
+                    <span class="roll-wrapper">
+                        <span class="roll-text" data-text="EXPLORAR EM SILÊNCIO">EXPLORAR EM SILÊNCIO</span>
+                    </span>
+                </button>
             </div>
         </div>
     </div>`;
@@ -34,17 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 3. Handle Overlay Choices
     function activateSite(withSound) {
-        // Remove awaiting state, Add active state
+        // Unlock site animations
         document.body.classList.remove('is-awaiting-audio');
         document.body.classList.add('is-site-active');
         
-        // Hide overlay
         audioOverlay.classList.add('hidden');
 
         if (withSound) {
             audioObj.play().then(() => {
                 isPlaying = true;
-                audioState.innerText = "ON";
                 audioCtrl.classList.add('playing');
                 
                 let vol = 0;
@@ -74,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     clearInterval(fadeOut);
                     audioObj.pause();
                     isPlaying = false;
-                    audioState.innerText = "OFF";
                     audioCtrl.classList.remove('playing');
                 } else {
                     audioObj.volume = vol;
@@ -83,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             audioObj.play();
             isPlaying = true;
-            audioState.innerText = "ON";
             audioCtrl.classList.add('playing');
             
             let vol = audioObj.volume;

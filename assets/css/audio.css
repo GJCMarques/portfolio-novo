@@ -11,12 +11,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(10, 10, 10, 0.7); /* Darker backdrop */
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 1.2s var(--ease-luxury);
+    transition: opacity 1.5s var(--ease-luxury);
 }
 
 body.is-awaiting-audio .audio-overlay {
@@ -31,9 +31,10 @@ body.is-awaiting-audio .audio-overlay {
 
 .audio-prompt-content {
     text-align: center;
-    transform: translateY(20px);
+    transform: translateY(30px);
     opacity: 0;
-    transition: transform 1.2s var(--ease-luxury) 0.5s, opacity 1.2s var(--ease-luxury) 0.5s;
+    transition: transform 1.5s var(--ease-luxury) 0.5s, opacity 1.5s var(--ease-luxury) 0.5s;
+    max-width: 800px;
 }
 
 body.is-awaiting-audio .audio-prompt-content {
@@ -41,84 +42,183 @@ body.is-awaiting-audio .audio-prompt-content {
     opacity: 1;
 }
 
-.audio-prompt-content p {
-    font-family: var(--font-body);
-    font-size: 10px;
-    letter-spacing: 6px;
+/* ─── EDITORIAL TYPOGRAPHY ────────────────────────────── */
+.audio-prompt-title {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 0.9;
     color: #fff;
-    text-transform: uppercase;
     margin-bottom: 25px;
-    opacity: 0.8;
+    font-weight: 300;
+}
+
+.audio-prompt-desc {
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    margin-bottom: 60px;
 }
 
 .audio-prompt-btns {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
+    align-items: center;
 }
 
-.btn-audio {
-    background: #fff;
-    color: var(--color-espresso);
-    border: 1px solid #fff;
-    padding: 14px 35px;
-    font-family: var(--font-body);
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+/* ─── BUTTON STYLES & TEXT ROLL ───────────────────────── */
+.btn-roll {
     cursor: pointer;
-    transition: all 0.4s var(--ease-luxury);
-}
-
-.btn-audio.ghost {
-    background: transparent;
-    color: #fff;
-}
-
-.btn-audio:hover {
-    background: var(--color-bordeaux);
-    color: #fff;
-    border-color: var(--color-bordeaux);
-    transform: translateY(-2px);
-}
-
-/* ─── GLOBAL AUDIO CONTROLLER (Bottom Right) ──────────── */
-.global-audio-ctrl {
-    position: fixed;
-    bottom: 40px;
-    right: 60px;
-    z-index: 9999;
     background: transparent;
     border: none;
     font-family: var(--font-body);
     font-size: 11px;
-    letter-spacing: 4px;
-    color: #fff;
-    cursor: pointer;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+}
+
+/* The magic mask that hides the duplicated text */
+.roll-wrapper {
+    display: inline-block;
+    overflow: hidden;
+    height: 1.2em; /* Exactly one line of text */
+    vertical-align: bottom;
+}
+
+.roll-text {
+    display: block;
+    position: relative;
+    line-height: 1.2em;
+    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1), color 0.4s ease;
+}
+
+/* The clone sitting exactly beneath */
+.roll-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-roll:hover .roll-text {
+    transform: translateY(-100%);
+}
+
+/* ─── CTA STYLE (Emphasized) ─── */
+.btn-cta {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 16px 40px;
+    color: #fff;
+    transition: background 0.6s var(--ease-luxury), border-color 0.6s var(--ease-luxury);
+}
+
+.btn-cta:hover {
+    background: #fff;
+    border-color: #fff;
+}
+
+.btn-cta:hover .roll-text {
+    color: var(--color-espresso); /* Text becomes dark to contrast white background */
+}
+.btn-cta:hover .roll-text::after {
+    color: var(--color-espresso);
+}
+
+/* ─── SUBTLE STYLE (Primary minimal) ─── */
+.btn-subtle {
+    color: rgba(255, 255, 255, 0.6);
+    padding: 16px 20px;
+    position: relative;
+    transition: color 0.6s var(--ease-luxury);
+}
+
+/* Underline reveal effect */
+.btn-subtle::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: #fff;
+    transition: width 0.6s var(--ease-luxury), left 0.6s var(--ease-luxury);
+}
+
+.btn-subtle:hover {
+    color: #fff;
+}
+
+.btn-subtle:hover::after {
+    width: calc(100% - 40px);
+    left: 20px;
+}
+
+/* ─── GLOBAL AUDIO CONTROLLER (Bottom Right Square) ────── */
+.global-audio-ctrl {
+    position: fixed;
+    bottom: 40px;
+    right: 60px;
+    width: 44px;
+    height: 44px;
+    z-index: 1400; /* Just below the Menu Overlay (1500) */
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     opacity: 0;
     pointer-events: none;
     transform: translateY(20px);
     mix-blend-mode: difference;
-    transition: opacity 1.5s var(--ease-luxury) 1s, transform 1.5s var(--ease-luxury) 1s, letter-spacing 0.4s ease;
+    transition: opacity 1.5s var(--ease-luxury) 1s, transform 1.5s var(--ease-luxury) 1s, border-color 0.4s ease;
 }
 
 body.is-site-active .global-audio-ctrl {
-    opacity: 0.4;
+    opacity: 0.5;
     pointer-events: all;
     transform: translateY(0);
 }
 
 body.is-site-active .global-audio-ctrl:hover {
     opacity: 1;
-    letter-spacing: 5px;
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
-.audio-state {
-    font-family: var(--font-heading);
-    font-size: 13px;
-    letter-spacing: 2px;
+/* Soundwave Animation */
+.sound-bars {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    height: 12px;
+}
+
+.sound-bars .bar {
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 1px;
+    transition: height 0.4s ease;
+}
+
+.global-audio-ctrl.playing .bar {
+    animation: sound-bounce 0.8s infinite alternate ease-in-out;
+}
+
+/* Stagger animation for the 4 bars */
+.global-audio-ctrl.playing .bar:nth-child(1) { animation-delay: 0s; }
+.global-audio-ctrl.playing .bar:nth-child(2) { animation-delay: 0.2s; }
+.global-audio-ctrl.playing .bar:nth-child(3) { animation-delay: 0.4s; }
+.global-audio-ctrl.playing .bar:nth-child(4) { animation-delay: 0.1s; }
+
+@keyframes sound-bounce {
+    0% { height: 3px; }
+    100% { height: 14px; }
 }
