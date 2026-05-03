@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const overlayHTML = `
     <div id="audioOverlay" class="audio-overlay">
         <div class="audio-prompt-content">
-            <h2 class="audio-prompt-title">A Experiência<br>Heritage</h2>
-            <p class="audio-prompt-desc">Para uma imersão cinematográfica, recomendamos o uso de som.</p>
+            <h2 class="audio-prompt-title">Experiência<br>Sonora</h2>
+            <p class="audio-prompt-desc">Ambiente sonoro recomendado para uma imersão total.</p>
             
             <div class="audio-prompt-btns">
                 <button id="btnSoundOn" class="btn-roll btn-cta">
