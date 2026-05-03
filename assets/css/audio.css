@@ -46,7 +46,7 @@ body.is-awaiting-audio .audio-prompt-content {
 .audio-prompt-title {
     font-family: var(--font-heading);
     font-size: clamp(3rem, 7vw, 6rem);
-    line-height: 0.9;
+    line-height: 1.15; /* Aumentado para dar mais ar entre as palavras */
     color: #fff;
     margin-bottom: 25px;
     font-weight: 300;
