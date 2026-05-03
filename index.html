@@ -177,33 +177,18 @@
 
   <section class="hero-stage" id="hero">
 
-    <!-- ── Center Title + Role ──────────────────────────────── -->
+    <!-- ── Static Background Image ──────────────────────────── -->
+    <div class="hero-stage__bg">
+      <img src="assets/img/home/1.jpg" alt="Hero Background">
+    </div>
+
+    <!-- ── Vogue Editorial Title ────────────────────────────── -->
     <div class="hero-stage__content">
       <h1 class="hero-stage__title">
         <span class="h-line"><span class="h-line-inner">Guilherme</span></span>
         <span class="h-line"><span class="h-line-inner">Marques</span></span>
+        <div class="hero-stage__subtitle">Multidisciplinary Creative Architect</div>
       </h1>
-      <div class="hero-stage__roles">
-        <span class="hero-stage__role-prefix">Especialista em&nbsp;</span>
-        <span class="hero-stage__role-container" id="roleContainer">
-          <span class="hero-stage__role-word" id="roleWord">Web Design</span>
-          <span class="hero-stage__role-ruler" id="roleRuler"></span>
-        </span>
-      </div>
-    </div>
-
-    <!-- ── Draggable fan image strip ────────────────────────── -->
-    <div class="swiper hero-strip" id="heroStrip">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="assets/img/loader/a.jpg" alt="" draggable="false"></div>
-        <div class="swiper-slide"><img src="assets/img/loader/b.jpg" alt="" draggable="false"></div>
-        <div class="swiper-slide"><img src="assets/img/loader/c.jpg" alt="" draggable="false"></div>
-        <div class="swiper-slide"><img src="assets/img/loader/d.jpg" alt="" draggable="false"></div>
-        <div class="swiper-slide"><img src="assets/img/loader/a.jpg" alt="" draggable="false"></div>
-        <div class="swiper-slide"><img src="assets/img/loader/b.jpg" alt="" draggable="false"></div>
-        <div class="swiper-slide"><img src="assets/img/loader/c.jpg" alt="" draggable="false"></div>
-        <div class="swiper-slide"><img src="assets/img/loader/d.jpg" alt="" draggable="false"></div>
-      </div>
     </div>
 
   </section>
@@ -212,113 +197,18 @@
   <section id="work"
     style="height: 100vh; background-color: var(--color-sand); padding: 120px 80px; display: flex; flex-direction: column; justify-content: center;">
     <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
-      <p
-        style="font-family: var(--font-body); text-transform: uppercase; letter-spacing: 5px; font-size: 0.8rem; margin-bottom: 40px; opacity: 0.5;">
+      <p style="font-family: var(--font-body); text-transform: uppercase; letter-spacing: 5px; font-size: 0.8rem; margin-bottom: 40px; opacity: 0.5;">
         01. Selected Projects</p>
-      <h2
-        style="font-family: var(--font-heading); font-size: clamp(3rem, 6vw, 5rem); color: var(--color-espresso); line-height: 1.1;">
+      <h2 style="font-family: var(--font-heading); font-size: clamp(3rem, 6vw, 5rem); color: var(--color-espresso); line-height: 1.1;">
         Curating Digital <br>Excellence.
       </h2>
-      <div style="height: 1px; width: 100%; background: var(--color-espresso); margin: 60px 0; opacity: 0.1;"></div>
-      <p style="font-family: var(--font-body); font-size: 1.5rem; max-width: 700px; line-height: 1.4; opacity: 0.7;">
-        Esta secção servirá de palco para os teus projetos de elite.
-      </p>
     </div>
   </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="assets/js/menu.js"></script>
   <script src="assets/js/preloader.js"></script>
   <script>
-    // ── Fan carousel: heights update by distance from center ──────
-    function tagSlidePositions(swiper) {
-      swiper.slides.forEach(function (slide, i) {
-        var dist = Math.min(Math.abs(i - swiper.activeIndex), 2);
-        slide.setAttribute('data-pos', dist);
-      });
-    }
-
-    var heroSwiper = new Swiper('.hero-strip', {
-      slidesPerView: 5,
-      centeredSlides: true,
-      loop: true,
-      speed: 550,
-      grabCursor: true,
-      on: {
-        // On init and snap: tag by index distance
-        init: function (s) { tagSlidePositions(s); },
-        slideChange: function (s) { tagSlidePositions(s); },
-
-        // Real-time drag: tag by pixel distance from center
-        sliderMove: function (s) {
-          var center = s.el.getBoundingClientRect();
-          var centerX = center.left + center.width / 2;
-          s.slides.forEach(function (slide) {
-            var r = slide.getBoundingClientRect();
-            var sx = r.left + r.width / 2;
-            var dist = Math.abs(sx - centerX);
-            var slideW = s.width / 5;
-            slide.setAttribute('data-pos', Math.min(Math.round(dist / slideW), 2));
-          });
-        },
-
-        // Kill transition during drag for instant feel
-        touchStart: function (s) {
-          s.slides.forEach(function (sl) { sl.style.transition = 'none'; });
-        },
-        // Restore transition after release
-        touchEnd: function (s) {
-          s.slides.forEach(function (sl) { sl.style.transition = ''; });
-          tagSlidePositions(s);
-        },
-      },
-    });
-
-    // ── Animated Role Word Cycle (blur morph) ────────────────────
-    (function () {
-      var roles = [
-        'Web Design', 'Front-end Dev', 'UI/UX Design',
-        'IT & Tech', 'Software Dev', 'App Development',
-        'Digital Strategy', 'Business Tech', 'Finance Tech'
-      ];
-      var idx = 0;
-      var wordEl = document.getElementById('roleWord');
-      var containerEl = document.getElementById('roleContainer');
-      var rulerEl = document.getElementById('roleRuler');
-
-      function syncRuler() {
-        var cs = getComputedStyle(wordEl);
-        rulerEl.style.font = cs.font;
-        rulerEl.style.fontStyle = cs.fontStyle;
-        rulerEl.style.letterSpacing = cs.letterSpacing;
-      }
-
-      function setWidth(text) {
-        syncRuler();
-        rulerEl.textContent = text;
-        containerEl.style.width = rulerEl.offsetWidth + 'px';
-      }
-
-      setWidth(roles[0]);
-
-      function cycle() {
-        wordEl.style.animation = 'none';
-        wordEl.offsetHeight;
-        wordEl.style.animation = 'role-out 0.3s ease forwards';
-        setTimeout(function () {
-          idx = (idx + 1) % roles.length;
-          wordEl.textContent = roles[idx];
-          setWidth(roles[idx]);
-          wordEl.style.animation = 'none';
-          wordEl.offsetHeight;
-          wordEl.style.animation = 'role-in 0.4s ease forwards';
-        }, 320);
-      }
-
-      setInterval(cycle, 3000);
-    })();
+    // Minimalist Reveal (if needed, currently using CSS animations)
   </script>
 </body>
-
 </html>
-
