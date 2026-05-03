@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 menuOverlay.classList.remove('is-open');
                 menuOverlay.classList.add('is-closing');
                 menuTrigger.classList.remove('is-active');
+                document.body.classList.remove('is-menu-open');
                 document.body.style.overflow = '';
 
                 setTimeout(() => {
@@ -69,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 menuOverlay.classList.remove('is-closing');
                 menuOverlay.classList.add('is-open');
                 menuTrigger.classList.add('is-active');
+                document.body.classList.add('is-menu-open');
                 document.body.style.overflow = 'hidden';
             }
         });

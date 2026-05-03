@@ -103,13 +103,23 @@
     background-color: #fff;
 }
 
+/* ─── DARK BROWN STATE (Menu Open) ────────────────── */
+body.is-menu-open .nav-bar .signature-name,
+body.is-menu-open .nav-bar .menu-text {
+    color: #3C2A21 !important;
+}
+
+body.is-menu-open .nav-bar .hamburger span {
+    background-color: #3C2A21;
+}
+
 /* Restore Hover and Active states to Bordeaux */
 .nav-bar .menu-trigger:hover .hamburger span,
 .nav-bar .menu-trigger.is-active .hamburger span {
     background-color: var(--color-bordeaux) !important;
 }
 
-/* Also ensure signature name hover shows bordeaux */
+/* Ensure signature name hover shows bordeaux even when menu is open */
 .nav-bar .brand-link:hover .signature-name span::after {
     color: var(--color-bordeaux) !important;
 }
