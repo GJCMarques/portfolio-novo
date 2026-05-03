@@ -23,20 +23,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const overlayHTML = `
     <div id="audioOverlay" class="audio-overlay">
         <div class="audio-prompt-content">
-            <h2 class="audio-prompt-title">Experiência<br>Sonora</h2>
-            <p class="audio-prompt-desc">Ambiente sonoro recomendado para uma imersão total.</p>
+            <div class="audio-prompt-title-wrap">
+                <h2 class="audio-prompt-title">Experiência<br>Sonora</h2>
+            </div>
+            <div class="audio-prompt-desc-wrap">
+                <p class="audio-prompt-desc">Ambiente sonoro recomendado para uma imersão total.</p>
+            </div>
             
             <div class="audio-prompt-btns">
-                <button id="btnSoundOn" class="btn-roll btn-cta">
-                    <span class="roll-wrapper">
-                        <span class="roll-text" data-text="ATIVAR SOM">ATIVAR SOM</span>
-                    </span>
-                </button>
-                <button id="btnSoundOff" class="btn-roll btn-subtle">
-                    <span class="roll-wrapper">
-                        <span class="roll-text" data-text="EXPLORAR EM SILÊNCIO">EXPLORAR EM SILÊNCIO</span>
-                    </span>
-                </button>
+                <div class="btn-wrap">
+                    <button id="btnSoundOn" class="btn-roll btn-cta">
+                        <span class="roll-wrapper">
+                            <span class="roll-text" data-text="ATIVAR SOM">ATIVAR SOM</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="btn-wrap">
+                    <button id="btnSoundOff" class="btn-roll btn-subtle">
+                        <span class="roll-wrapper">
+                            <span class="roll-text" data-text="EXPLORAR EM SILÊNCIO">EXPLORAR EM SILÊNCIO</span>
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>`;

@@ -35,16 +35,46 @@ body.is-awaiting-audio .audio-overlay {
 
 .audio-prompt-content {
     text-align: center;
-    transform: translateY(30px);
-    opacity: 0;
-    transition: transform 1.5s var(--ease-luxury) 0.5s, opacity 1.5s var(--ease-luxury) 0.5s;
     max-width: 800px;
+    z-index: 10;
 }
 
-body.is-awaiting-audio .audio-prompt-content {
-    transform: translateY(0);
-    opacity: 1;
+/* Entry Animation Orchestration */
+.audio-prompt-title-wrap,
+.audio-prompt-desc-wrap,
+.btn-wrap {
+    overflow: hidden;
+    margin-bottom: 10px;
 }
+
+.audio-prompt-title,
+.audio-prompt-desc,
+.btn-wrap {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: transform 1.5s var(--ease-luxury), opacity 1.5s var(--ease-luxury);
+}
+
+/* Staggered Delays */
+body.is-awaiting-audio .audio-prompt-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.8s;
+}
+
+body.is-awaiting-audio .audio-prompt-desc {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 1.1s;
+}
+
+body.is-awaiting-audio .btn-wrap {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body.is-awaiting-audio .btn-wrap:nth-child(1) { transition-delay: 1.4s; }
+body.is-awaiting-audio .btn-wrap:nth-child(2) { transition-delay: 1.55s; }
 
 /* ─── EDITORIAL TYPOGRAPHY ────────────────────────────── */
 .audio-prompt-title {
