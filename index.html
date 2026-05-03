@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/preloader.css">
   <link rel="stylesheet" href="assets/css/menu.css">
+  <link rel="stylesheet" href="assets/css/hero.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 
 <body>
@@ -173,36 +175,44 @@
     </div>
   </div>
 
-  <section class="heritage-hero">
-    <div class="heritage-hero__title-wrap">
-      <h1 class="heritage-hero__title">
-        The New
-        <span class="italic">Legacy Archive</span>
+  <section class="hero-editorial" id="hero">
+
+    <!-- ── Left: Title ─────────────────────────────────────────── -->
+    <div class="hero-editorial__left">
+
+      <div class="hero-editorial__eyebrow">
+        <span class="hero-editorial__eyebrow-dash"></span>
+        <span class="hero-editorial__eyebrow-text">Porto, PT &mdash; 2026</span>
+      </div>
+
+      <h1 class="hero-editorial__title">
+        <span class="h-line"><span class="h-line-inner">Guilherme</span></span>
+        <span class="h-line"><span class="h-line-inner">Marques<em class="h-accent">&middot; Portfolio</em></span></span>
       </h1>
-    </div>
 
-    <div class="heritage-hero__media">
-      <img src="https://images.unsplash.com/photo-1511406361295-0a5ff814c0ad?q=80&w=2070&auto=format&fit=crop"
-        alt="Heritage Archive Detail">
-    </div>
-
-    <div class="heritage-hero__description">
-      <p>
-        Arquiteto de Experiências Digitais. Focado na curadoria de narrativas visuais que transcendem o tempo, unindo a
-        herança clássica à precisão tecnológica de elite.
+      <p class="hero-editorial__tagline">
+        Arquitecto de Experi&ecirc;ncias Digitais &mdash; unindo heran&ccedil;a cl&aacute;ssica &agrave; precis&atilde;o tecnol&oacute;gica de elite.
       </p>
+
     </div>
 
-    <div class="heritage-hero__footer">
-      <div class="heritage-hero__meta">
-        <span>Est. 2026</span>
-        <span>Porto, PT</span>
-      </div>
-      <div class="heritage-hero__credits">
-        MERCADO & CO. — Private Portfolio
+    <!-- ── Right: Swiper Creative Carousel ─────────────────────── -->
+    <div class="hero-editorial__right">
+      <div class="swiper hero-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="assets/img/loader/a.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/loader/b.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/loader/c.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/loader/d.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/loader/a.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/loader/b.jpg" alt=""></div>
+        </div>
+        <div class="swiper-pagination"></div>
       </div>
     </div>
+
   </section>
+
 
   <!-- DUMMY SECTION / SELECTED WORK -->
   <section id="work"
@@ -223,8 +233,37 @@
     </div>
   </section>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="assets/js/menu.js"></script>
   <script src="assets/js/preloader.js"></script>
+  <script>
+    // ── Hero Swiper: Creative 3D Flip ────────────────────────
+    new Swiper('.hero-swiper', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      loop: true,
+      speed: 900,
+      autoplay: {
+        delay: 2600,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      coverflowEffect: {
+        rotate: 42,
+        stretch: 0,
+        depth: 280,
+        modifier: 1.5,
+        slideShadows: true,
+      },
+      pagination: {
+        el: '.hero-swiper .swiper-pagination',
+        clickable: true,
+        dynamicBullets: false,
+      },
+    });
+  </script>
 </body>
 
 </html>

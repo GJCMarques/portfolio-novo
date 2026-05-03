@@ -1,0 +1,226 @@
+/* ═══════════════════════════════════════════════════════════════
+   HERO EDITORIAL v4 — "Coverflow Monolith"
+   Left: tight editorial type · Right: cinematic coverflow 3D
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Container ─────────────────────────────────────────────────── */
+.hero-editorial {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    width: 100%;
+    background-color: var(--color-linen);
+    overflow: visible;
+    display: grid;
+    grid-template-columns: 38% 62%;
+    align-items: center;
+    padding: 0 0 0 80px; /* right column bleeds to edge */
+    gap: 0;
+}
+
+/* ─── Left column ───────────────────────────────────────────────── */
+.hero-editorial__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 80px;
+    padding-right: 40px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Tiny eyebrow */
+.hero-editorial__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: h-fade-up 1s var(--ease-luxury) 0.3s forwards;
+}
+
+.hero-editorial__eyebrow-dash {
+    width: 24px;
+    height: 1px;
+    background: var(--color-bordeaux);
+    flex-shrink: 0;
+}
+
+.hero-editorial__eyebrow-text {
+    font-family: var(--font-body);
+    font-size: 0.58rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--color-bordeaux);
+}
+
+/* Monumental title — fills left column */
+.hero-editorial__title {
+    font-family: var(--font-heading);
+    font-size: clamp(4.2rem, 7.5vw, 10rem);
+    line-height: 0.84;
+    color: var(--color-espresso);
+    letter-spacing: -0.025em;
+    margin-bottom: 40px;
+}
+
+.h-line {
+    display: block;
+    overflow: hidden;
+}
+
+.h-line-inner {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(110%) skewY(5deg);
+    animation: h-reveal-line 1.4s var(--ease-luxury) forwards;
+}
+
+.h-line:nth-child(1) .h-line-inner { animation-delay: 0.4s; }
+.h-line:nth-child(2) .h-line-inner { animation-delay: 0.58s; }
+
+/* Italic accent */
+.h-accent {
+    font-family: var(--font-accent);
+    font-size: 0.3em;
+    color: var(--color-bordeaux);
+    letter-spacing: 0.03em;
+    vertical-align: middle;
+    margin-left: 0.1em;
+}
+
+/* Tagline */
+.hero-editorial__tagline {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--color-espresso);
+    opacity: 0;
+    max-width: 340px;
+    animation: h-fade-up 1s var(--ease-luxury) 1s forwards;
+}
+
+/* ─── Right column: Swiper Coverflow ────────────────────────────── */
+.hero-editorial__right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+}
+
+/* Swiper overrides */
+.hero-swiper {
+    width: 100%;
+    height: 72vh;
+    max-height: 740px;
+    min-height: 500px;
+    overflow: visible !important;
+    padding-bottom: 52px !important;
+}
+
+.hero-swiper .swiper-slide {
+    width: clamp(280px, 34vw, 480px) !important;
+    border-radius: 0;
+    overflow: hidden;
+    background: var(--color-sand-dark);
+    /* Subtle inner border on inactive slides */
+    box-shadow: inset 0 0 0 1px rgba(26, 23, 22, 0.05);
+}
+
+.hero-swiper .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.06);
+    transition: transform 0.8s ease, filter 0.8s ease;
+    filter: contrast(1.06) saturate(0.82) brightness(0.96);
+    border-radius: 0;
+}
+
+/* Active slide: fully sharp, full scale */
+.hero-swiper .swiper-slide-active img {
+    transform: scale(1);
+    filter: contrast(1.04) saturate(0.9) brightness(1);
+}
+
+/* Pagination — thin editorial pills */
+.hero-swiper .swiper-pagination {
+    bottom: 0 !important;
+}
+
+.hero-swiper .swiper-pagination-bullet {
+    background: var(--color-espresso);
+    opacity: 0.18;
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    transition: all 0.5s var(--ease-luxury);
+}
+
+.hero-swiper .swiper-pagination-bullet-active {
+    background: var(--color-bordeaux);
+    opacity: 1;
+    width: 28px;
+    border-radius: 2px;
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────────── */
+@keyframes h-reveal-line {
+    to {
+        opacity: 1;
+        transform: translateY(0) skewY(0deg);
+    }
+}
+
+@keyframes h-fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+    .hero-editorial {
+        grid-template-columns: 42% 58%;
+        padding-left: 60px;
+    }
+    .hero-editorial__title {
+        font-size: clamp(3.8rem, 8vw, 8rem);
+    }
+}
+
+@media (max-width: 1024px) {
+    .hero-editorial {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        height: auto;
+        min-height: 100dvh;
+        padding: 0 40px 60px;
+        gap: 48px;
+        overflow: hidden;
+    }
+    .hero-editorial__left {
+        padding-top: 130px;
+        padding-right: 0;
+    }
+    .hero-editorial__right {
+        height: 55vw;
+        min-height: 360px;
+        max-height: 520px;
+        mask-image: none;
+        -webkit-mask-image: none;
+    }
+    .hero-editorial__title { font-size: clamp(3.5rem, 13vw, 7rem); }
+    .hero-swiper { height: 100%; min-height: 360px; }
+    .hero-swiper .swiper-slide { width: clamp(220px, 48vw, 360px) !important; }
+}
+
+@media (max-width: 640px) {
+    .hero-editorial { padding: 0 24px 48px; gap: 36px; }
+    .hero-editorial__left { padding-top: 110px; }
+    .hero-editorial__title { font-size: clamp(3rem, 16vw, 5rem); }
+    .hero-editorial__tagline { font-size: 0.84rem; }
+    .hero-swiper .swiper-slide { width: clamp(200px, 72vw, 280px) !important; }
+}
