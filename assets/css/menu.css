@@ -10,6 +10,14 @@
     justify-content: space-between;
     align-items: center;
     z-index: 2000;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+body.is-site-active .nav-bar {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1.5s var(--ease-luxury) 0.6s, transform 1.5s var(--ease-luxury) 0.6s;
 }
 
 .brand-link {

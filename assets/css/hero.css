@@ -70,7 +70,10 @@
     display: inline-block;
     opacity: 0;
     transform: translateY(100%);
-    animation: h-reveal 1.8s var(--ease-luxury) forwards;
+}
+
+body.is-site-active .h-line-inner {
+    animation: h-reveal 1.8s var(--ease-luxury) forwards 0.4s;
 }
 
 @keyframes h-reveal {
@@ -85,7 +88,10 @@
     color: #fff;
     margin-top: 50px;
     opacity: 0;
-    animation: fade-in 1.2s ease 1.5s forwards;
+}
+
+body.is-site-active .hero-stage__subtitle {
+    animation: fade-in 1.2s ease 1.3s forwards;
 }
 
 @keyframes fade-in {

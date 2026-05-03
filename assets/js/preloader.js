@@ -94,7 +94,7 @@
         // 5e. Once curtain is fully in, remove preloader + slide curtain out
         setTimeout(() => {
             preloader.style.display = 'none';
-            document.body.classList.add('is-loaded');
+            document.body.classList.add('is-awaiting-audio');
             curtain.style.transition = `transform 0.9s cubic-bezier(0.85, 0, 0.15, 1)`;
             curtain.style.transform  = 'translateX(100%)';
         }, 1900);
