@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/css/menu.css">
   <link rel="stylesheet" href="assets/css/hero.css">
   <link rel="stylesheet" href="assets/css/audio.css">
+  <link rel="stylesheet" href="assets/css/info-card.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 
@@ -211,18 +212,52 @@
         style="font-family: var(--font-heading); font-size: clamp(3rem, 6vw, 5rem); color: var(--color-espresso); line-height: 1.1;">
         Curating Digital <br>Excellence.
       </h2>
-      <div class="hero-stage__scroll" id="heroScroll">
-        <div class="scroll-line"></div>
-        <span class="scroll-text">EXPLORAR</span>
-      </div>
     </div>
   </section>
+
+  <!-- Heritage Guide (Global Info Card) -->
+  <div class="info-guide" id="infoGuide">
+    <button class="info-toggle" id="infoToggle" aria-label="Informações do Site">
+      <svg class="info-toggle__svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+    
+    <div class="info-card" id="infoCard">
+      <div class="info-card__header">
+        <span class="info-card__title">Guia de Imersão</span>
+        <button class="info-card__close" id="infoClose">×</button>
+      </div>
+      
+      <div class="info-card__content">
+        <div class="info-slide is-active" data-slide="1">
+          <p class="info-slide__text">Utilize o <strong>Menu</strong> no canto superior direito para navegar entre as secções e descobrir todos os trabalhos.</p>
+        </div>
+        <div class="info-slide" data-slide="2">
+          <p class="info-slide__text">Faça <strong>Scroll</strong> para baixo para explorar a narrativa do portfolio e os projetos selecionados.</p>
+        </div>
+        <div class="info-slide" data-slide="3">
+          <p class="info-slide__text">Este é um espaço <strong>interativo</strong>. Ligue o som e interaja com os elementos para uma experiência completa.</p>
+        </div>
+      </div>
+      
+      <div class="info-card__footer">
+        <span class="info-card__step">1 / 3</span>
+        <div class="info-card__nav">
+          <button class="info-nav-btn prev" id="infoPrev">←</button>
+          <button class="info-nav-btn next" id="infoNext">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="assets/js/split-text.js"></script>
   <script src="assets/js/parallax.js"></script>
   <script src="assets/js/menu.js"></script>
   <script src="assets/js/random-letter-swap.js"></script>
   <script src="assets/js/audio.js"></script>
+  <script src="assets/js/info-card.js"></script>
   <script src="assets/js/preloader.js"></script>
   <script>
     // Minimalist Reveal (if needed, currently using CSS animations)

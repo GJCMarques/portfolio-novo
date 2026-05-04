@@ -191,73 +191,14 @@ body.is-menu-open .nav-bar .hamburger span {
     color: var(--color-bordeaux) !important;
 }
 
-/* ── Scroll Indicator (Bottom Left) ─────────────────── */
-.hero-stage__scroll {
-    position: absolute;
-    bottom: 50px;
-    left: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    z-index: 150;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-body.is-site-active .hero-stage__scroll {
-    animation: scroll-reveal 1.2s ease 2s forwards;
-}
-
-.scroll-line {
-    width: 1px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.scroll-line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    transform: translateY(-100%);
-    animation: scroll-line-loop 2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
-}
-
-.scroll-text {
-    font-family: var(--font-heading);
-    font-size: 9px;
-    letter-spacing: 0.4em;
-    color: rgba(255, 255, 255, 0.5);
-    writing-mode: vertical-lr;
-    text-transform: uppercase;
-}
-
-@keyframes scroll-reveal {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes scroll-line-loop {
-    0% { transform: translateY(-100%); }
-    50% { transform: translateY(0); }
-    100% { transform: translateY(100%); }
-}
-
 /* Parallax Prep */
 .hero-stage__bg img {
-    width: 110% !important; /* Extra width for movement */
+    width: 110% !important; 
     height: 110% !important;
     left: -5% !important;
     top: -5% !important;
     position: absolute;
     object-fit: cover;
     will-change: transform;
+    transition: transform 0.1s ease-out;
 }

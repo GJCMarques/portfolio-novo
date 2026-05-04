@@ -1,0 +1,199 @@
+/* ── Heritage Guide (Global Info Card - FIXED) ────────────────────────── */
+.info-guide {
+    position: fixed; /* Global persistence */
+    bottom: 40px;
+    left: 40px;
+    z-index: 1400; /* Matching Audio Controller Z-Index */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: 
+        opacity 1.5s var(--ease-luxury) 1s, 
+        transform 1.5s var(--ease-luxury) 1s,
+        background 0.4s ease;
+}
+
+body.is-site-active .info-guide {
+    opacity: 0.7; /* Matching Audio Controller opacity */
+    pointer-events: all;
+    transform: translateY(0);
+}
+
+body.is-site-active .info-guide:hover {
+    opacity: 1;
+}
+
+/* The Toggle Button (Mirroring Global Audio Controller) */
+.info-toggle {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    border-radius: 0; /* Brutalist Square */
+    color: #fff;
+}
+
+.info-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.info-toggle__svg {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.info-toggle:hover .info-toggle__svg {
+    opacity: 1;
+}
+
+/* The Info Card */
+.info-card {
+    position: absolute;
+    bottom: 54px; /* Sits above the toggle */
+    left: 0;
+    width: 320px;
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95) translateY(10px);
+    transition: all 0.6s var(--ease-luxury);
+    transform-origin: bottom left;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.info-guide.is-open .info-card {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.info-guide.is-open .info-toggle {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Header */
+.info-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-card__title {
+    font-family: var(--font-heading);
+    color: var(--color-bordeaux);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.info-card__close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.info-card__close:hover {
+    color: #fff;
+}
+
+/* Content & Slides */
+.info-card__content {
+    min-height: 100px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.info-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.info-slide.is-active {
+    position: relative;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.info-slide__text {
+    font-family: var(--font-body);
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.info-slide__text strong {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Footer & Nav */
+.info-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-card__step {
+    font-family: var(--font-heading);
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.info-card__nav {
+    display: flex;
+    gap: 15px;
+}
+
+.info-nav-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.info-nav-btn:hover:not(:disabled) {
+    background: var(--color-bordeaux);
+    border-color: var(--color-bordeaux);
+}
+
+.info-nav-btn:disabled {
+    opacity: 0.2;
+    cursor: default;
+}
