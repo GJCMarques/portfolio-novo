@@ -3,7 +3,7 @@
     position: fixed;
     bottom: 40px;
     left: 40px;
-    z-index: 1500; /* Below Menu (2000) */
+    z-index: 100; /* Way below Menu (3000) */
     pointer-events: none;
 }
 
@@ -48,28 +48,32 @@ body.is-site-active .info-toggle {
     border-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Toggle Icons - HORIZONTAL ROLL SYSTEM */
+/* Toggle Icons - REFINED HORIZONTAL ROLL SYSTEM */
 .info-toggle__svg {
     position: absolute;
     width: 20px;
     height: 20px;
-    transition: transform 0.7s var(--ease-luxury);
+    transition: transform 0.7s var(--ease-luxury), opacity 0.4s ease;
 }
 
 .icon-info {
     transform: translateX(0);
+    opacity: 1;
 }
 
 .icon-arrow {
-    transform: translateX(-44px) rotate(-90deg); /* Start outside to the left */
+    transform: translateX(-44px) rotate(-90deg);
+    opacity: 0;
 }
 
 .info-guide.is-open .icon-info {
-    transform: translateX(44px); /* Exit to the right */
+    transform: translateX(44px);
+    opacity: 0;
 }
 
 .info-guide.is-open .icon-arrow {
-    transform: translateX(0) rotate(-90deg); /* Enter from the left */
+    transform: translateX(0) rotate(-90deg);
+    opacity: 1;
 }
 
 /* ── The Editorial Info Card (Solid & Opaque - Compact Version) ─────────────────── */

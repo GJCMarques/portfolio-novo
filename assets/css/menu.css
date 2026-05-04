@@ -9,7 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 2000;
+    z-index: 4000;
     opacity: 0;
     transform: translateY(-20px);
 }
@@ -207,7 +207,7 @@ body.is-site-active .nav-bar {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1500;
+    z-index: 3000;
     visibility: hidden;
     transition: visibility 1.2s;
 }
