@@ -3,8 +3,8 @@
     position: fixed;
     bottom: 40px;
     left: 40px;
-    z-index: 2000;
-    pointer-events: none; /* Only children interact */
+    z-index: 1500; /* Below Menu (2000) */
+    pointer-events: none;
 }
 
 /* Base state for the guide when site is active */
@@ -12,7 +12,7 @@ body.is-site-active .info-guide {
     pointer-events: auto;
 }
 
-/* The Toggle Button - ONLY this has 0.7 opacity */
+/* The Toggle Button (Overflow Hidden for the Roll effect) */
 .info-toggle {
     width: 44px;
     height: 44px;
@@ -33,6 +33,7 @@ body.is-site-active .info-guide {
     color: #fff;
     opacity: 0;
     transform: translateY(20px);
+    overflow: hidden; /* CRITICAL for the roll effect */
 }
 
 body.is-site-active .info-toggle {
@@ -47,28 +48,28 @@ body.is-site-active .info-toggle {
     border-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Toggle Icons */
+/* Toggle Icons - HORIZONTAL ROLL SYSTEM */
 .info-toggle__svg {
     position: absolute;
     width: 20px;
     height: 20px;
-    transition: all 0.6s var(--ease-luxury);
+    transition: transform 0.7s var(--ease-luxury);
 }
 
+.icon-info {
+    transform: translateX(0);
+}
 
 .icon-arrow {
-    transform: translateX(-40px) rotate(-90deg);
-    opacity: 0;
+    transform: translateX(-44px) rotate(-90deg); /* Start outside to the left */
 }
 
 .info-guide.is-open .icon-info {
-    transform: translateY(40px);
-    opacity: 0;
+    transform: translateX(44px); /* Exit to the right */
 }
 
 .info-guide.is-open .icon-arrow {
-    transform: translateX(0) rotate(-90deg);
-    opacity: 1;
+    transform: translateX(0) rotate(-90deg); /* Enter from the left */
 }
 
 /* ── The Editorial Info Card (Solid & Opaque - Compact Version) ─────────────────── */
