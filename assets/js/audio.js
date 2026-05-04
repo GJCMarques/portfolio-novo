@@ -4,11 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     audioObj.volume = 0;
     let isPlaying = false;
     const maxVolume = 0.4;
+    let fadeInterval = null;
 
-    // 1. Build the Global Audio Controller (Minimalist Soundwave)
+    // 1. Build the Global Audio Controller (Single Layer with Dynamic Intensity)
     const controllerHTML = `
     <button class="global-audio-ctrl" id="globalAudioCtrl" aria-label="Toggle Audio">
         <div class="sound-bars">
+            <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
@@ -19,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const audioCtrl = document.getElementById('globalAudioCtrl');
 
-    // 2. Build the Fullscreen Audio Overlay Prompt (Vogue Editorial Style)
+    // 2. Build the Fullscreen Audio Overlay Prompt
     const overlayHTML = `
     <div id="audioOverlay" class="audio-overlay">
         <div class="audio-prompt-content">
@@ -54,28 +56,53 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnSoundOn = document.getElementById('btnSoundOn');
     const btnSoundOff = document.getElementById('btnSoundOff');
 
-    // 3. Handle Overlay Choices
+    /**
+     * Physical Motion Fading (Intensity based)
+     */
+    function fadeAudio(targetVolume, duration = 1500) {
+        if (fadeInterval) clearInterval(fadeInterval);
+        
+        const startVolume = audioObj.volume;
+        const steps = duration / 16; 
+        const stepAmount = (targetVolume - startVolume) / steps;
+        let currentStep = 0;
+
+        // Ensure animation class is present if fading in
+        if (targetVolume > 0) audioCtrl.classList.add('playing');
+
+        fadeInterval = setInterval(() => {
+            currentStep++;
+            let nextVol = startVolume + (stepAmount * currentStep);
+            
+            if (stepAmount > 0 && nextVol >= targetVolume) nextVol = targetVolume;
+            else if (stepAmount < 0 && nextVol <= targetVolume) nextVol = targetVolume;
+
+            audioObj.volume = Math.max(0, Math.min(1, nextVol));
+            
+            // Sync Animation Intensity (Amplitude of the swing)
+            const intensity = audioObj.volume / maxVolume;
+            audioCtrl.style.setProperty('--sound-intensity', intensity.toFixed(3));
+
+            if (nextVol === targetVolume) {
+                clearInterval(fadeInterval);
+                if (targetVolume === 0) {
+                    audioObj.pause();
+                    isPlaying = false;
+                    audioCtrl.classList.remove('playing');
+                }
+            }
+        }, 16);
+    }
+
     function activateSite(withSound) {
-        // Unlock site animations
         document.body.classList.remove('is-awaiting-audio');
         document.body.classList.add('is-site-active');
-        
         audioOverlay.classList.add('hidden');
 
         if (withSound) {
             audioObj.play().then(() => {
                 isPlaying = true;
-                audioCtrl.classList.add('playing');
-                
-                let vol = 0;
-                const fadeInt = setInterval(() => {
-                    vol += 0.05;
-                    if (vol >= maxVolume) {
-                        vol = maxVolume;
-                        clearInterval(fadeInt);
-                    }
-                    audioObj.volume = vol;
-                }, 200);
+                fadeAudio(maxVolume, 2000);
             }).catch(err => console.warn("Audio autoplay blocked", err));
         }
     }
@@ -83,36 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
     btnSoundOn.addEventListener('click', () => activateSite(true));
     btnSoundOff.addEventListener('click', () => activateSite(false));
 
-    // 4. Handle Global Controller Clicks
     audioCtrl.addEventListener('click', () => {
         if (isPlaying) {
-            let vol = audioObj.volume;
-            const fadeOut = setInterval(() => {
-                vol -= 0.05;
-                if (vol <= 0) {
-                    vol = 0;
-                    clearInterval(fadeOut);
-                    audioObj.pause();
-                    isPlaying = false;
-                    audioCtrl.classList.remove('playing');
-                } else {
-                    audioObj.volume = vol;
-                }
-            }, 100);
+            fadeAudio(0, 1200);
         } else {
             audioObj.play();
             isPlaying = true;
-            audioCtrl.classList.add('playing');
-            
-            let vol = audioObj.volume;
-            const fadeIn = setInterval(() => {
-                vol += 0.05;
-                if (vol >= maxVolume) {
-                    vol = maxVolume;
-                    clearInterval(fadeIn);
-                }
-                audioObj.volume = vol;
-            }, 100);
+            fadeAudio(maxVolume, 1200);
         }
     });
 });
