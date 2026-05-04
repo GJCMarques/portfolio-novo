@@ -1,20 +1,21 @@
-/* ── Heritage Guide (Global Info Card - FIXED) ────────────────────────── */
+/* ── Heritage Guide (Global Info Card - SYNCED) ────────────────────────── */
 .info-guide {
-    position: fixed; /* Global persistence */
+    position: fixed;
     bottom: 40px;
     left: 40px;
-    z-index: 1400; /* Matching Audio Controller Z-Index */
+    z-index: 1400; /* Mesma prioridade que o Som */
     opacity: 0;
     pointer-events: none;
     transform: translateY(20px);
     transition: 
         opacity 1.5s var(--ease-luxury) 1s, 
-        transform 1.5s var(--ease-luxury) 1s,
-        background 0.4s ease;
+        transform 1.5s var(--ease-luxury) 1s, 
+        background 0.4s ease,
+        border-color 0.4s ease;
 }
 
 body.is-site-active .info-guide {
-    opacity: 0.7; /* Matching Audio Controller opacity */
+    opacity: 0.7; /* Mesma opacidade de base do Som */
     pointer-events: all;
     transform: translateY(0);
 }
@@ -23,7 +24,7 @@ body.is-site-active .info-guide:hover {
     opacity: 1;
 }
 
-/* The Toggle Button (Mirroring Global Audio Controller) */
+/* The Toggle Button (COPIA EXACTA do .global-audio-ctrl) */
 .info-toggle {
     width: 44px;
     height: 44px;
@@ -35,32 +36,33 @@ body.is-site-active .info-guide:hover {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.4s ease;
-    border-radius: 0; /* Brutalist Square */
+    transition: background 0.4s ease, border-color 0.4s ease;
+    border-radius: 0; /* Brutalist */
     color: #fff;
+    padding: 0;
 }
 
 .info-toggle:hover {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
 }
 
 .info-toggle__svg {
     width: 20px;
     height: 20px;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-
-.info-toggle:hover .info-toggle__svg {
     opacity: 1;
+    transition: none; /* No scale, just static like sound bars */
 }
 
-/* The Info Card */
+.info-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── The Info Card (Expanded State) ─────────────────── */
 .info-card {
     position: absolute;
-    bottom: 54px; /* Sits above the toggle */
+    bottom: 54px; 
     left: 0;
     width: 320px;
     background: rgba(15, 15, 15, 0.95);
