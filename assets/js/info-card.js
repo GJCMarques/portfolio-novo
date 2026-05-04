@@ -1,6 +1,6 @@
 /**
- * HERITAGE GUIDE - INFO CARD LOGIC
- * Manages the interactive info card in the Hero section.
+ * HERITAGE GUIDE - EDITORIAL VERSION
+ * Handles the light-themed info card with media and persistent toggle.
  */
 document.addEventListener('DOMContentLoaded', () => {
     const infoGuide = document.getElementById('infoGuide');
@@ -13,44 +13,66 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentSlide = 0;
     const totalSlides = slides.length;
+    let isOpen = false;
 
-    // Toggle Open
+    // Toggle Interaction
     infoToggle.addEventListener('click', () => {
-        infoGuide.classList.add('is-open');
+        isOpen = !isOpen;
+        if (isOpen) {
+            infoGuide.classList.add('is-open');
+        } else {
+            infoGuide.classList.remove('is-open');
+        }
     });
 
-    // Toggle Close
-    infoClose.addEventListener('click', () => {
+    // Close Button inside Card
+    infoClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isOpen = false;
         infoGuide.classList.remove('is-open');
     });
 
-    // Navigation
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+        if (isOpen && !infoGuide.contains(e.target)) {
+            isOpen = false;
+            infoGuide.classList.remove('is-open');
+        }
+    });
+
+    // Navigation Logic
     function updateSlides() {
         slides.forEach((slide, index) => {
             slide.classList.toggle('is-active', index === currentSlide);
         });
         
         // Update Step Text
-        infoStep.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        if (infoStep) {
+            infoStep.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
         
         // Disable buttons at bounds
-        infoPrev.disabled = currentSlide === 0;
-        infoNext.disabled = currentSlide === totalSlides - 1;
+        if (infoPrev) infoPrev.disabled = currentSlide === 0;
+        if (infoNext) infoNext.disabled = currentSlide === totalSlides - 1;
     }
 
-    infoNext.addEventListener('click', () => {
-        if (currentSlide < totalSlides - 1) {
-            currentSlide++;
-            updateSlides();
-        }
-    });
+    if (infoNext) {
+        infoNext.addEventListener('click', () => {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlides();
+            }
+        });
+    }
 
-    infoPrev.addEventListener('click', () => {
-        if (currentSlide > 0) {
-            currentSlide--;
-            updateSlides();
-        }
-    });
+    if (infoPrev) {
+        infoPrev.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlides();
+            }
+        });
+    }
 
     // Initial State
     updateSlides();

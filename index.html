@@ -215,33 +215,61 @@
     </div>
   </section>
 
-  <!-- Heritage Guide (Global Info Card) -->
+  <!-- Heritage Guide (Global Editorial Info Card) -->
   <div class="info-guide" id="infoGuide">
     <button class="info-toggle" id="infoToggle" aria-label="Informações do Site">
-      <svg class="info-toggle__svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- Info Icon (Default) -->
+      <svg class="info-toggle__svg icon-info" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.2" />
+        <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+      <!-- Arrow Icon (Active State) -->
+      <svg class="info-toggle__svg icon-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" />
       </svg>
     </button>
-    
+
     <div class="info-card" id="infoCard">
       <div class="info-card__header">
         <span class="info-card__title">Guia de Imersão</span>
         <button class="info-card__close" id="infoClose">×</button>
       </div>
-      
+
       <div class="info-card__content">
+        <!-- Slide 1: Menu -->
         <div class="info-slide is-active" data-slide="1">
-          <p class="info-slide__text">Utilize o <strong>Menu</strong> no canto superior direito para navegar entre as secções e descobrir todos os trabalhos.</p>
+          <div class="info-slide__media">
+            <img src="assets/img/info/menu.png" alt="Menu Preview" class="info-slide__img">
+          </div>
+          <p class="info-slide__text">Utilize o <strong>Menu</strong> no topo direito para navegar entre secções e
+            trabalhos.</p>
         </div>
+
+        <!-- Slide 2: Scroll -->
         <div class="info-slide" data-slide="2">
-          <p class="info-slide__text">Faça <strong>Scroll</strong> para baixo para explorar a narrativa do portfolio e os projetos selecionados.</p>
+          <div class="info-slide__media info-slide__media--scroll">
+            <div class="scroll-visualizer">
+              <span class="scroll-dot"></span>
+              <div class="scroll-arrows">
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+          <p class="info-slide__text">Faça <strong>Scroll</strong> para explorar a narrativa e os projetos selecionados.
+          </p>
         </div>
+
+        <!-- Slide 3: Interactive -->
         <div class="info-slide" data-slide="3">
-          <p class="info-slide__text">Este é um espaço <strong>interativo</strong>. Ligue o som e interaja com os elementos para uma experiência completa.</p>
+          <div class="info-slide__media">
+            <img src="immersive_vibe_abstract_1777862552646.png" alt="Experience" class="info-slide__img">
+          </div>
+          <p class="info-slide__text">Espaço <strong>interativo</strong>. Ligue o som para uma experiência completa.</p>
         </div>
       </div>
-      
+
       <div class="info-card__footer">
         <span class="info-card__step">1 / 3</span>
         <div class="info-card__nav">

@@ -1,30 +1,18 @@
-/* ── Heritage Guide (Global Info Card - SYNCED) ────────────────────────── */
+/* ── Heritage Guide (Global Editorial Info Card - SOLID FIX) ────────────────────────── */
 .info-guide {
     position: fixed;
     bottom: 40px;
     left: 40px;
-    z-index: 1400; /* Mesma prioridade que o Som */
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(20px);
-    transition: 
-        opacity 1.5s var(--ease-luxury) 1s, 
-        transform 1.5s var(--ease-luxury) 1s, 
-        background 0.4s ease,
-        border-color 0.4s ease;
+    z-index: 2000;
+    pointer-events: none; /* Only children interact */
 }
 
+/* Base state for the guide when site is active */
 body.is-site-active .info-guide {
-    opacity: 0.7; /* Mesma opacidade de base do Som */
-    pointer-events: all;
-    transform: translateY(0);
+    pointer-events: auto;
 }
 
-body.is-site-active .info-guide:hover {
-    opacity: 1;
-}
-
-/* The Toggle Button (COPIA EXACTA do .global-audio-ctrl) */
+/* The Toggle Button - ONLY this has 0.7 opacity */
 .info-toggle {
     width: 44px;
     height: 44px;
@@ -36,126 +24,186 @@ body.is-site-active .info-guide:hover {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.4s ease, border-color 0.4s ease;
-    border-radius: 0; /* Brutalist */
+    transition: 
+        opacity 1.5s var(--ease-luxury) 1s, 
+        transform 1.5s var(--ease-luxury) 1s, 
+        background 0.4s ease,
+        border-color 0.4s ease;
+    border-radius: 0;
     color: #fff;
-    padding: 0;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+body.is-site-active .info-toggle {
+    opacity: 0.7;
+    pointer-events: all;
+    transform: translateY(0);
 }
 
 .info-toggle:hover {
+    opacity: 1;
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Toggle Icons */
 .info-toggle__svg {
+    position: absolute;
     width: 20px;
     height: 20px;
+    transition: all 0.6s var(--ease-luxury);
+}
+
+.icon-arrow {
+    transform: translateX(-40px) rotate(-90deg);
+    opacity: 0;
+}
+
+.info-guide.is-open .icon-info {
+    transform: translateY(40px);
+    opacity: 0;
+}
+
+.info-guide.is-open .icon-arrow {
+    transform: translateX(0) rotate(-90deg);
     opacity: 1;
-    transition: none; /* No scale, just static like sound bars */
 }
 
-.info-toggle:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
-/* ── The Info Card (Expanded State) ─────────────────── */
+/* ── The Editorial Info Card (Solid & Opaque - Compact Version) ─────────────────── */
 .info-card {
     position: absolute;
-    bottom: 54px; 
+    bottom: 54px;
     left: 0;
-    width: 320px;
-    background: rgba(15, 15, 15, 0.95);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 30px;
+    width: 300px; /* More compact */
+    background: #ffffff;
+    border: 1px solid #e5e5e0;
+    padding: 25px; /* Less padding */
     opacity: 0;
     pointer-events: none;
-    transform: scale(0.95) translateY(10px);
-    transition: all 0.6s var(--ease-luxury);
+    transform: translateY(15px);
+    transition: 
+        opacity 0.5s var(--ease-luxury), 
+        transform 0.5s var(--ease-luxury);
     transform-origin: bottom left;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    color: #1a1a1a;
 }
 
 .info-guide.is-open .info-card {
-    transform: scale(1) translateY(0);
     opacity: 1;
     pointer-events: auto;
+    transform: translateY(0);
 }
 
+/* NO SOLID BACKGROUND FOR TOGGLE - STAY AS GLASS */
 .info-guide.is-open .info-toggle {
-    opacity: 0;
-    pointer-events: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
 }
 
-/* Header */
+/* Header Section */
 .info-card__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0eb;
 }
 
 .info-card__title {
     font-family: var(--font-heading);
     color: var(--color-bordeaux);
     text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 10px;
-    font-weight: 600;
+    letter-spacing: 4px;
+    font-size: 11px;
+    font-weight: 700;
 }
 
 .info-card__close {
-    background: none;
+    background: #f5f5f2;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 24px;
+    color: #1a1a1a;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
     cursor: pointer;
-    line-height: 1;
+    transition: all 0.3s ease;
 }
 
 .info-card__close:hover {
+    background: var(--color-bordeaux);
     color: #fff;
+    transform: rotate(90deg);
 }
 
-/* Content & Slides */
-.info-card__content {
-    min-height: 100px;
-    margin-bottom: 30px;
-    position: relative;
-}
-
-.info-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Media/Visual Content */
+.info-slide__media {
     width: 100%;
-    opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.5s ease;
-    pointer-events: none;
-}
-
-.info-slide.is-active {
+    height: 130px; /* Longer in length (more landscape) */
+    background: #f9f9f7;
+    margin-bottom: 15px;
+    overflow: hidden;
     position: relative;
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
+    border: 1px solid #f0f0eb;
 }
 
+.info-slide__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Scroll Visualizer */
+.info-slide__media--scroll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-visualizer {
+    width: 30px;
+    height: 50px;
+    border: 1.5px solid #d1d1cc;
+    border-radius: 15px;
+    position: relative;
+}
+
+.scroll-dot {
+    width: 4px;
+    height: 8px;
+    background: var(--color-bordeaux);
+    border-radius: 2px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll-ping 2s ease-in-out infinite;
+}
+
+@keyframes scroll-ping {
+    0% { transform: translate(-50%, 0); opacity: 1; }
+    70% { transform: translate(-50%, 20px); opacity: 0; }
+    100% { transform: translate(-50%, 0); opacity: 0; }
+}
+
+/* Text Styling */
 .info-slide__text {
     font-family: var(--font-body);
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.6;
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4a4a4a;
 }
 
 .info-slide__text strong {
-    color: #fff;
-    font-weight: 500;
+    color: #1a1a1a;
+    font-weight: 600;
 }
 
 /* Footer & Nav */
@@ -163,39 +211,56 @@ body.is-site-active .info-guide:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 30px;
 }
 
 .info-card__step {
     font-family: var(--font-heading);
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 10px;
-    letter-spacing: 1px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #d1d1cc;
 }
 
 .info-card__nav {
     display: flex;
-    gap: 15px;
+    gap: 12px;
 }
 
 .info-nav-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 0.5px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
+    background: #f5f5f2;
+    border: 1px solid #e5e5e0;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: all 0.4s var(--ease-luxury);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .info-nav-btn:hover:not(:disabled) {
     background: var(--color-bordeaux);
+    color: #fff;
     border-color: var(--color-bordeaux);
+    transform: translateY(-2px);
 }
 
 .info-nav-btn:disabled {
     opacity: 0.2;
-    cursor: default;
+    cursor: not-allowed;
+}
+
+.info-slide {
+    display: none;
+}
+
+.info-slide.is-active {
+    display: block;
+    animation: slide-reveal 0.5s ease forwards;
+}
+
+@keyframes slide-reveal {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
